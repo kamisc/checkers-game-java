@@ -35,22 +35,18 @@ public class Controller {
 
     // Scan board for searching kick possibility for black pieces
     public boolean checkPossibleKickByBlackPiece(){
-        for(PositionsPieces possibleBlackKicks : movesCalculator.calculateAllPossibleBlackKicks()){
-            if(board.getWhitePieces().getWhitePiecesMap().containsKey(possibleBlackKicks)){
-                return true;
-            }
-        }
-        return false;
+        boolean isPossibleToKick = movesCalculator.calculateAllPossibleBlackKicks().stream()
+                .anyMatch(board.getWhitePieces().getWhitePiecesMap()::containsKey);
+
+        return isPossibleToKick;
     }
 
     // Scan board for searching kick possibility for white pieces
     public boolean checkPossibleKickByWhitePiece(){
-        for(PositionsPieces possibleWhiteKicks : movesCalculator.calculateAllPossibleWhiteKicks()){
-            if(board.getBlackPieces().getBlackPiecesMap().containsKey(possibleWhiteKicks)){
-                return true;
-            }
-        }
-        return false;
+       boolean isPossibleToKick = movesCalculator.calculateAllPossibleWhiteKicks().stream()
+               .anyMatch(board.getBlackPieces().getBlackPiecesMap()::containsKey);
+
+       return isPossibleToKick;
     }
 
     // Scan board for searching movekick possibility for black pieces
@@ -62,7 +58,5 @@ public class Controller {
         }
         return false;
     }
-
-
 }
 

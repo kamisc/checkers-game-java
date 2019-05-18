@@ -29,18 +29,14 @@ public class MovesCalculator {
         this.board = board;
     }
 
-    public boolean isValidPosition(PositionsPieces position){
-        return position.getCol() >= 0 && position.getCol() <= 7 && position.getRow() >= 0 && position.getRow() <= 7;
-    }
-
     // Calculate all possible black moves
     public Set<PositionsPieces> calculateAllPossibleBlackMoves() {
         for(PositionsPieces position : board.getBlackPieces().getBlackPiecesMap().keySet()){
-            if(isValidPosition(new PositionsPieces(position.getCol() - 1, position.getRow() + 1))){
+            if(new PositionsPieces(position.getCol() - 1, position.getRow() + 1).isValidPosition()){
                 allPossibleBlackMoves.add(new PositionsPieces(position.getCol() - 1, position.getRow() + 1));
             }
 
-            if(isValidPosition(new PositionsPieces(position.getCol() + 1, position.getRow() + 1))){
+            if(new PositionsPieces(position.getCol() + 1, position.getRow() + 1).isValidPosition()){
                 allPossibleBlackMoves.add(new PositionsPieces(position.getCol() + 1, position.getRow() + 1));
             }
         }
@@ -53,11 +49,11 @@ public class MovesCalculator {
     // Calculate all possible white moves
     public Set<PositionsPieces> calculateAllPossibleWhiteMoves() {
         for(PositionsPieces position : board.getWhitePieces().getWhitePiecesMap().keySet()){
-            if(isValidPosition(new PositionsPieces(position.getCol() - 1, position.getRow() - 1))){
+            if(new PositionsPieces(position.getCol() - 1, position.getRow() - 1).isValidPosition()){
                 allPossibleWhiteMoves.add(new PositionsPieces(position.getCol() - 1, position.getRow() - 1));
             }
 
-            if(isValidPosition(new PositionsPieces(position.getCol() + 1, position.getRow() - 1))){
+            if(new PositionsPieces(position.getCol() + 1, position.getRow() - 1).isValidPosition()){
                 allPossibleWhiteMoves.add(new PositionsPieces(position.getCol() + 1, position.getRow() - 1));
             }
         }
@@ -71,19 +67,19 @@ public class MovesCalculator {
     public Set<PositionsPieces> calculateAllPossibleBlackKicks() {
 
         for (Map.Entry<PositionsPieces, Piece> blackPiece : board.getBlackPieces().getBlackPiecesMap().entrySet()) {
-            if(isValidPosition(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() + 1))){
+            if(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() + 1).isValidPosition()){
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() + 1));
             }
 
-            if(isValidPosition(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() + 1))){
+            if(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() + 1).isValidPosition()){
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() + 1));
             }
 
-            if(isValidPosition(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() - 1))){
+            if(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() - 1).isValidPosition()){
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() - 1));
             }
 
-            if(isValidPosition(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() - 1))){
+            if(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() - 1).isValidPosition()){
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() - 1));
             }
         }
@@ -96,19 +92,19 @@ public class MovesCalculator {
     public Set<PositionsPieces> calculateAllPossibleWhiteKicks() {
 
         for (Map.Entry<PositionsPieces, Piece> whitePiece : board.getWhitePieces().getWhitePiecesMap().entrySet()) {
-            if(isValidPosition(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() - 1))){
+            if(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() - 1).isValidPosition()){
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() - 1));
             }
 
-            if(isValidPosition(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() - 1))){
+            if(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() - 1).isValidPosition()){
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() - 1));
             }
 
-            if(isValidPosition(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() + 1))){
+            if(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() + 1).isValidPosition()){
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() + 1));
             }
 
-            if(isValidPosition(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() + 1))){
+            if(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() + 1).isValidPosition()){
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() + 1));
             }
         }
@@ -119,19 +115,19 @@ public class MovesCalculator {
 
     public Set<PositionsPieces> calculateAllPossibleBlackKickMoves(){
         for(PositionsPieces actualPosition : board.getBlackPieces().getBlackPiecesMap().keySet()){
-            if (isValidPosition(new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() + 2))) {
+            if (new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() + 2).isValidPosition()) {
                 allPossibleBlackKickMoves.add(new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() + 2));
             }
 
-            if (isValidPosition(new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() + 2))) {
+            if (new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() + 2).isValidPosition()) {
                 allPossibleBlackKickMoves.add(new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() + 2));
             }
 
-            if (isValidPosition(new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() - 2))) {
+            if (new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() - 2).isValidPosition()) {
                 allPossibleBlackKickMoves.add(new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() - 2));
             }
 
-            if (isValidPosition(new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() - 2))) {
+            if (new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() - 2).isValidPosition()) {
                 allPossibleBlackKickMoves.add(new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() - 2));
             }
         }

@@ -36,12 +36,16 @@ public class MouseControl {
 
             /*if(list.forEach(this::checkPossible))*/
 
-            if(playerTurn) {
-                if (controller.checkCanSelectBlackPiece(position)) {
 
+            if(playerTurn) {
+                if(controller.checkPossibleKickByBlackPiece()){
+                    if(movesCalculator.setBlackPiecesWhichCanKick().contains(position)){
+                        board.pickBlackPiece(position);
+                        pieceMoves.moveBlack(position);
+                    }
+                } else if (controller.checkCanSelectBlackPiece(position)) {
                     board.pickBlackPiece(position);
                     pieceMoves.moveBlack(position);
-
                 } else if (controller.isFieldNull(position) && // przenieść do board.moveBlackPiece?
                         pieceMoves.getPossibleBlackPieceMoves().contains(position)) {
                     board.moveBlackPiece(position);
@@ -52,20 +56,19 @@ public class MouseControl {
 
 
             if (computerTurn) {
-
-                System.out.println(position);
                 if (controller.checkCanSelectWhitePiece(position)) {
                     board.pickWhitePiece(position);
                     // pieceMoves.getPossibleWhitePieceMoves().clear();
                     pieceMoves.moveWhite(position);
                 } else if (controller.isFieldNull(position) &&
                         pieceMoves.getPossibleWhitePieceMoves().contains(position)) {
-
                     board.moveWhitePiece(position);
                     playerTurn = true;
                     computerTurn = false;
                 }
             }
+            System.out.println(controller.checkPossibleKickByBlackPiece());
+            System.out.println(movesCalculator.setBlackPiecesWhichCanKick());
         }
     };
 
