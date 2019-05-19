@@ -16,7 +16,7 @@ public class Start extends Application {
     private Board board = new Board();
     private MovesCalculator movesCalculator = new MovesCalculator(board);
     private Controller controller = new Controller(board, movesCalculator);
-    private PieceMoves pieceMoves = new PieceMoves(movesCalculator, controller);
+    private PieceMoves pieceMoves = new PieceMoves(board, movesCalculator, controller);
     private MouseControl mouseControl = new MouseControl(board, controller, pieceMoves, movesCalculator);
 
     @Override
