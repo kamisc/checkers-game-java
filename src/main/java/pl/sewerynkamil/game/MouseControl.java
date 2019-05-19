@@ -3,7 +3,7 @@ package pl.sewerynkamil.game;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import pl.sewerynkamil.board.Board;
-import pl.sewerynkamil.moves.MovesCalculator;
+import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.PieceMoves;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
@@ -12,16 +12,16 @@ public class MouseControl {
     private Board board;
     private Controller controller;
     private PieceMoves pieceMoves;
-    private MovesCalculator movesCalculator;
+    private KickScanner kickScanner;
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
 
-    public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, MovesCalculator movesCalculator){
+    public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, KickScanner kickScanner){
         this.board = board;
         this.controller = controller;
         this.pieceMoves = pieceMoves;
-        this.movesCalculator = movesCalculator;
+        this.kickScanner = kickScanner;
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
@@ -58,6 +58,10 @@ public class MouseControl {
                         computerTurn = false;
                     }
                 }
+
+            System.out.println(kickScanner.calculateAllPossibleBlackKicks());
+            System.out.println(kickScanner.calculateAllPossibleWhiteKicks());
+
             }
     };
 

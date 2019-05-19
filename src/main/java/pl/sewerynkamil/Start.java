@@ -8,16 +8,16 @@ import javafx.stage.Stage;
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.game.Controller;
 import pl.sewerynkamil.game.MouseControl;
-import pl.sewerynkamil.moves.MovesCalculator;
+import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.PieceMoves;
 
 public class Start extends Application {
 
     private Board board = new Board();
-    private MovesCalculator movesCalculator = new MovesCalculator(board);
-    private Controller controller = new Controller(board, movesCalculator);
-    private PieceMoves pieceMoves = new PieceMoves(board, movesCalculator, controller);
-    private MouseControl mouseControl = new MouseControl(board, controller, pieceMoves, movesCalculator);
+    private Controller controller = new Controller(board);
+    private KickScanner kickScanner = new KickScanner(board, controller);
+    private PieceMoves pieceMoves = new PieceMoves(board, kickScanner, controller);
+    private MouseControl mouseControl = new MouseControl(board, controller, pieceMoves, kickScanner);
 
     @Override
     public void start(Stage primaryStage) throws Exception {

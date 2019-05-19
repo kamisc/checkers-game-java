@@ -69,6 +69,7 @@ public class Board {
         pickedPiece = actualPosition;
         oldPosition = actualPosition;
 
+
         addLightPieceOnBoard(actualPosition, blackPieces.getBlackLightPieceImage());
     }
 

@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class PieceMoves {
 
-    private MovesCalculator movesCalculator;
+    private KickScanner kickScanner;
     private Controller controller;
     private Board board;
 
@@ -21,9 +21,9 @@ public class PieceMoves {
 
     private Set<PositionsPieces> possibleMoves = new HashSet<>();
 
-    public PieceMoves(Board board, MovesCalculator movesCalculator, Controller controller){
+    public PieceMoves(Board board, KickScanner kickScanner, Controller controller){
         this.board = board;
-        this.movesCalculator = movesCalculator;
+        this.kickScanner = kickScanner;
         this.controller = controller;
     }
 
@@ -58,7 +58,7 @@ public class PieceMoves {
     public Set<PositionsPieces> moveAfterKick(PositionsPieces position){
         possibleMoves.clear();
 
-        for(PositionsPieces pos : movesCalculator.calculateAllPossibleBlackKicks()){
+        for(PositionsPieces pos : kickScanner.calculateAllPossibleBlackKicks()){
             if(position.getCol() - pos.getCol() > 0 && position.getRow() - pos.getRow() < 0
                     && controller.isFieldNull(new PositionsPieces(pos.getCol() - 1, pos.getRow() + 1))
                     && new PositionsPieces(pos.getCol() - 1, pos.getRow() + 1).isValidPosition()){
