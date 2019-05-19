@@ -38,6 +38,8 @@ public class MouseControl {
 
                     if(pieceMoves.getPossibleBlackPieceMovesAfterKick().contains(position))
                         board.pickBlackPiece(position);
+
+
                     } else if (controller.checkCanSelectBlackPiece(position)) {
                         board.pickBlackPiece(position);
                         pieceMoves.moveBlack(position);
@@ -65,7 +67,8 @@ public class MouseControl {
                     }
                 }
 
-
+            System.out.println(pieceMoves.moveBlack(position));
+            System.out.println(pieceMoves.moveWhite(position));
 
             }
     };

@@ -46,11 +46,11 @@ public class PieceMoves {
         PositionsPieces right = new PositionsPieces(actualPosition.getCol() + 1, actualPosition.getRow() + direction);
 
         // Move forward-left
-        if (left.isValidPosition()) {
+        if (left.isValidPosition() && controller.isFieldNull(left)) {
             positionsPieces.add(left);
         }
         // Move forward-right
-        if (right.isValidPosition()) {
+        if (right.isValidPosition() && controller.isFieldNull(right)) {
             positionsPieces.add(right);
         }
     }
