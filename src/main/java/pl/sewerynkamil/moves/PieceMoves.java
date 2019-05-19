@@ -58,7 +58,7 @@ public class PieceMoves {
     public Set<PositionsPieces> moveAfterKick(PositionsPieces position){
         possibleMoves.clear();
 
-        for(PositionsPieces pos : kickScanner.calculateAllPossibleBlackKicks()){
+        for(PositionsPieces pos : kickScanner.getAllPossibleBlackKicks()){
             if(position.getCol() - pos.getCol() > 0 && position.getRow() - pos.getRow() < 0
                     && controller.isFieldNull(new PositionsPieces(pos.getCol() - 1, pos.getRow() + 1))
                     && new PositionsPieces(pos.getCol() - 1, pos.getRow() + 1).isValidPosition()){
