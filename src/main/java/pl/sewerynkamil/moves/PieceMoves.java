@@ -1,5 +1,6 @@
 package pl.sewerynkamil.moves;
 
+import pl.sewerynkamil.game.Controller;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.HashSet;
@@ -8,6 +9,7 @@ import java.util.Set;
 public class PieceMoves {
 
     private MovesCalculator movesCalculator;
+    private Controller controller;
 
     private Set<PositionsPieces> possibleBlackPieceMoves = new HashSet<>();
     private Set<PositionsPieces> possibleWhitePieceMoves = new HashSet<>();
@@ -15,30 +17,36 @@ public class PieceMoves {
     private Set<PositionsPieces> possibleBlackPieceMovesAfterKick = new HashSet<>();
     private Set<PositionsPieces> possibleWhitePieceMovesAfterKick = new HashSet<>();
 
-    public PieceMoves(MovesCalculator movesCalculator){
+    public PieceMoves(MovesCalculator movesCalculator, Controller controller){
         this.movesCalculator = movesCalculator;
+        this.controller = controller;
     }
 
-    public void moveBlack(PositionsPieces actualPosition) {
+    public Set<PositionsPieces> moveBlack(PositionsPieces actualPosition) {
         possibleBlackPieceMoves.clear();
         move(actualPosition, possibleBlackPieceMoves, true);
+        return possibleBlackPieceMoves;
     }
 
-    public void moveWhite(PositionsPieces actualPosition){
+    public Set<PositionsPieces> moveWhite(PositionsPieces actualPosition){
         possibleWhitePieceMoves.clear();
         move(actualPosition, possibleWhitePieceMoves, false);
+        return possibleWhitePieceMoves;
     }
 
     private void move(PositionsPieces actualPosition, Set<PositionsPieces> positionsPieces, boolean up) {
         int direction = up ? 1 : -1;
 
+        PositionsPieces left = new PositionsPieces(actualPosition.getCol() - 1, actualPosition.getRow() + direction);
+        PositionsPieces right = new PositionsPieces(actualPosition.getCol() + 1, actualPosition.getRow() + direction);
+
         // Move forward-left
-        if (new PositionsPieces(actualPosition.getCol() - 1, actualPosition.getRow() + direction).isValidPosition()) {
-            positionsPieces.add(new PositionsPieces(actualPosition.getCol() - 1, actualPosition.getRow() + direction));
+        if (left.isValidPosition()) {
+            positionsPieces.add(left);
         }
         // Move forward-right
-        if (new PositionsPieces(actualPosition.getCol() + 1, actualPosition.getRow() + direction).isValidPosition()) {
-            positionsPieces.add(new PositionsPieces(actualPosition.getCol() + 1, actualPosition.getRow() + direction));
+        if (right.isValidPosition()) {
+            positionsPieces.add(right);
         }
     }
 
@@ -55,21 +63,26 @@ public class PieceMoves {
     private void moveAfterKick(PositionsPieces actualPosition, Set<PositionsPieces> positionsPieces, boolean up) {
         int direction = up ? 2 : -2;
 
+        PositionsPieces forwardLeft = new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() + direction);
+        PositionsPieces forwardRight = new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() + direction);
+        PositionsPieces backwardLeft = new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() - direction);
+        PositionsPieces backwardRight = new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() - direction);
+
         // Move forward-left
-        if (new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() + direction).isValidPosition()) {
-            positionsPieces.add(new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() + direction));
+        if (forwardLeft.isValidPosition()) {
+            positionsPieces.add(forwardLeft);
         }
         // Move forward-right
-        if (new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() + direction).isValidPosition()) {
-            positionsPieces.add(new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() + direction));
+        if (forwardRight.isValidPosition()) {
+            positionsPieces.add(forwardRight);
         }
         // Move backward-left
-        if (new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() - direction).isValidPosition()) {
-            positionsPieces.add(new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() - direction));
+        if (backwardLeft.isValidPosition()) {
+            positionsPieces.add(backwardLeft);
         }
         // Move backward-right
-        if (new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() - direction).isValidPosition()) {
-            positionsPieces.add(new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() - direction));
+        if (backwardRight.isValidPosition()) {
+            positionsPieces.add(backwardRight);
         }
     }
 

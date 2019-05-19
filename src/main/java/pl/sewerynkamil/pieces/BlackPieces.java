@@ -13,6 +13,10 @@ public class BlackPieces {
 
     private Map<PositionsPieces, Piece> blackPiecesMap = new HashMap<>();
 
+    public boolean isFieldNotNull(PositionsPieces position){
+        return blackPiecesMap.get(position) != null;
+    }
+
     public void addBlackPieceToMap(PositionsPieces position, Piece piece){
         blackPiecesMap.put(position, piece);
     }

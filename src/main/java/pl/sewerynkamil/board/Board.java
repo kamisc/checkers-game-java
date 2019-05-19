@@ -11,11 +11,6 @@ import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 import pl.sewerynkamil.pieces.WhitePieces;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 public class Board {
 
     private GridPane grid = new GridPane();
@@ -26,17 +21,13 @@ public class Board {
     private WhitePieces whitePieces = new WhitePieces();
 
     private PositionsPieces oldPosition;
-
-    private Set<PositionsPieces> pickedPiece = new HashSet<>();
-    private Map<PositionsPieces, Piece> board = new HashMap<>();
+    private PositionsPieces pickedPiece;
 
     public Board(){
         createBoardBackground();
         createBoardLayout();
         whitePieces.setUpWhitePieces(this);
         blackPieces.setUpBlackPieces(this);
-        board.putAll(blackPieces.getBlackPiecesMap());
-        board.putAll(whitePieces.getWhitePiecesMap());
     }
 
     public Background createBoardBackground(){
@@ -66,16 +57,16 @@ public class Board {
     }
 
     public void pickBlackPiece(PositionsPieces actualPosition){
-        if(!pickedPiece.isEmpty()){
+        if(pickedPiece != null){
             removePieceFromBoard(oldPosition);
             addPieceOnBoard(oldPosition, blackPieces.getBlackPieceImage());
 
             addLightPieceOnBoard(actualPosition, blackPieces.getBlackLightPieceImage());
 
-            pickedPiece.clear();
+            pickedPiece = null;
         }
 
-        pickedPiece.add(actualPosition);
+        pickedPiece = actualPosition;
         oldPosition = actualPosition;
 
         addLightPieceOnBoard(actualPosition, blackPieces.getBlackLightPieceImage());
@@ -88,20 +79,20 @@ public class Board {
         blackPieces.removeBlackPieceFromMap(oldPosition);
         blackPieces.addBlackPieceToMap(newPosition, new Piece(Piece.Color.BLACK));
 
-        pickedPiece.clear();
+        pickedPiece = null;
     }
 
     public void pickWhitePiece(PositionsPieces actualPosition){
-        if(!pickedPiece.isEmpty()){
+        if(pickedPiece != null){
             removePieceFromBoard(oldPosition);
             addPieceOnBoard(oldPosition, whitePieces.getWhitePieceImage());
 
             addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
 
-            pickedPiece.clear();
+            pickedPiece = null;
         }
 
-        pickedPiece.add(actualPosition);
+        pickedPiece = actualPosition;
         oldPosition = actualPosition;
 
         addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
@@ -114,19 +105,7 @@ public class Board {
         whitePieces.removeWhitePieceFromMap(oldPosition);
         whitePieces.addWhitePieceToMap(newPosition, new Piece(Piece.Color.WHITE));
 
-        pickedPiece.clear();
-    }
-
-    public boolean isFieldNotNull(PositionsPieces position){
-        return getPiece(position) != null;
-    }
-
-    public boolean checkPieceColor(PositionsPieces position, Piece.Color color){
-        return getPiece(position).getPieceColor() == color;
-    }
-
-    public Piece getPiece(PositionsPieces position){
-        return board.get(position);
+        pickedPiece = null;
     }
 
     public void addPieceOnBoard(PositionsPieces position, Image piece){
@@ -154,11 +133,8 @@ public class Board {
         return blackPieces;
     }
 
-    public Set<PositionsPieces> getPickedPiece() {
+    public PositionsPieces getPickedPiece() {
         return pickedPiece;
     }
 
-    public Map<PositionsPieces, Piece> getBoard() {
-        return board;
-    }
 }

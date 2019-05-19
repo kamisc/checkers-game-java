@@ -7,7 +7,6 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class MovesCalculator {
 
@@ -29,57 +28,27 @@ public class MovesCalculator {
         this.board = board;
     }
 
-    // Calculate all possible black moves
-    public Set<PositionsPieces> calculateAllPossibleBlackMoves() {
-        for(PositionsPieces position : board.getBlackPieces().getBlackPiecesMap().keySet()){
-            if(new PositionsPieces(position.getCol() - 1, position.getRow() + 1).isValidPosition()){
-                allPossibleBlackMoves.add(new PositionsPieces(position.getCol() - 1, position.getRow() + 1));
-            }
-
-            if(new PositionsPieces(position.getCol() + 1, position.getRow() + 1).isValidPosition()){
-                allPossibleBlackMoves.add(new PositionsPieces(position.getCol() + 1, position.getRow() + 1));
-            }
-        }
-        allPossibleBlackMoves.removeAll(board.getBlackPieces().getBlackPiecesMap().keySet());
-        allPossibleBlackMoves.removeAll(board.getWhitePieces().getWhitePiecesMap().keySet());
-
-        return allPossibleBlackMoves;
-    }
-
-    // Calculate all possible white moves
-    public Set<PositionsPieces> calculateAllPossibleWhiteMoves() {
-        for(PositionsPieces position : board.getWhitePieces().getWhitePiecesMap().keySet()){
-            if(new PositionsPieces(position.getCol() - 1, position.getRow() - 1).isValidPosition()){
-                allPossibleWhiteMoves.add(new PositionsPieces(position.getCol() - 1, position.getRow() - 1));
-            }
-
-            if(new PositionsPieces(position.getCol() + 1, position.getRow() - 1).isValidPosition()){
-                allPossibleWhiteMoves.add(new PositionsPieces(position.getCol() + 1, position.getRow() - 1));
-            }
-        }
-        allPossibleWhiteMoves.removeAll(board.getWhitePieces().getWhitePiecesMap().keySet());
-        allPossibleWhiteMoves.removeAll(board.getBlackPieces().getBlackPiecesMap().keySet());
-
-        return allPossibleWhiteMoves;
-    }
-
     // Calculate all possible black kick moves (position where black pieces can go around)
     public Set<PositionsPieces> calculateAllPossibleBlackKicks() {
-
         for (Map.Entry<PositionsPieces, Piece> blackPiece : board.getBlackPieces().getBlackPiecesMap().entrySet()) {
-            if(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() + 1).isValidPosition()){
+            if(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() + 1).isValidPosition()
+                    && board.getWhitePieces().isFieldNotNull(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() + 1))){
+
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() + 1));
             }
 
-            if(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() + 1).isValidPosition()){
+            if(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() + 1).isValidPosition()
+                    && board.getWhitePieces().isFieldNotNull(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() + 1))){
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() + 1));
             }
 
-            if(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() - 1).isValidPosition()){
+            if(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() - 1).isValidPosition()
+                    && board.getWhitePieces().isFieldNotNull(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() - 1))){
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() - 1));
             }
 
-            if(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() - 1).isValidPosition()){
+            if(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() - 1).isValidPosition()
+                    && board.getWhitePieces().isFieldNotNull(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() - 1))){
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() - 1));
             }
         }
@@ -88,23 +57,30 @@ public class MovesCalculator {
         return allPossibleBlackKicks;
     }
 
+
+
     // Calculate all possible white kick moves (position where white pieces can go around)
     public Set<PositionsPieces> calculateAllPossibleWhiteKicks() {
 
         for (Map.Entry<PositionsPieces, Piece> whitePiece : board.getWhitePieces().getWhitePiecesMap().entrySet()) {
-            if(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() - 1).isValidPosition()){
+            if(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() - 1).isValidPosition()
+                    && board.getBlackPieces().isFieldNotNull(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() - 1))){
+
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() - 1));
             }
 
-            if(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() - 1).isValidPosition()){
+            if(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() - 1).isValidPosition()
+                    && board.getBlackPieces().isFieldNotNull(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() - 1))){
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() - 1));
             }
 
-            if(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() + 1).isValidPosition()){
+            if(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() + 1).isValidPosition()
+                    && board.getBlackPieces().isFieldNotNull(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() + 1))){
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() + 1));
             }
 
-            if(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() + 1).isValidPosition()){
+            if(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() + 1).isValidPosition()
+                    && board.getBlackPieces().isFieldNotNull(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() + 1))){
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() + 1));
             }
         }
@@ -113,28 +89,7 @@ public class MovesCalculator {
         return allPossibleWhiteKicks;
     }
 
-    public Set<PositionsPieces> calculateAllPossibleBlackKickMoves(){
-        for(PositionsPieces actualPosition : board.getBlackPieces().getBlackPiecesMap().keySet()){
-            if (new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() + 2).isValidPosition()) {
-                allPossibleBlackKickMoves.add(new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() + 2));
-            }
-
-            if (new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() + 2).isValidPosition()) {
-                allPossibleBlackKickMoves.add(new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() + 2));
-            }
-
-            if (new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() - 2).isValidPosition()) {
-                allPossibleBlackKickMoves.add(new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() - 2));
-            }
-
-            if (new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() - 2).isValidPosition()) {
-                allPossibleBlackKickMoves.add(new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() - 2));
-            }
-        }
-        return allPossibleBlackKickMoves;
-    }
-
-    // Calculate white pieces to kicked
+    /*// Calculate white pieces to kicked
     public Set<PositionsPieces> setWhitePieceToKick(){
         calculateAllPossibleBlackKicks();
         Set<PositionsPieces> piecesToKick = board.getWhitePieces().getWhitePiecesMap().keySet().stream()
@@ -144,6 +99,16 @@ public class MovesCalculator {
         // whitePiecesToKick.addAll(piecesToKick);
     }
 
+    // Calculate black pieces to kicked
+    public Set<PositionsPieces> setBlackPieceToKick(){
+        calculateAllPossibleWhiteKicks();
+        Set<PositionsPieces> piecesToKick = board.getBlackPieces().getBlackPiecesMap().keySet().stream()
+                .filter(allPossibleWhiteKicks::contains)
+                .collect(Collectors.toSet());
+        return piecesToKick;
+    }
+
+    // Calculate black pieces which kick
     public Set<PositionsPieces> setBlackPiecesWhichCanKick(){
         calculateAllPossibleWhiteKicks();
         Set<PositionsPieces> piecesWhichKick = board.getBlackPieces().getBlackPiecesMap().keySet().stream()
@@ -152,5 +117,44 @@ public class MovesCalculator {
         // board.getPickedPiece().addAll(piecesWhichKick);
         return piecesWhichKick;
     }
+
+    // Calculate white pieces which kick
+    public Set<PositionsPieces> setWhitePiecesWhichCanKick(){
+        calculateAllPossibleBlackKicks();
+        Set<PositionsPieces> piecesWhichKick = board.getWhitePieces().getWhitePiecesMap().keySet().stream()
+                .filter(allPossibleBlackKicks::contains)
+                .collect(Collectors.toSet());
+        // board.getPickedPiece().addAll(piecesWhichKick);
+        return piecesWhichKick;
+    }
+
+    public void kickPossibility(Set<PositionsPieces> kickerPositions, Set<PositionsPieces> kickedPositions){
+        for(PositionsPieces kicker : kickerPositions){
+            for(PositionsPieces kicked : kickedPositions){
+                int positionCol = kicker.getCol() - kicked.getCol();
+                int positionRow = kicker.getRow() - kicked.getRow();
+                if(positionCol == 1 && positionRow == -1){
+
+                }
+            }
+        }
+    }
+
+    public int kickDirection(PositionsPieces kickerPosition, PositionsPieces kickedPosition){
+        int positionCol = kickerPosition.getCol() - kickedPosition.getCol();
+        int positionRow = kickerPosition.getRow() - kickedPosition.getRow();
+
+        if(positionCol == 1 && positionRow == - 1){
+            return 1;
+        } else if(positionCol == - 1 && positionRow == - 1){
+            return 2;
+        } else if(positionCol == 1 && positionRow == 1){
+            return 3;
+        } else if(positionCol == - 1 && positionRow == 1){
+            return 4;
+        } else {
+            return 0;
+        }
+    }*/
 
 }

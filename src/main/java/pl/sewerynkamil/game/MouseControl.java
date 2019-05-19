@@ -29,21 +29,10 @@ public class MouseControl {
         public void handle(MouseEvent event) {
             PositionsPieces position = new PositionsPieces((int)((event.getX() - 59) / 62), (int)((event.getY() - 59) / 62));
 
-            // position -> czy zawiera pozycję .equals
-
-            // private checkPossible(Position position){
-            // return
-
-            /*if(list.forEach(this::checkPossible))*/
-
+            pieceMoves.moveBlackKick(position);
 
             if(playerTurn) {
-                if(controller.checkPossibleKickByBlackPiece()){
-                    if(movesCalculator.setBlackPiecesWhichCanKick().contains(position)){
-                        board.pickBlackPiece(position);
-                        pieceMoves.moveBlack(position);
-                    }
-                } else if (controller.checkCanSelectBlackPiece(position)) {
+                if (controller.checkCanSelectBlackPiece(position)) {
                     board.pickBlackPiece(position);
                     pieceMoves.moveBlack(position);
                 } else if (controller.isFieldNull(position) && // przenieść do board.moveBlackPiece?
@@ -67,8 +56,11 @@ public class MouseControl {
                     computerTurn = false;
                 }
             }
-            System.out.println(controller.checkPossibleKickByBlackPiece());
-            System.out.println(movesCalculator.setBlackPiecesWhichCanKick());
+
+            System.out.println(movesCalculator.calculateAllPossibleBlackKicks());
+            System.out.println(pieceMoves.moveBlack(position));
+            System.out.println(pieceMoves.getPossibleBlackPieceMovesAfterKick());
+
         }
     };
 
@@ -76,3 +68,9 @@ public class MouseControl {
         return mouseClick;
     }
 }
+
+/*if(controller.checkPossibleKickByBlackPiece()){
+                    if(movesCalculator.setBlackPiecesWhichCanKick().contains(position)){
+                        pieceMoves.moveBlackKick(position);
+                        board.pickBlackPiece(position);
+                    }*/

@@ -2,18 +2,15 @@ package pl.sewerynkamil.game;
 
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.moves.MovesCalculator;
-import pl.sewerynkamil.moves.PieceMoves;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 public class Controller {
 
     private Board board;
-    private PieceMoves pieceMoves;
     private MovesCalculator movesCalculator;
 
-    public Controller(Board board, PieceMoves pieceMoves, MovesCalculator movesCalculator) {
+    public Controller(Board board, MovesCalculator movesCalculator) {
         this.board = board;
-        this.pieceMoves = pieceMoves;
         this.movesCalculator = movesCalculator;
     }
 
@@ -33,7 +30,14 @@ public class Controller {
                 !board.getWhitePieces().getWhitePiecesMap().containsKey(newPosition);
     }
 
-    // Scan board for searching kick possibility for black pieces
+
+
+
+
+
+
+
+    /*// Scan board for searching kick possibility for black pieces
     public boolean checkPossibleKickByBlackPiece(){
         boolean isPossibleToKick = movesCalculator.calculateAllPossibleBlackKicks().stream()
                 .anyMatch(board.getWhitePieces().getWhitePiecesMap()::containsKey);
@@ -49,7 +53,7 @@ public class Controller {
        return isPossibleToKick;
     }
 
-    // Scan board for searching movekick possibility for black pieces
+    // Scan board for searching move kick possibility for black pieces
     public boolean checkPossibleMoveKickByBlackPiece(){
         for(PositionsPieces possibleBlackKicks : movesCalculator.calculateAllPossibleBlackKicks()){
             if(board.getWhitePieces().getWhitePiecesMap().containsKey(possibleBlackKicks)){
@@ -57,6 +61,6 @@ public class Controller {
             }
         }
         return false;
-    }
+    }*/
 }
 

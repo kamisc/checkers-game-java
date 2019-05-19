@@ -13,6 +13,10 @@ public class WhitePieces {
 
     private Map<PositionsPieces, Piece> whitePiecesMap = new HashMap<>();
 
+    public boolean isFieldNotNull(PositionsPieces position){
+        return whitePiecesMap.get(position) != null;
+    }
+
     public void addWhitePieceToMap(PositionsPieces position, Piece piece){
         whitePiecesMap.put(position, piece);
     }
