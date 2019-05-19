@@ -30,17 +30,19 @@ public class MouseControl {
             PositionsPieces position = new PositionsPieces((int) ((event.getX() - 59) / 62), (int) ((event.getY() - 59) / 62));
 
             if (playerTurn) {
-                pieceMoves.moveAfterKick(position);
+
                 kickScanner.calculateAllPossibleBlackKicks();
 
                 if (!kickScanner.getAllPossibleBlackKicks().isEmpty()
-                        && !pieceMoves.getPossibleBlackPieceMovesAfterKick().isEmpty()) {
+                        && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
 
-                    if(pieceMoves.getPossibleBlackPieceMovesAfterKick().contains(position))
+                    if(kickScanner.getAllBlackPiecesWhichKick().contains(position)){
                         board.pickBlackPiece(position);
+                        pieceMoves.moveAfterKick(position);
+                        pieceMoves.moveBlackKick(position);
+                    }
 
-
-                    } else if (controller.checkCanSelectBlackPiece(position)) {
+                } else if (controller.checkCanSelectBlackPiece(position)) {
                         board.pickBlackPiece(position);
                         pieceMoves.moveBlack(position);
                     } else if (controller.isFieldNull(position) &&
@@ -67,10 +69,10 @@ public class MouseControl {
                     }
                 }
 
-            System.out.println(pieceMoves.moveBlack(position));
-            System.out.println(pieceMoves.moveWhite(position));
+            System.out.println(pieceMoves.getPossibleMoves());
+            System.out.println(pieceMoves.getPossibleBlackPieceMovesAfterKick());
 
-            }
+        }
     };
 
     public EventHandler<MouseEvent> getMouseClick() {

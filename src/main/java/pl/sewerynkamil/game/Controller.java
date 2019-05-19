@@ -26,5 +26,9 @@ public class Controller {
         return !board.getBlackPieces().getBlackPiecesMap().containsKey(newPosition) &&
                 !board.getWhitePieces().getWhitePiecesMap().containsKey(newPosition);
     }
+
+ /*   public boolean check(){
+
+    }*/
 }
 

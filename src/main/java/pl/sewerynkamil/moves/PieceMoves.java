@@ -144,6 +144,8 @@ public class PieceMoves {
         return possibleWhitePieceMovesAfterKick;
     }
 
-
+    public Set<PositionsPieces> getPossibleMoves() {
+        return possibleMoves;
+    }
 }
 

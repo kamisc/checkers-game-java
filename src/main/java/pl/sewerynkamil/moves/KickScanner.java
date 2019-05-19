@@ -20,6 +20,9 @@ public class KickScanner {
     private Set<PositionsPieces> allPossibleBlackMovesAfterKick = new HashSet<>();
     private Set<PositionsPieces> allPossibleWhiteMovesAfterKick = new HashSet<>();
 
+    private Set<PositionsPieces> allBlackPiecesWhichKick = new HashSet<>();
+    private Set<PositionsPieces> allWhitePiecesWhichKick = new HashSet<>();
+
     public KickScanner(Board board, Controller controller) {
         this.board = board;
         this.controller = controller;
@@ -36,6 +39,7 @@ public class KickScanner {
 
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() + 1));
                 allPossibleBlackMovesAfterKick.add(new PositionsPieces(blackPiece.getKey().getCol() - 2, blackPiece.getKey().getRow() + 2));
+                allBlackPiecesWhichKick.add(blackPiece.getKey());
             }
 
             if (new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() + 1).isValidPosition()
@@ -45,7 +49,7 @@ public class KickScanner {
 
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() + 1));
                 allPossibleBlackMovesAfterKick.add(new PositionsPieces(blackPiece.getKey().getCol() + 2, blackPiece.getKey().getRow() + 2));
-
+                allBlackPiecesWhichKick.add(blackPiece.getKey());
             }
 
             if (new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() - 1).isValidPosition()
@@ -55,7 +59,7 @@ public class KickScanner {
 
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() - 1));
                 allPossibleBlackMovesAfterKick.add(new PositionsPieces(blackPiece.getKey().getCol() - 2, blackPiece.getKey().getRow() - 2));
-
+                allBlackPiecesWhichKick.add(blackPiece.getKey());
             }
 
             if (new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() - 1).isValidPosition()
@@ -65,11 +69,11 @@ public class KickScanner {
 
                 allPossibleBlackKicks.add(new PositionsPieces(blackPiece.getKey().getCol() + 1, blackPiece.getKey().getRow() - 1));
                 allPossibleBlackMovesAfterKick.add(new PositionsPieces(blackPiece.getKey().getCol() + 2, blackPiece.getKey().getRow() - 2));
+                allBlackPiecesWhichKick.add(blackPiece.getKey());
             }
         }
         allPossibleBlackKicks.removeAll(board.getBlackPieces().getBlackPiecesMap().keySet());
         allPossibleBlackMovesAfterKick.removeAll(board.getBlackPieces().getBlackPiecesMap().keySet());
-
     }
 
     // Calculate all possible white kick moves (position where white pieces have black piece around)
@@ -83,6 +87,8 @@ public class KickScanner {
 
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() - 1));
                 allPossibleWhiteMovesAfterKick.add(new PositionsPieces(whitePiece.getKey().getCol() - 2, whitePiece.getKey().getRow() - 2));
+                allWhitePiecesWhichKick.add(whitePiece.getKey());
+
             }
 
             if (new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() - 1).isValidPosition()
@@ -92,6 +98,8 @@ public class KickScanner {
 
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() - 1));
                 allPossibleWhiteMovesAfterKick.add(new PositionsPieces(whitePiece.getKey().getCol() + 2, whitePiece.getKey().getRow() - 2));
+                allWhitePiecesWhichKick.add(whitePiece.getKey());
+
             }
 
             if (new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() + 1).isValidPosition()
@@ -101,6 +109,8 @@ public class KickScanner {
 
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() + 1));
                 allPossibleWhiteMovesAfterKick.add(new PositionsPieces(whitePiece.getKey().getCol() - 2, whitePiece.getKey().getRow() + 2));
+                allWhitePiecesWhichKick.add(whitePiece.getKey());
+
             }
 
             if (new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() + 1).isValidPosition()
@@ -110,6 +120,8 @@ public class KickScanner {
 
                 allPossibleWhiteKicks.add(new PositionsPieces(whitePiece.getKey().getCol() + 1, whitePiece.getKey().getRow() + 1));
                 allPossibleWhiteMovesAfterKick.add(new PositionsPieces(whitePiece.getKey().getCol() + 2, whitePiece.getKey().getRow() + 2));
+                allWhitePiecesWhichKick.add(whitePiece.getKey());
+
             }
         }
         allPossibleWhiteKicks.removeAll(board.getWhitePieces().getWhitePiecesMap().keySet());
@@ -130,5 +142,13 @@ public class KickScanner {
 
     public Set<PositionsPieces> getAllPossibleWhiteMovesAfterKick() {
         return allPossibleWhiteMovesAfterKick;
+    }
+
+    public Set<PositionsPieces> getAllBlackPiecesWhichKick() {
+        return allBlackPiecesWhichKick;
+    }
+
+    public Set<PositionsPieces> getAllWhitePiecesWhichKick() {
+        return allWhitePiecesWhichKick;
     }
 }
