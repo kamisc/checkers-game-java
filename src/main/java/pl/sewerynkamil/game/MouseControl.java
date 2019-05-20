@@ -40,6 +40,10 @@ public class MouseControl {
                         board.pickBlackPiece(position);
                         pieceMoves.moveAfterKick(position);
                        // pieceMoves.moveBlackKick(position);
+                    } else if (pieceMoves.getPossibleMoves().contains(position)) {
+                        board.moveBlackPiece(position);
+                        playerTurn = false;
+                        computerTurn = true;
                     }
 
                 } else if (controller.checkCanSelectBlackPiece(position)) {
@@ -70,7 +74,8 @@ public class MouseControl {
                 }
 
             System.out.println(pieceMoves.getPossibleMoves());
-
+            System.out.println(board.getPickedPiece());
+            System.out.println(board.getOldPosition());
 
         }
     };

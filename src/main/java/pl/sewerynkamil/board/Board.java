@@ -26,8 +26,8 @@ public class Board {
     public Board(){
         createBoardBackground();
         createBoardLayout();
-        whitePieces.setUpWhitePieces(this);
-        blackPieces.setUpBlackPieces(this);
+        whitePieces.setUpPieces(this);
+        blackPieces.setUpPieces(this);
     }
 
     public Background createBoardBackground(){
@@ -77,8 +77,8 @@ public class Board {
         removePieceFromBoard(oldPosition);
         addPieceOnBoard(newPosition, blackPieces.getBlackPieceImage());
 
-        blackPieces.removeBlackPieceFromMap(oldPosition);
-        blackPieces.addBlackPieceToMap(newPosition, new Piece(Piece.Color.BLACK));
+        blackPieces.removePieceFromMap(oldPosition);
+        blackPieces.addPieceToMap(newPosition, new Piece(Piece.Color.BLACK));
 
         pickedPiece = null;
     }
@@ -103,8 +103,8 @@ public class Board {
         removePieceFromBoard(oldPosition);
         addPieceOnBoard(newPosition, whitePieces.getWhitePieceImage());
 
-        whitePieces.removeWhitePieceFromMap(oldPosition);
-        whitePieces.addWhitePieceToMap(newPosition, new Piece(Piece.Color.WHITE));
+        whitePieces.removePieceFromMap(oldPosition);
+        whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE));
 
         pickedPiece = null;
     }
@@ -138,4 +138,7 @@ public class Board {
         return pickedPiece;
     }
 
+    public PositionsPieces getOldPosition() {
+        return oldPosition;
+    }
 }

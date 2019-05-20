@@ -6,27 +6,31 @@ import pl.sewerynkamil.board.Board;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BlackPieces {
+public class BlackPieces implements PieceInterface {
 
     private Image blackPieceImage = new Image("file:resources/black-piece.png");
     private Image blackLightPieceImage = new Image("file:resources/black-piece-light.png");
 
     private Map<PositionsPieces, Piece> blackPiecesMap = new HashMap<>();
 
+    @Override
     public boolean isFieldNotNull(PositionsPieces position){
         return blackPiecesMap.get(position) != null;
     }
 
-    public void addBlackPieceToMap(PositionsPieces position, Piece piece){
+    @Override
+    public void addPieceToMap(PositionsPieces position, Piece piece){
         blackPiecesMap.put(position, piece);
     }
 
-    public void removeBlackPieceFromMap(PositionsPieces position){
+    @Override
+    public void removePieceFromMap(PositionsPieces position){
         blackPiecesMap.remove(position);
     }
 
-    public void setUpBlackPieces(Board board){
-       /* blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK));
+    @Override
+    public void setUpPieces(Board board){
+        blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(2,0), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(4,0), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(6,0), new Piece(Piece.Color.BLACK));
@@ -34,7 +38,7 @@ public class BlackPieces {
         blackPiecesMap.put(new PositionsPieces(1,1), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(3,1), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(5,1), new Piece(Piece.Color.BLACK));
-        blackPiecesMap.put(new PositionsPieces(7,1), new Piece(Piece.Color.BLACK));*/
+        blackPiecesMap.put(new PositionsPieces(7,1), new Piece(Piece.Color.BLACK));
 
         blackPiecesMap.put(new PositionsPieces(0,2), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(2,2), new Piece(Piece.Color.BLACK));
