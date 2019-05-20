@@ -39,7 +39,7 @@ public class MouseControl {
                     if(kickScanner.getAllBlackPiecesWhichKick().contains(position)){
                         board.pickBlackPiece(position);
                         pieceMoves.moveAfterKick(position);
-                        pieceMoves.moveBlackKick(position);
+                       // pieceMoves.moveBlackKick(position);
                     }
 
                 } else if (controller.checkCanSelectBlackPiece(position)) {
@@ -70,7 +70,7 @@ public class MouseControl {
                 }
 
             System.out.println(pieceMoves.getPossibleMoves());
-            System.out.println(pieceMoves.getPossibleBlackPieceMovesAfterKick());
+
 
         }
     };

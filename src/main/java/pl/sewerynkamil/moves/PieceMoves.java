@@ -58,31 +58,32 @@ public class PieceMoves {
     public Set<PositionsPieces> moveAfterKick(PositionsPieces position){
         possibleMoves.clear();
 
-        for(PositionsPieces pos : kickScanner.getAllPossibleBlackKicks()){
-            if(position.getCol() - pos.getCol() > 0 && position.getRow() - pos.getRow() < 0
-                    && controller.isFieldNull(new PositionsPieces(pos.getCol() - 1, pos.getRow() + 1))
-                    && new PositionsPieces(pos.getCol() - 1, pos.getRow() + 1).isValidPosition()){
+        if(!board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() - 1))
+                && board.getWhitePieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() - 1))
+                && new PositionsPieces(position.getCol() - 1, position.getRow() - 1).isValidPosition()){
 
-                possibleMoves.add(new PositionsPieces(pos.getCol() - 1, pos.getRow() + 1));
+            possibleMoves.add(new PositionsPieces(position.getCol() - 2, position.getRow() - 2));
+        }
 
-            } else if(position.getCol() - pos.getCol() < 0 && position.getRow() - pos.getRow() < 0
-                    && controller.isFieldNull(new PositionsPieces(pos.getCol() + 1, pos.getRow() + 1))
-                    && new PositionsPieces(pos.getCol() + 1, pos.getRow() + 1).isValidPosition()){
+        if(!board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() + 1, position.getRow() - 1))
+                && board.getWhitePieces().isFieldNotNull(new PositionsPieces(position.getCol() + 1, position.getRow() - 1))
+                && new PositionsPieces(position.getCol() + 1, position.getRow() - 1).isValidPosition()){
 
-                possibleMoves.add(new PositionsPieces(pos.getCol() + 1, pos.getRow() + 1));
+            possibleMoves.add(new PositionsPieces(position.getCol() + 2, position.getRow() - 2));
+        }
 
-            } else if(position.getCol() - pos.getCol() > 0 && position.getRow() - pos.getRow() > 0
-                    && controller.isFieldNull(new PositionsPieces(pos.getCol() - 1, pos.getRow() - 1))
-                    && new PositionsPieces(pos.getCol() - 1, pos.getRow() - 1).isValidPosition()) {
+        if(!board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() + 1))
+                && board.getWhitePieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() + 1))
+                && new PositionsPieces(position.getCol() - 1, position.getRow() + 1).isValidPosition()){
 
-                possibleMoves.add(new PositionsPieces(pos.getCol() - 1, pos.getRow() - 1));
+            possibleMoves.add(new PositionsPieces(position.getCol() - 2, position.getRow() + 2));
+        }
 
-            } else if(position.getCol() - pos.getCol() < 0 && position.getRow() - pos.getRow() > 0
-                    && controller.isFieldNull(new PositionsPieces(pos.getCol() + 1, pos.getRow() - 1))
-                    && new PositionsPieces(pos.getCol() + 1, pos.getRow() - 1).isValidPosition()){
+        if(!board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() + 1, position.getRow() + 1))
+                && board.getWhitePieces().isFieldNotNull(new PositionsPieces(position.getCol() + 1, position.getRow() + 1))
+                && new PositionsPieces(position.getCol() + 1, position.getRow() + 1).isValidPosition()){
 
-                possibleMoves.add(new PositionsPieces(pos.getCol() + 1, pos.getRow() - 1));
-            }
+            possibleMoves.add(new PositionsPieces(position.getCol() + 2, position.getRow() + 2));
         }
 
         return possibleMoves;
@@ -109,7 +110,9 @@ public class PieceMoves {
         PositionsPieces backwardRight = new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() - direction);
 
         // Move forward-left
-        if (forwardLeft.isValidPosition() && !board.getBlackPieces().isFieldNotNull(forwardLeft) && !board.getWhitePieces().isFieldNotNull(forwardLeft)) {
+        if (forwardLeft.isValidPosition() &&
+                !board.getBlackPieces().isFieldNotNull(forwardLeft) &&
+                !board.getWhitePieces().isFieldNotNull(forwardLeft)) {
             positionsPieces.add(forwardLeft);
         }
         // Move forward-right

@@ -26,7 +26,7 @@ public class BlackPieces {
     }
 
     public void setUpBlackPieces(Board board){
-        blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK));
+       /* blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(2,0), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(4,0), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(6,0), new Piece(Piece.Color.BLACK));
@@ -34,7 +34,7 @@ public class BlackPieces {
         blackPiecesMap.put(new PositionsPieces(1,1), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(3,1), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(5,1), new Piece(Piece.Color.BLACK));
-        blackPiecesMap.put(new PositionsPieces(7,1), new Piece(Piece.Color.BLACK));
+        blackPiecesMap.put(new PositionsPieces(7,1), new Piece(Piece.Color.BLACK));*/
 
         blackPiecesMap.put(new PositionsPieces(0,2), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(2,2), new Piece(Piece.Color.BLACK));

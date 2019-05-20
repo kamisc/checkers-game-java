@@ -26,7 +26,12 @@ public class WhitePieces {
     }
 
     public void setUpWhitePieces(Board board){
-        whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(1,3), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(3,3), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(5,3), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(3,1), new Piece(Piece.Color.WHITE));
+
+        /*whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(3,5), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(5,5), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(7,5), new Piece(Piece.Color.WHITE));
@@ -39,7 +44,7 @@ public class WhitePieces {
         whitePiecesMap.put(new PositionsPieces(1,7), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(3,7), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(5,7), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE));*/
 
         for(Map.Entry<PositionsPieces, Piece> whitePiece : whitePiecesMap.entrySet()){
             board.addPieceOnBoard(whitePiece.getKey(), whitePieceImage);
