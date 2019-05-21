@@ -27,8 +27,5 @@ public class Controller {
                 !board.getWhitePieces().getWhitePiecesMap().containsKey(newPosition);
     }
 
- /*   public boolean check(){
-
-    }*/
 }
 

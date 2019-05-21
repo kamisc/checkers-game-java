@@ -9,7 +9,6 @@ import java.util.Set;
 
 public class PieceMoves {
 
-    private KickScanner kickScanner;
     private Controller controller;
     private Board board;
 
@@ -19,11 +18,8 @@ public class PieceMoves {
     private Set<PositionsPieces> possibleBlackPieceMovesAfterKick = new HashSet<>();
     private Set<PositionsPieces> possibleWhitePieceMovesAfterKick = new HashSet<>();
 
-    private Set<PositionsPieces> possibleMoves = new HashSet<>();
-
-    public PieceMoves(Board board, KickScanner kickScanner, Controller controller){
+    public PieceMoves(Board board, Controller controller){
         this.board = board;
-        this.kickScanner = kickScanner;
         this.controller = controller;
     }
 
@@ -55,8 +51,8 @@ public class PieceMoves {
         }
     }
 
-    public Set<PositionsPieces> moveAfterKick(PositionsPieces position){
-        possibleMoves.clear();
+    public Set<PositionsPieces> moveBlackAfterKick(PositionsPieces position){
+        possibleBlackPieceMovesAfterKick.clear();
 
         if(!board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() - 1))
                 && board.getWhitePieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() - 1))
@@ -64,7 +60,7 @@ public class PieceMoves {
                 && new PositionsPieces(position.getCol() - 2, position.getRow() - 2).isValidPosition()
                 && controller.isFieldNull(new PositionsPieces(position.getCol() - 2, position.getRow() - 2))){
 
-            possibleMoves.add(new PositionsPieces(position.getCol() - 2, position.getRow() - 2));
+            possibleBlackPieceMovesAfterKick.add(new PositionsPieces(position.getCol() - 2, position.getRow() - 2));
         }
 
         if(!board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() + 1, position.getRow() - 1))
@@ -72,7 +68,7 @@ public class PieceMoves {
                 && new PositionsPieces(position.getCol() + 1, position.getRow() - 1).isValidPosition()
                 && new PositionsPieces(position.getCol() + 2, position.getRow() - 2).isValidPosition()){
 
-            possibleMoves.add(new PositionsPieces(position.getCol() + 2, position.getRow() - 2));
+            possibleBlackPieceMovesAfterKick.add(new PositionsPieces(position.getCol() + 2, position.getRow() - 2));
         }
 
         if(!board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() + 1))
@@ -81,7 +77,7 @@ public class PieceMoves {
                 && new PositionsPieces(position.getCol() - 2, position.getRow() + 2).isValidPosition()
                 && controller.isFieldNull(new PositionsPieces(position.getCol() - 2, position.getRow() + 2))){
 
-            possibleMoves.add(new PositionsPieces(position.getCol() - 2, position.getRow() + 2));
+            possibleBlackPieceMovesAfterKick.add(new PositionsPieces(position.getCol() - 2, position.getRow() + 2));
         }
 
         if(!board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() + 1, position.getRow() + 1))
@@ -90,50 +86,51 @@ public class PieceMoves {
                 && new PositionsPieces(position.getCol() + 2, position.getRow() + 2).isValidPosition()
                 && controller.isFieldNull(new PositionsPieces(position.getCol() + 2, position.getRow() + 2))){
 
-            possibleMoves.add(new PositionsPieces(position.getCol() + 2, position.getRow() + 2));
+            possibleBlackPieceMovesAfterKick.add(new PositionsPieces(position.getCol() + 2, position.getRow() + 2));
         }
 
-        return possibleMoves;
-    }
-
-    public Set<PositionsPieces> moveBlackKick(PositionsPieces actualPosition) {
-        possibleBlackPieceMovesAfterKick.clear();
-        moveAfterKick(actualPosition, possibleBlackPieceMovesAfterKick, true);
         return possibleBlackPieceMovesAfterKick;
     }
 
-    public Set<PositionsPieces> moveWhiteKick(PositionsPieces actualPosition){
+    public Set<PositionsPieces> moveWhiteAfterKick(PositionsPieces position){
         possibleWhitePieceMovesAfterKick.clear();
-        moveAfterKick(actualPosition, possibleWhitePieceMovesAfterKick, false);
+
+        if(!board.getWhitePieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() - 1))
+                && board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() - 1))
+                && new PositionsPieces(position.getCol() - 1, position.getRow() - 1).isValidPosition()
+                && new PositionsPieces(position.getCol() - 2, position.getRow() - 2).isValidPosition()
+                && controller.isFieldNull(new PositionsPieces(position.getCol() - 2, position.getRow() - 2))){
+
+            possibleWhitePieceMovesAfterKick.add(new PositionsPieces(position.getCol() - 2, position.getRow() - 2));
+        }
+
+        if(!board.getWhitePieces().isFieldNotNull(new PositionsPieces(position.getCol() + 1, position.getRow() - 1))
+                && board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() + 1, position.getRow() - 1))
+                && new PositionsPieces(position.getCol() + 1, position.getRow() - 1).isValidPosition()
+                && new PositionsPieces(position.getCol() + 2, position.getRow() - 2).isValidPosition()){
+
+            possibleWhitePieceMovesAfterKick.add(new PositionsPieces(position.getCol() + 2, position.getRow() - 2));
+        }
+
+        if(!board.getWhitePieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() + 1))
+                && board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() + 1))
+                && new PositionsPieces(position.getCol() - 1, position.getRow() + 1).isValidPosition()
+                && new PositionsPieces(position.getCol() - 2, position.getRow() + 2).isValidPosition()
+                && controller.isFieldNull(new PositionsPieces(position.getCol() - 2, position.getRow() + 2))){
+
+            possibleWhitePieceMovesAfterKick.add(new PositionsPieces(position.getCol() - 2, position.getRow() + 2));
+        }
+
+        if(!board.getWhitePieces().isFieldNotNull(new PositionsPieces(position.getCol() + 1, position.getRow() + 1))
+                && board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() + 1, position.getRow() + 1))
+                && new PositionsPieces(position.getCol() + 1, position.getRow() + 1).isValidPosition()
+                && new PositionsPieces(position.getCol() + 2, position.getRow() + 2).isValidPosition()
+                && controller.isFieldNull(new PositionsPieces(position.getCol() + 2, position.getRow() + 2))){
+
+            possibleWhitePieceMovesAfterKick.add(new PositionsPieces(position.getCol() + 2, position.getRow() + 2));
+        }
+
         return possibleWhitePieceMovesAfterKick;
-    }
-
-    private void moveAfterKick(PositionsPieces actualPosition, Set<PositionsPieces> positionsPieces, boolean up) {
-        int direction = up ? 2 : -2;
-
-        PositionsPieces forwardLeft = new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() + direction);
-        PositionsPieces forwardRight = new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() + direction);
-        PositionsPieces backwardLeft = new PositionsPieces(actualPosition.getCol() - 2, actualPosition.getRow() - direction);
-        PositionsPieces backwardRight = new PositionsPieces(actualPosition.getCol() + 2, actualPosition.getRow() - direction);
-
-        // Move forward-left
-        if (forwardLeft.isValidPosition() &&
-                !board.getBlackPieces().isFieldNotNull(forwardLeft) &&
-                !board.getWhitePieces().isFieldNotNull(forwardLeft)) {
-            positionsPieces.add(forwardLeft);
-        }
-        // Move forward-right
-        if (forwardRight.isValidPosition() && !board.getBlackPieces().isFieldNotNull(forwardRight) && !board.getWhitePieces().isFieldNotNull(forwardRight)) {
-            positionsPieces.add(forwardRight);
-        }
-        // Move backward-left
-        if (backwardLeft.isValidPosition() && !board.getBlackPieces().isFieldNotNull(backwardLeft) && !board.getWhitePieces().isFieldNotNull(backwardLeft)) {
-            positionsPieces.add(backwardLeft);
-        }
-        // Move backward-right
-        if (backwardRight.isValidPosition() && !board.getBlackPieces().isFieldNotNull(backwardRight) && !board.getWhitePieces().isFieldNotNull(backwardRight)) {
-            positionsPieces.add(backwardRight);
-        }
     }
 
     // King moves - later
@@ -154,8 +151,5 @@ public class PieceMoves {
         return possibleWhitePieceMovesAfterKick;
     }
 
-    public Set<PositionsPieces> getPossibleMoves() {
-        return possibleMoves;
-    }
 }
 
