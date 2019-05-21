@@ -38,11 +38,6 @@ public class MouseControl {
                         && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
 
                     if(kickScanner.getAllBlackPiecesWhichKick().contains(position)){
-                        /*pickedPiece = position;
-                        oldPosition = pickedPiece;
-                        board.addLightPieceOnBoard(pickedPiece, board.getBlackPieces().getBlackLightPieceImage());
-                        board.removePieceFromBoard(oldPosition);
-                        board.addPieceOnBoard(oldPosition, board.getBlackPieces().getBlackPieceImage());*/
 
                         board.pickBlackPiece(position);
                         pieceMoves.moveAfterKick(position);
@@ -95,9 +90,10 @@ public class MouseControl {
                     }
                 }
 
-            System.out.println(board.getPickedPiece());
-            System.out.println(board.getOldPosition());
-            System.out.println(board.getBlackPieces().getBlackPiecesMap().size());
+            System.out.println(board.getPickedBlackPiece());
+            System.out.println(board.getOldBlackPosition());
+            System.out.println(board.getKickPosition());
+            System.out.println(kickScanner.getAllBlackPiecesWhichKick());
 
         }
     };
