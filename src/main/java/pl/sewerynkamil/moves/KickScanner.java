@@ -4,6 +4,7 @@ import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.game.Controller;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
+import pl.sewerynkamil.pieces.WhitePieces;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -13,6 +14,7 @@ public class KickScanner {
 
     private Board board;
     private Controller controller;
+    private WhitePieces whitePieces;
 
     private Set<PositionsPieces> allPossibleBlackKicks = new HashSet<>();
     private Set<PositionsPieces> allPossibleWhiteKicks = new HashSet<>();
@@ -29,7 +31,45 @@ public class KickScanner {
     }
 
     // Calculate all possible black kick moves (position where black pieces have white piece around)
+    /*public void calculateAllPossibleBlackKicks() {
+
+        for (Map.Entry<PositionsPieces, Piece> blackPiece : board.getBlackPieces().getBlackPiecesMap().entrySet()) {
+            PositionsPieces key = blackPiece.getKey();
+            int col = key.getCol();
+            int row = key.getRow();
+
+            calculateAllPossibleKicks(key, col, board.getWhitePieces(), row + 1, row + 2, row - 1, row - 2);
+        }
+        allPossibleBlackKicks.removeAll(board.getBlackPieces().getBlackPiecesMap().keySet());
+        allPossibleBlackMovesAfterKick.removeAll(board.getBlackPieces().getBlackPiecesMap().keySet());
+    }
+
+    private void calculateAllPossibleKicks(PositionsPieces key, int col, WhitePieces oppositePieces, int nextRow, int secondNextRow, int backRow, int secondBackRow) {
+        calculatePossibleKicks(key, oppositePieces, nextRow, secondNextRow, col - 1, col - 2, col + 1, col + 2);
+        calculatePossibleKicks(key, oppositePieces, backRow, secondBackRow, col - 1, col - 2, col + 1, col + 2);
+    }
+
+    private void calculatePossibleKicks(PositionsPieces key, WhitePieces oppositePieces, int nextRow, int secondNextRow, int leftCol, int secondLeftCol, int rightCol, int secondRightCol) {
+        calculatePossibleKick(key, oppositePieces, nextRow, secondNextRow, leftCol, secondLeftCol);
+        calculatePossibleKick(key, oppositePieces, nextRow, secondNextRow, rightCol, secondRightCol);
+    }
+
+    private void calculatePossibleKick(PositionsPieces key, WhitePieces oppositePieces, int nextRow, int secondNextRow, int rightCol, int secondRightCol) {
+        if (new PositionsPieces(rightCol, nextRow).isValidPosition()
+                && oppositePieces.isFieldNotNull(new PositionsPieces(rightCol, nextRow))
+                && controller.isFieldNull(new PositionsPieces(secondRightCol, secondNextRow))
+                && new PositionsPieces(secondRightCol, secondNextRow).isValidPosition()) {
+
+            allPossibleBlackKicks.add(new PositionsPieces(rightCol, nextRow));
+            allPossibleBlackMovesAfterKick.add(new PositionsPieces(secondRightCol, secondNextRow));
+            allBlackPiecesWhichKick.add(key);
+        }
+    }*/
+
     public void calculateAllPossibleBlackKicks() {
+        allPossibleBlackKicks.clear();
+        allPossibleBlackMovesAfterKick.clear();
+        allBlackPiecesWhichKick.clear();
 
         for (Map.Entry<PositionsPieces, Piece> blackPiece : board.getBlackPieces().getBlackPiecesMap().entrySet()) {
             if (new PositionsPieces(blackPiece.getKey().getCol() - 1, blackPiece.getKey().getRow() + 1).isValidPosition()
@@ -78,6 +118,9 @@ public class KickScanner {
 
     // Calculate all possible white kick moves (position where white pieces have black piece around)
     public void calculateAllPossibleWhiteKicks() {
+        allPossibleWhiteKicks.clear();
+        allPossibleWhiteMovesAfterKick.clear();
+        allWhitePiecesWhichKick.clear();
 
         for (Map.Entry<PositionsPieces, Piece> whitePiece : board.getWhitePieces().getWhitePiecesMap().entrySet()) {
             if (new PositionsPieces(whitePiece.getKey().getCol() - 1, whitePiece.getKey().getRow() - 1).isValidPosition()

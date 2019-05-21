@@ -22,6 +22,7 @@ public class Board {
 
     private PositionsPieces oldPosition;
     private PositionsPieces pickedPiece;
+    private PositionsPieces kickPosition;
 
     public Board(){
         createBoardBackground();
@@ -61,26 +62,41 @@ public class Board {
             removePieceFromBoard(oldPosition);
             addPieceOnBoard(oldPosition, blackPieces.getBlackPieceImage());
 
-            addLightPieceOnBoard(actualPosition, blackPieces.getBlackLightPieceImage());
-
             pickedPiece = null;
+
+            addLightPieceOnBoard(actualPosition, blackPieces.getBlackLightPieceImage());
         }
 
         pickedPiece = actualPosition;
         oldPosition = actualPosition;
 
-
         addLightPieceOnBoard(actualPosition, blackPieces.getBlackLightPieceImage());
     }
 
     public void moveBlackPiece(PositionsPieces newPosition){
-        removePieceFromBoard(oldPosition);
         addPieceOnBoard(newPosition, blackPieces.getBlackPieceImage());
+        removePieceFromBoard(oldPosition);
 
         blackPieces.removePieceFromMap(oldPosition);
         blackPieces.addPieceToMap(newPosition, new Piece(Piece.Color.BLACK));
 
         pickedPiece = null;
+    }
+
+    public void kick(PositionsPieces newPosition){
+        addPieceOnBoard(newPosition, blackPieces.getBlackPieceImage());
+        removePieceFromBoard(oldPosition);
+
+        blackPieces.removePieceFromMap(oldPosition);
+        blackPieces.addPieceToMap(newPosition, new Piece(Piece.Color.BLACK));
+
+        kickPosition = new PositionsPieces((oldPosition.getCol() + newPosition.getRow())/2, (oldPosition.getRow() + newPosition.getRow())/2);
+        removePieceFromBoard(kickPosition);
+        whitePieces.removePieceFromMap(kickPosition);
+
+        pickedPiece = null;
+        //oldPosition = null;
+        kickPosition = null;
     }
 
     public void pickWhitePiece(PositionsPieces actualPosition){

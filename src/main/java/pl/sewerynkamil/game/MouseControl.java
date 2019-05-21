@@ -28,20 +28,28 @@ public class MouseControl {
         @Override
         public void handle(MouseEvent event) {
             PositionsPieces position = new PositionsPieces((int) ((event.getX() - 59) / 62), (int) ((event.getY() - 59) / 62));
+            /*PositionsPieces oldPosition;
+            PositionsPieces pickedPiece;*/
 
             if (playerTurn) {
-
                 kickScanner.calculateAllPossibleBlackKicks();
 
                 if (!kickScanner.getAllPossibleBlackKicks().isEmpty()
                         && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
 
                     if(kickScanner.getAllBlackPiecesWhichKick().contains(position)){
+                        /*pickedPiece = position;
+                        oldPosition = pickedPiece;
+                        board.addLightPieceOnBoard(pickedPiece, board.getBlackPieces().getBlackLightPieceImage());
+                        board.removePieceFromBoard(oldPosition);
+                        board.addPieceOnBoard(oldPosition, board.getBlackPieces().getBlackPieceImage());*/
+
                         board.pickBlackPiece(position);
                         pieceMoves.moveAfterKick(position);
                        // pieceMoves.moveBlackKick(position);
-                    } else if (pieceMoves.getPossibleMoves().contains(position)) {
-                        board.moveBlackPiece(position);
+                    } else if (controller.isFieldNull(position) &&
+                            pieceMoves.getPossibleMoves().contains(position)) {
+                        board.kick(position);
                         playerTurn = false;
                         computerTurn = true;
                     }
@@ -61,7 +69,21 @@ public class MouseControl {
 
                     kickScanner.calculateAllPossibleWhiteKicks();
 
-                    if (controller.checkCanSelectWhitePiece(position)) {
+                    /*if (!kickScanner.getAllPossibleWhiteKicks().isEmpty()
+                            && !kickScanner.getAllPossibleWhiteMovesAfterKick().isEmpty()) {
+
+                        if(kickScanner.getAllWhitePiecesWhichKick().contains(position)){
+                            board.pickWhitePiece(position);
+                            pieceMoves.moveAfterKick(position);
+                            // pieceMoves.moveBlackKick(position);
+                        } else if (controller.isFieldNull(position) &&
+                                pieceMoves.getPossibleMoves().contains(position)) {
+                            board.moveWhitePiece(position);
+                            playerTurn = false;
+                            computerTurn = true;
+                        }
+
+                    } else */if (controller.checkCanSelectWhitePiece(position)) {
                         board.pickWhitePiece(position);
                         // pieceMoves.getPossibleWhitePieceMoves().clear();
                         pieceMoves.moveWhite(position);
@@ -73,9 +95,9 @@ public class MouseControl {
                     }
                 }
 
-            System.out.println(pieceMoves.getPossibleMoves());
             System.out.println(board.getPickedPiece());
             System.out.println(board.getOldPosition());
+            System.out.println(board.getBlackPieces().getBlackPiecesMap().size());
 
         }
     };
