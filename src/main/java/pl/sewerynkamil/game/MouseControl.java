@@ -61,41 +61,34 @@ public class MouseControl {
 
             if (computerTurn) {
                 kickScanner.calculateAllPossibleBlackKicks();
-                pieceMoves.allPossibleMovingPieces();
-
-                PositionsPieces computerNormalMove = computer.selectPosition(pieceMoves.getAllPossibleBlack());
-                System.out.println(computerNormalMove);
+                pieceMoves.allPossibleBlackMoves();
 
                 if (!kickScanner.getAllPossibleBlackKicks().isEmpty() && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
-                    PositionsPieces computerMove = computer.selectPosition(kickScanner.getAllBlackPiecesWhichKick());
+                    PositionsPieces computerKick = computer.selectPosition(kickScanner.getAllBlackPiecesWhichKick());
 
-                    if (kickScanner.getAllBlackPiecesWhichKick().contains(computerMove)) {
-                        board.pickBlackPiece(computerMove);
-                        pieceMoves.moveBlackAfterKick(computerMove);
+                    board.pickBlackPiece(computerKick);
+                    pieceMoves.moveBlackAfterKick(computerKick);
 
-                    } else if (controller.isFieldNull(computerMove)
-                            && pieceMoves.getPossibleBlackPieceMovesAfterKick().contains(computerMove)) {
-                        board.kickByBlack(computerMove);
-                        playerTurn = true;
-                        computerTurn = false;
-                    }
+                    computerKick = computer.selectPosition(pieceMoves.getPossibleBlackPieceMovesAfterKick());
 
-                } else if (controller.checkCanSelectBlackPiece(computerNormalMove)) {
-                    board.pickBlackPiece(computerNormalMove);
-                    pieceMoves.moveBlack(computerNormalMove);
+                    board.kickByBlack(computerKick);
+                    playerTurn = true;
+                    computerTurn = false;
+                } else {
+                    PositionsPieces computerMove = computer.selectPosition(pieceMoves.getAllPossibleBlack());
 
-                    PositionsPieces computerMove = computer.selectPosition(pieceMoves.getPossibleBlackPieceMoves());
+                    System.out.println(pieceMoves.getAllPossibleBlack());
 
-                    if(controller.isFieldNull(computerMove) && pieceMoves.getPossibleBlackPieceMoves().contains(computerMove)){
-                        board.moveBlackPiece(computerMove);
-                        playerTurn = true;
-                        computerTurn = false;
-                    }
+                    board.pickBlackPiece(computerMove);
+                    pieceMoves.moveBlack(computerMove);
 
+                    computerMove = computer.selectPosition(pieceMoves.getPossibleBlackPieceMoves());
+
+                    board.moveBlackPiece(computerMove);
+                    playerTurn = true;
+                    computerTurn = false;
                 }
             }
-
-            System.out.println(pieceMoves.getAllPossibleBlack());
 
             // computer.computerMove(computerTurn, playerTurn, kickScanner, board, pieceMoves, controller);
 

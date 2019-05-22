@@ -19,6 +19,7 @@ public class PieceMoves {
     private Set<PositionsPieces> possibleWhitePieceMovesAfterKick = new HashSet<>();
 
     private Set<PositionsPieces> allPossibleBlack = new HashSet<>();
+    private Set<PositionsPieces> allPossibleWhite = new HashSet<>();
 
     public PieceMoves(Board board, Controller controller){
         this.board = board;
@@ -37,11 +38,16 @@ public class PieceMoves {
         return possibleWhitePieceMoves;
     }
 
-    public Set<PositionsPieces> allPossibleMovingPieces(){
-        for(PositionsPieces positionsPieces : board.getBlackPieces().getBlackPiecesMap().keySet()){
-            move(positionsPieces, allPossibleBlack, true);
+    public void allPossibleBlackMoves(){
+        allPossibleBlack.clear();
+        for (PositionsPieces position : board.getBlackPieces().getBlackPiecesMap().keySet()){
+            moveBlack(position);
+            for(PositionsPieces positions : possibleBlackPieceMoves){
+                if(positions != null){
+                    allPossibleBlack.add(position);
+                }
+            }
         }
-        return allPossibleBlack;
     }
 
     private void move(PositionsPieces actualPosition, Set<PositionsPieces> positionsPieces, boolean up) {

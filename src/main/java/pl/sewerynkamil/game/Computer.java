@@ -20,7 +20,7 @@ public class Computer {
     public void computerMove(boolean computerTurn, boolean playerTurn, KickScanner kickScanner, Board board, PieceMoves pieceMoves, Controller controller) {
         if (computerTurn) {
             kickScanner.calculateAllPossibleBlackKicks();
-            pieceMoves.allPossibleMovingPieces();
+            pieceMoves.allPossibleBlackMoves();
 
             PositionsPieces computerNormalMove = selectPosition(pieceMoves.getAllPossibleBlack());
 
