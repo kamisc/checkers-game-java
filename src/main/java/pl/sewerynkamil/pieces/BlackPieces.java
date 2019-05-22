@@ -13,6 +13,10 @@ public class BlackPieces implements PieceInterface {
 
     private Map<PositionsPieces, Piece> blackPiecesMap = new HashMap<>();
 
+    public Piece getPiece(PositionsPieces position){
+        return blackPiecesMap.get(position);
+    }
+
     @Override
     public boolean isFieldNotNull(PositionsPieces position){
         return blackPiecesMap.get(position) != null;

@@ -7,12 +7,15 @@ import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.PieceMoves;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
+import java.util.Random;
+
 public class MouseControl {
 
     private Board board;
     private Controller controller;
     private PieceMoves pieceMoves;
     private KickScanner kickScanner;
+    private Random random = new Random();
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
@@ -44,6 +47,7 @@ public class MouseControl {
                         playerTurn = false;
                         computerTurn = true;
                     }
+
                 } else if (controller.checkCanSelectWhitePiece(position)) {
                     board.pickWhitePiece(position);
                     pieceMoves.moveWhite(position);
@@ -59,6 +63,8 @@ public class MouseControl {
                 kickScanner.calculateAllPossibleBlackKicks();
 
                 if (!kickScanner.getAllPossibleBlackKicks().isEmpty() && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
+
+                    PositionsPieces compPosition = new PositionsPieces(random.nextInt(), random.nextInt());
 
                     if (kickScanner.getAllBlackPiecesWhichKick().contains(position)) {
                         board.pickBlackPiece(position);
@@ -90,3 +96,31 @@ public class MouseControl {
     }
 }
 
+// 2nd player
+/*
+        if (computerTurn) {
+        kickScanner.calculateAllPossibleBlackKicks();
+
+        if (!kickScanner.getAllPossibleBlackKicks().isEmpty() && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
+
+        if (kickScanner.getAllBlackPiecesWhichKick().contains(position)) {
+        board.pickBlackPiece(position);
+        pieceMoves.moveBlackAfterKick(position);
+
+        } else if (controller.isFieldNull(position)
+        && pieceMoves.getPossibleBlackPieceMovesAfterKick().contains(position)) {
+        board.kickByBlack(position);
+        playerTurn = true;
+        computerTurn = false;
+        }
+
+        } else if (controller.checkCanSelectBlackPiece(position)) {
+        board.pickBlackPiece(position);
+        pieceMoves.moveBlack(position);
+
+        } else if (controller.isFieldNull(position) && pieceMoves.getPossibleBlackPieceMoves().contains(position)) {
+        board.moveBlackPiece(position);
+        playerTurn = true;
+        computerTurn = false;
+        }
+        }*/

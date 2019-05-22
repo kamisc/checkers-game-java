@@ -13,6 +13,10 @@ public class WhitePieces implements PieceInterface {
 
     private Map<PositionsPieces, Piece> whitePiecesMap = new HashMap<>();
 
+    public Piece getPiece(PositionsPieces position){
+        return whitePiecesMap.get(position);
+    }
+
     @Override
     public boolean isFieldNotNull(PositionsPieces position){
         return whitePiecesMap.get(position) != null;

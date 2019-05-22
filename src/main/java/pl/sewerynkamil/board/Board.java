@@ -63,7 +63,6 @@ public class Board {
             addPieceOnBoard(oldPosition, blackPieces.getBlackPieceImage());
 
             pickedPiece = null;
-            oldPosition = null;
 
             addLightPieceOnBoard(actualPosition, blackPieces.getBlackLightPieceImage());
         }
@@ -96,8 +95,6 @@ public class Board {
         whitePieces.removePieceFromMap(kickPosition);
 
         pickedPiece = null;
-        oldPosition = null;
-        kickPosition = null;
     }
 
     public void pickWhitePiece(PositionsPieces actualPosition){
@@ -139,8 +136,6 @@ public class Board {
         blackPieces.removePieceFromMap(kickPosition);
 
         pickedPiece = null;
-        oldPosition = null;
-        kickPosition = null;
     }
 
     public void addPieceOnBoard(PositionsPieces position, Image piece){
