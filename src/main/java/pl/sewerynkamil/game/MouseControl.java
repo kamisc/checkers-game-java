@@ -7,7 +7,6 @@ import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.PieceMoves;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
-import java.util.Random;
 
 public class MouseControl {
 
@@ -15,16 +14,17 @@ public class MouseControl {
     private Controller controller;
     private PieceMoves pieceMoves;
     private KickScanner kickScanner;
-    private Random random = new Random();
+    private Computer computer;
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
 
-    public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, KickScanner kickScanner) {
+    public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, KickScanner kickScanner, Computer computer) {
         this.board = board;
         this.controller = controller;
         this.pieceMoves = pieceMoves;
         this.kickScanner = kickScanner;
+        this.computer = computer;
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
@@ -61,32 +61,43 @@ public class MouseControl {
 
             if (computerTurn) {
                 kickScanner.calculateAllPossibleBlackKicks();
+                pieceMoves.allPossibleMovingPieces();
+
+                PositionsPieces computerNormalMove = computer.selectPosition(pieceMoves.getAllPossibleBlack());
+                System.out.println(computerNormalMove);
 
                 if (!kickScanner.getAllPossibleBlackKicks().isEmpty() && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
+                    PositionsPieces computerMove = computer.selectPosition(kickScanner.getAllBlackPiecesWhichKick());
 
-                    PositionsPieces compPosition = new PositionsPieces(random.nextInt(), random.nextInt());
+                    if (kickScanner.getAllBlackPiecesWhichKick().contains(computerMove)) {
+                        board.pickBlackPiece(computerMove);
+                        pieceMoves.moveBlackAfterKick(computerMove);
 
-                    if (kickScanner.getAllBlackPiecesWhichKick().contains(position)) {
-                        board.pickBlackPiece(position);
-                        pieceMoves.moveBlackAfterKick(position);
-
-                    } else if (controller.isFieldNull(position)
-                            && pieceMoves.getPossibleBlackPieceMovesAfterKick().contains(position)) {
-                        board.kickByBlack(position);
+                    } else if (controller.isFieldNull(computerMove)
+                            && pieceMoves.getPossibleBlackPieceMovesAfterKick().contains(computerMove)) {
+                        board.kickByBlack(computerMove);
                         playerTurn = true;
                         computerTurn = false;
                     }
 
-                } else if (controller.checkCanSelectBlackPiece(position)) {
-                    board.pickBlackPiece(position);
-                    pieceMoves.moveBlack(position);
+                } else if (controller.checkCanSelectBlackPiece(computerNormalMove)) {
+                    board.pickBlackPiece(computerNormalMove);
+                    pieceMoves.moveBlack(computerNormalMove);
 
-                } else if (controller.isFieldNull(position) && pieceMoves.getPossibleBlackPieceMoves().contains(position)) {
-                    board.moveBlackPiece(position);
-                    playerTurn = true;
-                    computerTurn = false;
+                    PositionsPieces computerMove = computer.selectPosition(pieceMoves.getPossibleBlackPieceMoves());
+
+                    if(controller.isFieldNull(computerMove) && pieceMoves.getPossibleBlackPieceMoves().contains(computerMove)){
+                        board.moveBlackPiece(computerMove);
+                        playerTurn = true;
+                        computerTurn = false;
+                    }
+
                 }
             }
+
+            System.out.println(pieceMoves.getAllPossibleBlack());
+
+            // computer.computerMove(computerTurn, playerTurn, kickScanner, board, pieceMoves, controller);
 
         }
     };

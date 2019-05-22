@@ -11,6 +11,8 @@ import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 import pl.sewerynkamil.pieces.WhitePieces;
 
+import java.util.Objects;
+
 public class Board {
 
     private GridPane grid = new GridPane();
@@ -147,8 +149,8 @@ public class Board {
     }
 
     public void removePieceFromBoard(PositionsPieces position){
-        grid.getChildren().removeIf(node -> node instanceof ImageView && GridPane.getColumnIndex(node) == position.getCol()
-                && GridPane.getRowIndex(node) == position.getRow());
+        grid.getChildren().removeIf(node -> node instanceof ImageView && Objects.equals(GridPane.getColumnIndex(node), position.getCol())
+                && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
     }
 
     public GridPane getGrid() {

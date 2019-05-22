@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pl.sewerynkamil.board.Board;
+import pl.sewerynkamil.game.Computer;
 import pl.sewerynkamil.game.Controller;
 import pl.sewerynkamil.game.MouseControl;
 import pl.sewerynkamil.moves.KickScanner;
@@ -14,10 +15,11 @@ import pl.sewerynkamil.moves.PieceMoves;
 public class Start extends Application {
 
     private Board board = new Board();
+    private Computer computer = new Computer();
     private Controller controller = new Controller(board);
     private KickScanner kickScanner = new KickScanner(board, controller);
     private PieceMoves pieceMoves = new PieceMoves(board, controller);
-    private MouseControl mouseControl = new MouseControl(board, controller, pieceMoves, kickScanner);
+    private MouseControl mouseControl = new MouseControl(board, controller, pieceMoves, kickScanner, computer);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
