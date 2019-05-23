@@ -53,6 +53,7 @@ public class MouseControl {
                             board.kickByWhite(position);
                             pieceMoves.moveWhiteAfterKick(position);
                         } else {
+                            board.addPieceOnBoard(position, board.getWhitePieces().getWhitePieceImage());
                             playerTurn = false;
                             computerTurn = true;
                         }
