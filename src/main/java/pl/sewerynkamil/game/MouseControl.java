@@ -18,6 +18,7 @@ public class MouseControl {
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
+    private boolean multiKick = false;
 
     public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, KickScanner kickScanner, Computer computer) {
         this.board = board;
@@ -42,10 +43,19 @@ public class MouseControl {
                         pieceMoves.moveWhiteAfterKick(position);
 
                     } else if (controller.isFieldNull(position)
-                            && pieceMoves.getPossibleWhitePieceMovesAfterKick().contains(position)) {
+                            && pieceMoves.getPossibleWhitePieceMovesAfterKick().contains(position) && !multiKick) {
                         board.kickByWhite(position);
-                        playerTurn = false;
-                        computerTurn = true;
+                        pieceMoves.moveWhiteAfterKick(position);
+
+                        if(!pieceMoves.getPossibleWhitePieceMovesAfterKick().isEmpty()){
+                            PositionsPieces kickPosition = position;
+                            board.pickWhitePiece(kickPosition);
+                            board.kickByWhite(position);
+                            pieceMoves.moveWhiteAfterKick(position);
+                        } else {
+                            playerTurn = false;
+                            computerTurn = true;
+                        }
                     }
 
                 } else if (controller.checkCanSelectWhitePiece(position)) {
@@ -60,6 +70,36 @@ public class MouseControl {
             }
 
             if (computerTurn) {
+                kickScanner.calculateAllPossibleBlackKicks();
+
+                if (!kickScanner.getAllPossibleBlackKicks().isEmpty() && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
+
+                    if (kickScanner.getAllBlackPiecesWhichKick().contains(position)) {
+                        board.pickBlackPiece(position);
+                        pieceMoves.moveBlackAfterKick(position);
+
+                    } else if (controller.isFieldNull(position)
+                            && pieceMoves.getPossibleBlackPieceMovesAfterKick().contains(position)) {
+                        board.kickByBlack(position);
+                        playerTurn = true;
+                        computerTurn = false;
+                    }
+
+                } else if (controller.checkCanSelectBlackPiece(position)) {
+                    board.pickBlackPiece(position);
+                    pieceMoves.moveBlack(position);
+
+                } else if (controller.isFieldNull(position) && pieceMoves.getPossibleBlackPieceMoves().contains(position)) {
+                    board.moveBlackPiece(position);
+                    playerTurn = true;
+                    computerTurn = false;
+                }
+            }
+
+            System.out.println(pieceMoves.getPossibleWhitePieceMovesAfterKick());
+
+
+            /*if (computerTurn) {
                 kickScanner.calculateAllPossibleBlackKicks();
                 pieceMoves.allPossibleBlackMoves();
 
@@ -77,8 +117,6 @@ public class MouseControl {
                 } else {
                     PositionsPieces computerMove = computer.selectPosition(pieceMoves.getAllPossibleBlack());
 
-                    System.out.println(pieceMoves.getAllPossibleBlack());
-
                     board.pickBlackPiece(computerMove);
                     pieceMoves.moveBlack(computerMove);
 
@@ -88,7 +126,7 @@ public class MouseControl {
                     playerTurn = true;
                     computerTurn = false;
                 }
-            }
+            }*/
 
             // computer.computerMove(computerTurn, playerTurn, kickScanner, board, pieceMoves, controller);
 

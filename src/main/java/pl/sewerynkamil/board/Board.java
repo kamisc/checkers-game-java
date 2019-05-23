@@ -165,4 +165,7 @@ public class Board {
         return blackPieces;
     }
 
+    public PositionsPieces getPickedPiece() {
+        return pickedPiece;
+    }
 }
