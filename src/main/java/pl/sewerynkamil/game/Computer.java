@@ -45,6 +45,7 @@ public class Computer {
                     playerTurn = true;
                     computerTurn = false;
                 }
+
             } else {
                 PositionsPieces computerMove = selectPosition(pieceMoves.getAllPossibleBlack());
 

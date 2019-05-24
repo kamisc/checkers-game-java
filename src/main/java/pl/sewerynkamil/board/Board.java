@@ -83,10 +83,11 @@ public class Board {
         blackPieces.addPieceToMap(newPosition, new Piece(Piece.Color.BLACK));
 
         pickedPiece = null;
+        oldPosition = null;
     }
 
     public void kickByBlack(PositionsPieces newPosition){
-        addPieceOnBoard(newPosition, blackPieces.getBlackPieceImage());
+        // addPieceOnBoard(newPosition, blackPieces.getBlackPieceImage());
         removePieceFromBoard(oldPosition);
 
         blackPieces.removePieceFromMap(oldPosition);
@@ -99,6 +100,8 @@ public class Board {
         addLightPieceOnBoard(newPosition, blackPieces.getBlackLightPieceImage());
 
         pickedPiece = null;
+        oldPosition = null;
+        /*kickPosition = null;*/
     }
 
     public void pickWhitePiece(PositionsPieces actualPosition){
@@ -125,6 +128,7 @@ public class Board {
         whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE));
 
         pickedPiece = null;
+        // oldPosition = null;
     }
 
     public void kickByWhite(PositionsPieces newPosition){
@@ -142,6 +146,8 @@ public class Board {
         addLightPieceOnBoard(newPosition, whitePieces.getWhiteLightPieceImage());
 
         pickedPiece = null;
+        // oldPosition = null;
+        // kickPosition = null;
     }
 
     public void addPieceOnBoard(PositionsPieces position, Image piece){
