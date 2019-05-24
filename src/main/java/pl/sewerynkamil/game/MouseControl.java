@@ -72,6 +72,58 @@ public class MouseControl {
 
             if (computerTurn) {
                 kickScanner.calculateAllPossibleBlackKicks();
+                pieceMoves.allPossibleBlackMoves();
+
+                if (!kickScanner.getAllPossibleBlackKicks().isEmpty() && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
+                    PositionsPieces computerKick = computer.selectPosition(kickScanner.getAllBlackPiecesWhichKick());
+
+                    board.pickBlackPiece(computerKick);
+                    pieceMoves.moveBlackAfterKick(computerKick);
+
+                    computerKick = computer.selectPosition(pieceMoves.getPossibleBlackPieceMovesAfterKick());
+
+                    board.kickByBlack(computerKick);
+                    board.removePieceFromBoard(computerKick);
+
+                    pieceMoves.moveBlackAfterKick(computerKick);
+
+                    if(!pieceMoves.getPossibleBlackPieceMovesAfterKick().isEmpty()){
+                        board.pickBlackPiece(computerKick);
+                        board.kickByBlack(computerKick);
+                        pieceMoves.moveBlackAfterKick(computerKick);
+                    } else {
+                        board.removePieceFromBoard(computerKick);
+                        board.addPieceOnBoard(computerKick, board.getBlackPieces().getBlackPieceImage());
+                        playerTurn = true;
+                        computerTurn = false;
+                    }
+
+                } else {
+                    PositionsPieces computerMove = computer.selectPosition(pieceMoves.getAllPossibleBlack());
+
+                    board.pickBlackPiece(computerMove);
+                    pieceMoves.moveBlack(computerMove);
+
+                    computerMove = computer.selectPosition(pieceMoves.getPossibleBlackPieceMoves());
+
+                    board.moveBlackPiece(computerMove);
+                    playerTurn = true;
+                    computerTurn = false;
+                }
+            }
+
+            // computer.computerMove(computerTurn, playerTurn, kickScanner, board, pieceMoves, controller);
+
+        }
+    };
+
+    public EventHandler<MouseEvent> getMouseClick() {
+        return mouseClick;
+    }
+}
+
+/*if (computerTurn) {
+                kickScanner.calculateAllPossibleBlackKicks();
 
                 if (!kickScanner.getAllPossibleBlackKicks().isEmpty() && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
 
@@ -106,46 +158,4 @@ public class MouseControl {
                     playerTurn = true;
                     computerTurn = false;
                 }
-            }
-
-            System.out.println(pieceMoves.getPossibleWhitePieceMovesAfterKick());
-
-
-            /*if (computerTurn) {
-                kickScanner.calculateAllPossibleBlackKicks();
-                pieceMoves.allPossibleBlackMoves();
-
-                if (!kickScanner.getAllPossibleBlackKicks().isEmpty() && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
-                    PositionsPieces computerKick = computer.selectPosition(kickScanner.getAllBlackPiecesWhichKick());
-
-                    board.pickBlackPiece(computerKick);
-                    pieceMoves.moveBlackAfterKick(computerKick);
-
-                    computerKick = computer.selectPosition(pieceMoves.getPossibleBlackPieceMovesAfterKick());
-
-                    board.kickByBlack(computerKick);
-                    playerTurn = true;
-                    computerTurn = false;
-                } else {
-                    PositionsPieces computerMove = computer.selectPosition(pieceMoves.getAllPossibleBlack());
-
-                    board.pickBlackPiece(computerMove);
-                    pieceMoves.moveBlack(computerMove);
-
-                    computerMove = computer.selectPosition(pieceMoves.getPossibleBlackPieceMoves());
-
-                    board.moveBlackPiece(computerMove);
-                    playerTurn = true;
-                    computerTurn = false;
-                }
             }*/
-
-            // computer.computerMove(computerTurn, playerTurn, kickScanner, board, pieceMoves, controller);
-
-        }
-    };
-
-    public EventHandler<MouseEvent> getMouseClick() {
-        return mouseClick;
-    }
-}
