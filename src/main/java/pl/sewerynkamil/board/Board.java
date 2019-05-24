@@ -96,6 +96,8 @@ public class Board {
         removePieceFromBoard(kickPosition);
         whitePieces.removePieceFromMap(kickPosition);
 
+        addLightPieceOnBoard(newPosition, blackPieces.getBlackLightPieceImage());
+
         pickedPiece = null;
     }
 
