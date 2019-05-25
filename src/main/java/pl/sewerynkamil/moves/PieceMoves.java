@@ -207,6 +207,10 @@ public class PieceMoves {
     public Set<PositionsPieces> getAllPossibleBlack() {
         return allPossibleBlack;
     }
+
+    public Set<PositionsPieces> getAllPossibleWhiteQueen() {
+        return allPossibleWhiteQueen;
+    }
 }
 
 // Przerobić gettery - zmienna prywatna - wielokrotnie obliczanie pozycji - przy każdym wywołaniu w MouseControll

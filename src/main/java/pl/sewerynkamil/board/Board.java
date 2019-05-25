@@ -136,14 +136,28 @@ public class Board {
     }
 
     public void moveWhitePiece(PositionsPieces newPosition){
-        removePieceFromBoard(oldWhitePosition);
-        addPieceOnBoard(newPosition, whitePieces.getWhitePieceImage());
+        if(whitePieces.getPiece(oldWhitePosition).getPieceColor().isQueenWhite()){
+            removePieceFromBoard(oldWhitePosition);
+            addPieceOnBoard(newPosition, whitePieces.getWhiteCrownImage());
 
-        whitePieces.removePieceFromMap(oldWhitePosition);
-        whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE));
+            whitePieces.removePieceFromMap(oldWhitePosition);
+            whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.QUEEN_WHITE));
 
-        pickedWhitePiece = null;
-        oldWhitePosition = null;
+            pickedWhitePiece = null;
+            oldWhitePosition = null;
+        } else {
+            removePieceFromBoard(oldWhitePosition);
+            addPieceOnBoard(newPosition, whitePieces.getWhitePieceImage());
+
+            whitePieces.removePieceFromMap(oldWhitePosition);
+            whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE));
+
+            pickedWhitePiece = null;
+            oldWhitePosition = null;
+        }
+
+        /*pickedWhitePiece = null;
+        oldWhitePosition = null;*/
     }
 
     public void kickByWhite(PositionsPieces newPosition){

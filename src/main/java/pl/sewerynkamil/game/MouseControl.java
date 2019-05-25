@@ -19,6 +19,7 @@ public class MouseControl {
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
+    PositionsPieces queenPosition;
 
     public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, KickScanner kickScanner, Computer computer, Promote promote) {
         this.board = board;
@@ -37,9 +38,8 @@ public class MouseControl {
             if (playerTurn) {
                 kickScanner.calculateAllPossibleWhiteKicks();
 
-                // nowy obiekt pieceMoves - za kazdym razem
-
-                if (!kickScanner.getAllPossibleWhiteKicks().isEmpty() && !kickScanner.getAllPossibleWhiteMovesAfterKick().isEmpty()){
+                if (!kickScanner.getAllPossibleWhiteKicks().isEmpty()
+                        && !kickScanner.getAllPossibleWhiteMovesAfterKick().isEmpty()){
 
                     if (kickScanner.getAllWhitePiecesWhichKick().contains(position)) {
                         board.pickWhitePiece(position);
@@ -61,23 +61,39 @@ public class MouseControl {
                             board.addPieceOnBoard(position, board.getWhitePieces().getWhitePieceImage());
                             promote.promoteWhite();
                             playerTurn = false;
-                            computerTurn = true; // clear set
+                            computerTurn = true;
                             kickScanner.clear();
                             pieceMoves.clear();
                         }
                     }
 
-                } else if (controller.checkCanSelectWhitePiece(position)) {
-                    board.pickWhitePiece(position);
-                    pieceMoves.moveWhite(position);
+                } else {
+                    if (controller.checkCanSelectWhitePiece(position)) {
+                        board.pickWhitePiece(position);
+                        pieceMoves.moveWhite(position);
+                        pieceMoves.queenMoves(position);
 
-                } else if (controller.isFieldNull(position) && pieceMoves.getPossibleWhitePieceMoves().contains(position)) {
-                    board.moveWhitePiece(position);
-                    promote.promoteWhite();
-                    playerTurn = false;
-                    computerTurn = true;
-                    kickScanner.clear();
-                    pieceMoves.clear();
+                        queenPosition = position;
+
+                    } else if(controller.isFieldNull(position)
+                            && pieceMoves.getAllPossibleWhiteQueen().contains(position)
+                            && board.getWhitePieces().getPiece(queenPosition).getPieceColor().isQueenWhite()){
+
+                        System.out.println(queenPosition);
+                        board.moveWhitePiece(position);
+                        playerTurn = false;
+                        computerTurn = true;
+                        kickScanner.clear();
+                        pieceMoves.clear();
+
+                    } else if (controller.isFieldNull(position) && pieceMoves.getPossibleWhitePieceMoves().contains(position)) {
+                        board.moveWhitePiece(position);
+                        promote.promoteWhite();
+                        playerTurn = false;
+                        computerTurn = true;
+                        kickScanner.clear();
+                        pieceMoves.clear();
+                    }
                 }
             }
 
