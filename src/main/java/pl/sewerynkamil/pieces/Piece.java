@@ -3,7 +3,7 @@ package pl.sewerynkamil.pieces;
 public class Piece {
 
     public enum Color{
-        BLACK, WHITE, KING_BLACK, KING_WHITE;
+        BLACK, WHITE, QUEEN_BLACK, QUEEN_WHITE;
 
         public boolean isWhite(){
             return this == WHITE;
@@ -11,6 +11,14 @@ public class Piece {
 
         public boolean isBlack(){
             return this == BLACK;
+        }
+
+        public boolean isQueenBlack(){
+            return this == QUEEN_BLACK;
+        }
+
+        public boolean isQueenWhite(){
+            return this == QUEEN_WHITE;
         }
     }
 

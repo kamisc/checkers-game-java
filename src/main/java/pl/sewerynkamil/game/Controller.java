@@ -1,7 +1,6 @@
 package pl.sewerynkamil.game;
 
 import pl.sewerynkamil.board.Board;
-import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 public class Controller {
@@ -27,8 +26,6 @@ public class Controller {
         return !board.getBlackPieces().getBlackPiecesMap().containsKey(newPosition) &&
                 !board.getWhitePieces().getWhitePiecesMap().containsKey(newPosition);
     }
-
-
 
 }
 

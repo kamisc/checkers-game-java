@@ -106,37 +106,32 @@ public class Board {
     }
 
     public void pickWhitePiece(PositionsPieces actualPosition){
-
-        if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceColor() == Piece.Color.KING_WHITE){
-            addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightCrownImage());
-        } else {
-            addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
-        }
-
-        if(pickedWhitePiece != null){
-            if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceColor() == Piece.Color.KING_WHITE){
-                removePieceFromBoard(oldWhitePosition);
-                addPieceOnBoard(oldWhitePosition, whitePieces.getWhiteLightCrownImage());
-
-
-
-                if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceColor() == Piece.Color.KING_WHITE){
-                    addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightCrownImage());
-                } else {
-                    addLightPieceOnBoard(actualPosition, whitePieces.getWhitePieceImage());
-                }
-
+        if(pickedWhitePiece != null) {
+            if(whitePieces.getWhitePiecesMap().get(oldWhitePosition).getPieceColor() == Piece.Color.QUEEN_WHITE){
+                addLightPieceOnBoard(oldWhitePosition, whitePieces.getWhiteCrownImage());
             } else {
-                removePieceFromBoard(oldWhitePosition);
-                addPieceOnBoard(oldWhitePosition, whitePieces.getWhitePieceImage());
+                addLightPieceOnBoard(oldWhitePosition, whitePieces.getWhitePieceImage());
+            }
+
+            if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceColor() == Piece.Color.QUEEN_WHITE){
+                addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightCrownImage());
+            } else {
                 addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
             }
 
-            pickedWhitePiece = null;
-        }
+            pickedWhitePiece = actualPosition;
+            oldWhitePosition = actualPosition;
 
-        pickedWhitePiece = actualPosition;
-        oldWhitePosition = actualPosition;
+        } else {
+            if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceColor() == Piece.Color.QUEEN_WHITE){
+                addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightCrownImage());
+            } else {
+                addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
+            }
+
+            pickedWhitePiece = actualPosition;
+            oldWhitePosition = actualPosition;
+        }
 
     }
 

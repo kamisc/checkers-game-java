@@ -64,7 +64,6 @@ public class MouseControl {
                             computerTurn = true; // clear set
                             kickScanner.clear();
                             pieceMoves.clear();
-
                         }
                     }
 
@@ -132,8 +131,6 @@ public class MouseControl {
                 } while(computerTurn);
             }
 
-            System.out.println(board.getPickedWhitePiece());
-            System.out.println(board.getOldWhitePosition());
         }
     };
 

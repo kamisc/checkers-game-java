@@ -38,10 +38,7 @@ public class WhitePieces implements PieceInterface {
     @Override
     public void setUpPieces(Board board){
 
-        whitePiecesMap.put(new PositionsPieces(1,3), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(3,3), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(5,3), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(7,3), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(5,1), new Piece(Piece.Color.WHITE));
 
         /*whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(3,5), new Piece(Piece.Color.WHITE));

@@ -39,10 +39,10 @@ public class BlackPieces implements PieceInterface {
     @Override
     public void setUpPieces(Board board){
 
-        blackPiecesMap.put(new PositionsPieces(0,5), new Piece(Piece.Color.BLACK));
-        blackPiecesMap.put(new PositionsPieces(2,5), new Piece(Piece.Color.BLACK));
-        blackPiecesMap.put(new PositionsPieces(4,5), new Piece(Piece.Color.BLACK));
-        blackPiecesMap.put(new PositionsPieces(6,5), new Piece(Piece.Color.BLACK));
+        blackPiecesMap.put(new PositionsPieces(0,4), new Piece(Piece.Color.BLACK));
+        blackPiecesMap.put(new PositionsPieces(2,4), new Piece(Piece.Color.BLACK));
+        blackPiecesMap.put(new PositionsPieces(4,4), new Piece(Piece.Color.BLACK));
+        blackPiecesMap.put(new PositionsPieces(6,4), new Piece(Piece.Color.BLACK));
 
         /*blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(2,0), new Piece(Piece.Color.BLACK));
