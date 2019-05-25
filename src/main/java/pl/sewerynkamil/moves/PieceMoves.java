@@ -149,6 +149,17 @@ public class PieceMoves {
         return possibleWhitePieceMovesAfterKick;
     }
 
+    public void clear(){
+        possibleBlackPieceMoves.clear();
+        possibleWhitePieceMoves.clear();
+
+        possibleBlackPieceMovesAfterKick.clear();
+        possibleWhitePieceMovesAfterKick.clear();
+
+        allPossibleBlack.clear();
+        allPossibleWhite.clear();
+    }
+
     // King moves - later
 
     public Set<PositionsPieces> getPossibleBlackPieceMoves() {
@@ -172,3 +183,4 @@ public class PieceMoves {
     }
 }
 
+// Przerobić gettery - zmienna prywatna - wielokrotnie obliczanie pozycji - przy każdym wywołaniu w MouseControll

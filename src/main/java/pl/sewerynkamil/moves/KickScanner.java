@@ -12,6 +12,8 @@ import java.util.Set;
 
 public class KickScanner {
 
+    // Zdefiniować jako metoda, która zwraca
+
     private Board board;
     private Controller controller;
     private WhitePieces whitePieces;
@@ -124,6 +126,15 @@ public class KickScanner {
         allPossibleWhiteMovesAfterKick.removeAll(board.getWhitePieces().getWhitePiecesMap().keySet());
     }
 
+    public void clear(){
+        allPossibleBlackKicks.clear();
+        allPossibleWhiteKicks.clear();
+        allBlackPiecesWhichKick.clear();
+        allWhitePiecesWhichKick.clear();
+        allPossibleBlackMovesAfterKick.clear();
+        allPossibleWhiteMovesAfterKick.clear();
+    }
+
     public Set<PositionsPieces> getAllPossibleBlackKicks() {
         return allPossibleBlackKicks;
     }
@@ -148,3 +159,4 @@ public class KickScanner {
         return allWhitePiecesWhichKick;
     }
 }
+

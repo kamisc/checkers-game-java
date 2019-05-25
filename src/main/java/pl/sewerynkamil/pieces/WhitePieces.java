@@ -13,6 +13,7 @@ public class WhitePieces implements PieceInterface {
 
     private Map<PositionsPieces, Piece> whitePiecesMap = new HashMap<>();
 
+    @Override
     public Piece getPiece(PositionsPieces position){
         return whitePiecesMap.get(position);
     }

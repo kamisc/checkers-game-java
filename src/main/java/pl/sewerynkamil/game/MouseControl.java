@@ -7,7 +7,6 @@ import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.PieceMoves;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
-
 public class MouseControl {
 
     private Board board;
@@ -35,6 +34,8 @@ public class MouseControl {
             if (playerTurn) {
                 kickScanner.calculateAllPossibleWhiteKicks();
 
+                // nowy obiekt pieceMoves - za kazdym razem
+
                 if (!kickScanner.getAllPossibleWhiteKicks().isEmpty() && !kickScanner.getAllPossibleWhiteMovesAfterKick().isEmpty()){
 
                     if (kickScanner.getAllWhitePiecesWhichKick().contains(position)) {
@@ -42,7 +43,8 @@ public class MouseControl {
                         pieceMoves.moveWhiteAfterKick(position);
 
                     } else if (controller.isFieldNull(position)
-                            && pieceMoves.getPossibleWhitePieceMovesAfterKick().contains(position)) {
+                            /*&& pieceMoves.getPossibleWhitePieceMovesAfterKick().contains(position)*/) {
+
                         board.kickByWhite(position);
                         pieceMoves.moveWhiteAfterKick(position);
 
@@ -55,7 +57,8 @@ public class MouseControl {
                             board.removePieceFromBoard(position);
                             board.addPieceOnBoard(position, board.getWhitePieces().getWhitePieceImage());
                             playerTurn = false;
-                            computerTurn = true;
+                            computerTurn = true; // clear set
+                            pieceMoves.clear();
                         }
                     }
 
@@ -67,54 +70,55 @@ public class MouseControl {
                     board.moveWhitePiece(position);
                     playerTurn = false;
                     computerTurn = true;
+                    pieceMoves.clear();
                 }
             }
 
             if (computerTurn) {
-                kickScanner.calculateAllPossibleBlackKicks();
-                pieceMoves.allPossibleBlackMoves();
+                do {
+                    kickScanner.calculateAllPossibleBlackKicks();
+                    pieceMoves.allPossibleBlackMoves();
 
-                if (!kickScanner.getAllPossibleBlackKicks().isEmpty() && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
-                    PositionsPieces computerKick = computer.selectPosition(kickScanner.getAllBlackPiecesWhichKick());
+                    if (!kickScanner.getAllPossibleBlackKicks().isEmpty() && !kickScanner.getAllPossibleBlackMovesAfterKick().isEmpty()) {
+                        PositionsPieces computerKick = computer.selectPosition(kickScanner.getAllBlackPiecesWhichKick());
 
-                    board.pickBlackPiece(computerKick);
-                    pieceMoves.moveBlackAfterKick(computerKick);
-
-                    computerKick = computer.selectPosition(pieceMoves.getPossibleBlackPieceMovesAfterKick());
-
-                    board.kickByBlack(computerKick);
-                    board.removePieceFromBoard(computerKick);
-
-                    pieceMoves.moveBlackAfterKick(computerKick);
-
-                    if(!pieceMoves.getPossibleBlackPieceMovesAfterKick().isEmpty()){
                         board.pickBlackPiece(computerKick);
-                        board.kickByBlack(computerKick);
                         pieceMoves.moveBlackAfterKick(computerKick);
-                    } else {
+
+                        computerKick = computer.selectPosition(pieceMoves.getPossibleBlackPieceMovesAfterKick());
+
+                        board.kickByBlack(computerKick);
                         board.removePieceFromBoard(computerKick);
-                        board.addPieceOnBoard(computerKick, board.getBlackPieces().getBlackPieceImage());
+
+                        pieceMoves.moveBlackAfterKick(computerKick);
+
+                        if (!pieceMoves.getPossibleBlackPieceMovesAfterKick().isEmpty()) {
+                            board.pickBlackPiece(computerKick);
+                            board.kickByBlack(computerKick);
+                            pieceMoves.moveBlackAfterKick(computerKick);
+                        } else {
+                            board.removePieceFromBoard(computerKick);
+                            board.addPieceOnBoard(computerKick, board.getBlackPieces().getBlackPieceImage());
+                            playerTurn = true;
+                            computerTurn = false;
+                            pieceMoves.clear();
+                        }
+
+                    } else {
+                        PositionsPieces computerMove = computer.selectPosition(pieceMoves.getAllPossibleBlack());
+
+                        board.pickBlackPiece(computerMove);
+                        pieceMoves.moveBlack(computerMove);
+
+                        computerMove = computer.selectPosition(pieceMoves.getPossibleBlackPieceMoves());
+
+                        board.moveBlackPiece(computerMove);
                         playerTurn = true;
                         computerTurn = false;
+                        pieceMoves.clear();
                     }
-
-                } else {
-                    PositionsPieces computerMove = computer.selectPosition(pieceMoves.getAllPossibleBlack());
-
-                    board.pickBlackPiece(computerMove);
-                    pieceMoves.moveBlack(computerMove);
-
-                    computerMove = computer.selectPosition(pieceMoves.getPossibleBlackPieceMoves());
-
-                    board.moveBlackPiece(computerMove);
-                    playerTurn = true;
-                    computerTurn = false;
-                }
+                } while(computerTurn);
             }
-
-            // computer.computerMove(computerTurn, playerTurn, kickScanner, board, pieceMoves, controller);
-
-
         }
     };
 
@@ -147,6 +151,7 @@ public class MouseControl {
                             board.addPieceOnBoard(position, board.getBlackPieces().getBlackPieceImage());
                             playerTurn = true;
                             computerTurn = false;
+                            pieceMoves.clear();
                         }
                     }
 
@@ -158,5 +163,6 @@ public class MouseControl {
                     board.moveBlackPiece(position);
                     playerTurn = true;
                     computerTurn = false;
+                    pieceMoves.clear();
                 }
             }*/
