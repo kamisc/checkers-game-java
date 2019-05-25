@@ -72,14 +72,16 @@ public class MouseControl {
                         board.pickWhitePiece(position);
                         pieceMoves.moveWhite(position);
                         pieceMoves.queenMoves(position);
+                        kickScanner.calculateAllPossibleWhiteQueenKicks(pieceMoves.getAllPossibleWhiteQueen());
 
+                        System.out.println(kickScanner.getAllWhiteQueenKicks());
                         queenPosition = position;
 
                     } else if(controller.isFieldNull(position)
                             && pieceMoves.getAllPossibleWhiteQueen().contains(position)
                             && board.getWhitePieces().getPiece(queenPosition).getPieceColor().isQueenWhite()){
 
-                        System.out.println(queenPosition);
+
                         board.moveWhitePiece(position);
                         playerTurn = false;
                         computerTurn = true;

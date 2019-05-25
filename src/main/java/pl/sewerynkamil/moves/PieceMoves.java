@@ -160,6 +160,8 @@ public class PieceMoves {
 
         allPossibleBlack.clear();
         allPossibleWhite.clear();
+
+        getAllPossibleWhiteQueen().clear();
     }
 
     public void queenMoves(PositionsPieces actualPosition){
@@ -170,19 +172,19 @@ public class PieceMoves {
             PositionsPieces downLeft = new PositionsPieces(actualPosition.getCol() + i, actualPosition.getRow() + i);
             PositionsPieces downRight = new PositionsPieces(actualPosition.getCol() - i, actualPosition.getRow() + i);
 
-            if (upLeft.isValidPosition() && controller.isFieldNull(upLeft)) {
+            if (upLeft.isValidPosition() /*&& controller.isFieldNull(upLeft)*/) {
                 allPossibleWhiteQueen.add(upLeft);
             }
 
-            if (upRight.isValidPosition() && controller.isFieldNull(upRight)) {
+            if (upRight.isValidPosition() /*&& controller.isFieldNull(upRight)*/) {
                 allPossibleWhiteQueen.add(upRight);
             }
 
-            if (downLeft.isValidPosition() && controller.isFieldNull(downLeft)) {
+            if (downLeft.isValidPosition() /*&& controller.isFieldNull(downLeft)*/) {
                 allPossibleWhiteQueen.add(downLeft);
             }
 
-            if (downRight.isValidPosition() && controller.isFieldNull(downRight)) {
+            if (downRight.isValidPosition() /*&& controller.isFieldNull(downRight)*/) {
                 allPossibleWhiteQueen.add(downRight);
             }
         }

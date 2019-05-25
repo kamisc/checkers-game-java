@@ -27,6 +27,8 @@ public class KickScanner {
     private Set<PositionsPieces> allBlackPiecesWhichKick = new HashSet<>();
     private Set<PositionsPieces> allWhitePiecesWhichKick = new HashSet<>();
 
+    private Set<PositionsPieces> allWhiteQueenKicks = new HashSet<>();
+
     public KickScanner(Board board, Controller controller) {
         this.board = board;
         this.controller = controller;
@@ -126,11 +128,38 @@ public class KickScanner {
         allPossibleWhiteMovesAfterKick.removeAll(board.getWhitePieces().getWhitePiecesMap().keySet());
     }
 
+    public void calculateAllPossibleWhiteQueenKicks(Set<PositionsPieces> positions){
+        for(PositionsPieces position : board.getBlackPieces().getBlackPiecesMap().keySet()){
+            if(positions.contains(position)
+                    && controller.isFieldNull(new PositionsPieces(position.getCol() - 1, position.getRow() - 1))){
+                allWhiteQueenKicks.add(position);
+            }
+
+            if(positions.contains(position)
+                    && controller.isFieldNull(new PositionsPieces(position.getCol() + 1, position.getRow() - 1))){
+                allWhiteQueenKicks.add(position);
+            }
+
+            if(positions.contains(position)
+                    && controller.isFieldNull(new PositionsPieces(position.getCol() - 1, position.getRow() + 1))){
+                allWhiteQueenKicks.add(position);
+            }
+
+            if(positions.contains(position)
+                    && controller.isFieldNull(new PositionsPieces(position.getCol() + 1, position.getRow() + 1))){
+                allWhiteQueenKicks.add(position);
+            }
+        }
+    }
+
+
     public void clear(){
         allPossibleBlackKicks.clear();
         allPossibleWhiteKicks.clear();
+
         allBlackPiecesWhichKick.clear();
         allWhitePiecesWhichKick.clear();
+
         allPossibleBlackMovesAfterKick.clear();
         allPossibleWhiteMovesAfterKick.clear();
     }
@@ -157,6 +186,10 @@ public class KickScanner {
 
     public Set<PositionsPieces> getAllWhitePiecesWhichKick() {
         return allWhitePiecesWhichKick;
+    }
+
+    public Set<PositionsPieces> getAllWhiteQueenKicks() {
+        return allWhiteQueenKicks;
     }
 }
 
