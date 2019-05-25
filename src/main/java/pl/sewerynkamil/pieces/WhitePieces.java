@@ -10,6 +10,8 @@ public class WhitePieces implements PieceInterface {
 
     private Image whitePieceImage = new Image("file:resources/white-piece.png");
     private Image whiteLightPieceImage = new Image("file:resources/white-piece-light.png");
+    private Image whiteCrownImage = new Image("file:resources/white-piece-crown.png");
+    private Image whiteLightCrownImage = new Image("file:resources/white-piece-light-crown.png");
 
     private Map<PositionsPieces, Piece> whitePiecesMap = new HashMap<>();
 
@@ -35,7 +37,13 @@ public class WhitePieces implements PieceInterface {
 
     @Override
     public void setUpPieces(Board board){
-        whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE));
+
+        whitePiecesMap.put(new PositionsPieces(1,3), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(3,3), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(5,3), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(7,3), new Piece(Piece.Color.WHITE));
+
+        /*whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(3,5), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(5,5), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(7,5), new Piece(Piece.Color.WHITE));
@@ -48,7 +56,7 @@ public class WhitePieces implements PieceInterface {
         whitePiecesMap.put(new PositionsPieces(1,7), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(3,7), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(5,7), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE));*/
 
         for(Map.Entry<PositionsPieces, Piece> whitePiece : whitePiecesMap.entrySet()){
             board.addPieceOnBoard(whitePiece.getKey(), whitePieceImage);
@@ -61,6 +69,14 @@ public class WhitePieces implements PieceInterface {
 
     public Image getWhiteLightPieceImage() {
         return whiteLightPieceImage;
+    }
+
+    public Image getWhiteCrownImage() {
+        return whiteCrownImage;
+    }
+
+    public Image getWhiteLightCrownImage() {
+        return whiteLightCrownImage;
     }
 
     public Map<PositionsPieces, Piece> getWhitePiecesMap() {

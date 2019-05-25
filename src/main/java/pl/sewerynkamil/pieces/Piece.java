@@ -24,4 +24,10 @@ public class Piece {
         return pieceColor;
     }
 
+    @Override
+    public String toString() {
+        return "Piece{" +
+                "pieceColor=" + pieceColor +
+                '}';
+    }
 }

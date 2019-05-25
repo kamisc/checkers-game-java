@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.PieceMoves;
+import pl.sewerynkamil.moves.Promote;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 public class MouseControl {
@@ -14,16 +15,18 @@ public class MouseControl {
     private PieceMoves pieceMoves;
     private KickScanner kickScanner;
     private Computer computer;
+    Promote promote;
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
 
-    public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, KickScanner kickScanner, Computer computer) {
+    public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, KickScanner kickScanner, Computer computer, Promote promote) {
         this.board = board;
         this.controller = controller;
         this.pieceMoves = pieceMoves;
         this.kickScanner = kickScanner;
         this.computer = computer;
+        this.promote = promote;
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
@@ -56,10 +59,12 @@ public class MouseControl {
                         } else {
                             board.removePieceFromBoard(position);
                             board.addPieceOnBoard(position, board.getWhitePieces().getWhitePieceImage());
+                            promote.promoteWhite();
                             playerTurn = false;
                             computerTurn = true; // clear set
                             kickScanner.clear();
                             pieceMoves.clear();
+
                         }
                     }
 
@@ -69,6 +74,7 @@ public class MouseControl {
 
                 } else if (controller.isFieldNull(position) && pieceMoves.getPossibleWhitePieceMoves().contains(position)) {
                     board.moveWhitePiece(position);
+                    promote.promoteWhite();
                     playerTurn = false;
                     computerTurn = true;
                     kickScanner.clear();
@@ -101,6 +107,7 @@ public class MouseControl {
                         } else {
                             board.removePieceFromBoard(computerKick);
                             board.addPieceOnBoard(computerKick, board.getBlackPieces().getBlackPieceImage());
+                            promote.promoteBlack();
                             playerTurn = true;
                             computerTurn = false;
                             kickScanner.clear();
@@ -116,6 +123,7 @@ public class MouseControl {
                         computerMove = computer.selectPosition(pieceMoves.getPossibleBlackPieceMoves());
 
                         board.moveBlackPiece(computerMove);
+                        promote.promoteBlack();
                         playerTurn = true;
                         computerTurn = false;
                         kickScanner.clear();
@@ -124,9 +132,8 @@ public class MouseControl {
                 } while(computerTurn);
             }
 
-            System.out.println(board.getBlackPieces().getBlackPiecesMap().keySet().size());
-            System.out.println(board.getWhitePieces().getWhitePiecesMap().keySet().size());
-
+            System.out.println(board.getPickedWhitePiece());
+            System.out.println(board.getOldWhitePosition());
         }
     };
 

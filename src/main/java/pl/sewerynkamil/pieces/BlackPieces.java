@@ -10,6 +10,9 @@ public class BlackPieces implements PieceInterface {
 
     private Image blackPieceImage = new Image("file:resources/black-piece.png");
     private Image blackLightPieceImage = new Image("file:resources/black-piece-light.png");
+    private Image blackCrownImage = new Image("file:resources/black-piece-crown.png");
+    private Image blackLightCrownImage = new Image("file:resources/black-piece-light-crown.png");
+
 
     private Map<PositionsPieces, Piece> blackPiecesMap = new HashMap<>();
 
@@ -35,7 +38,13 @@ public class BlackPieces implements PieceInterface {
 
     @Override
     public void setUpPieces(Board board){
-        blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK));
+
+        blackPiecesMap.put(new PositionsPieces(0,5), new Piece(Piece.Color.BLACK));
+        blackPiecesMap.put(new PositionsPieces(2,5), new Piece(Piece.Color.BLACK));
+        blackPiecesMap.put(new PositionsPieces(4,5), new Piece(Piece.Color.BLACK));
+        blackPiecesMap.put(new PositionsPieces(6,5), new Piece(Piece.Color.BLACK));
+
+        /*blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(2,0), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(4,0), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(6,0), new Piece(Piece.Color.BLACK));
@@ -48,7 +57,7 @@ public class BlackPieces implements PieceInterface {
         blackPiecesMap.put(new PositionsPieces(0,2), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(2,2), new Piece(Piece.Color.BLACK));
         blackPiecesMap.put(new PositionsPieces(4,2), new Piece(Piece.Color.BLACK));
-        blackPiecesMap.put(new PositionsPieces(6,2), new Piece(Piece.Color.BLACK));
+        blackPiecesMap.put(new PositionsPieces(6,2), new Piece(Piece.Color.BLACK));*/
 
         for(Map.Entry<PositionsPieces, Piece> blackPiece : blackPiecesMap.entrySet()){
             board.addPieceOnBoard(blackPiece.getKey(), blackPieceImage);
@@ -61,6 +70,14 @@ public class BlackPieces implements PieceInterface {
 
     public Image getBlackLightPieceImage() {
         return blackLightPieceImage;
+    }
+
+    public Image getBlackCrownImage() {
+        return blackCrownImage;
+    }
+
+    public Image getBlackLightCrownImage() {
+        return blackLightCrownImage;
     }
 
     public Map<PositionsPieces, Piece> getBlackPiecesMap() {

@@ -106,11 +106,31 @@ public class Board {
     }
 
     public void pickWhitePiece(PositionsPieces actualPosition){
-        if(pickedWhitePiece != null){
-            removePieceFromBoard(oldWhitePosition);
-            addPieceOnBoard(oldWhitePosition, whitePieces.getWhitePieceImage());
 
+        if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceColor() == Piece.Color.KING_WHITE){
+            addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightCrownImage());
+        } else {
             addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
+        }
+
+        if(pickedWhitePiece != null){
+            if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceColor() == Piece.Color.KING_WHITE){
+                removePieceFromBoard(oldWhitePosition);
+                addPieceOnBoard(oldWhitePosition, whitePieces.getWhiteLightCrownImage());
+
+
+
+                if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceColor() == Piece.Color.KING_WHITE){
+                    addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightCrownImage());
+                } else {
+                    addLightPieceOnBoard(actualPosition, whitePieces.getWhitePieceImage());
+                }
+
+            } else {
+                removePieceFromBoard(oldWhitePosition);
+                addPieceOnBoard(oldWhitePosition, whitePieces.getWhitePieceImage());
+                addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
+            }
 
             pickedWhitePiece = null;
         }
@@ -118,7 +138,6 @@ public class Board {
         pickedWhitePiece = actualPosition;
         oldWhitePosition = actualPosition;
 
-        addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
     }
 
     public void moveWhitePiece(PositionsPieces newPosition){
@@ -173,5 +192,13 @@ public class Board {
 
     public BlackPieces getBlackPieces() {
         return blackPieces;
+    }
+
+    public PositionsPieces getOldWhitePosition() {
+        return oldWhitePosition;
+    }
+
+    public PositionsPieces getPickedWhitePiece() {
+        return pickedWhitePiece;
     }
 }
