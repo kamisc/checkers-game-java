@@ -27,5 +27,11 @@ public class Controller {
                 !board.getWhitePieces().getWhitePiecesMap().containsKey(newPosition);
     }
 
+/*
+    public boolean checkPromote(PositionsPieces positon){
+
+    }
+*/
+
 }
 

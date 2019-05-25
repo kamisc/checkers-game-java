@@ -43,7 +43,7 @@ public class MouseControl {
                         pieceMoves.moveWhiteAfterKick(position);
 
                     } else if (controller.isFieldNull(position)
-                            /*&& pieceMoves.getPossibleWhitePieceMovesAfterKick().contains(position)*/) {
+                        && pieceMoves.getPossibleWhitePieceMovesAfterKick().contains(position)) {
 
                         board.kickByWhite(position);
                         pieceMoves.moveWhiteAfterKick(position);
@@ -58,6 +58,7 @@ public class MouseControl {
                             board.addPieceOnBoard(position, board.getWhitePieces().getWhitePieceImage());
                             playerTurn = false;
                             computerTurn = true; // clear set
+                            kickScanner.clear();
                             pieceMoves.clear();
                         }
                     }
@@ -70,6 +71,7 @@ public class MouseControl {
                     board.moveWhitePiece(position);
                     playerTurn = false;
                     computerTurn = true;
+                    kickScanner.clear();
                     pieceMoves.clear();
                 }
             }
@@ -101,6 +103,7 @@ public class MouseControl {
                             board.addPieceOnBoard(computerKick, board.getBlackPieces().getBlackPieceImage());
                             playerTurn = true;
                             computerTurn = false;
+                            kickScanner.clear();
                             pieceMoves.clear();
                         }
 
@@ -115,10 +118,15 @@ public class MouseControl {
                         board.moveBlackPiece(computerMove);
                         playerTurn = true;
                         computerTurn = false;
+                        kickScanner.clear();
                         pieceMoves.clear();
                     }
                 } while(computerTurn);
             }
+
+            System.out.println(board.getBlackPieces().getBlackPiecesMap().keySet().size());
+            System.out.println(board.getWhitePieces().getWhitePiecesMap().keySet().size());
+
         }
     };
 
