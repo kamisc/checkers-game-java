@@ -3,6 +3,7 @@ package pl.sewerynkamil.game;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import pl.sewerynkamil.board.Board;
+import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.NormalMoves;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
@@ -13,14 +14,16 @@ public class MouseControl {
     private PositionsPieces pickedPosition;
 
     private NormalMoves normalMoves;
+    private KickScanner kickScanner;
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
     private boolean isPicked = false;
 
-    public MouseControl(Board board, NormalMoves normalMoves) {
+    public MouseControl(Board board, NormalMoves normalMoves, KickScanner kickScanner) {
         this.board = board;
         this.normalMoves = normalMoves;
+        this.kickScanner = kickScanner;
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
@@ -33,6 +36,12 @@ public class MouseControl {
             }
 
             if(playerTurn){
+
+                kickScanner.clear();
+
+                kickScanner.calculateAllPossibleWhiteKicks();
+                System.out.println(kickScanner.getAllPiecesWhichKick());
+
                 if(isPicked){
                     // Change pick piece
                     if(!pickedPosition.equals(clickPosition)
@@ -42,7 +51,7 @@ public class MouseControl {
                         board.pickPiece(pickedPosition, false);
                         pickedPosition = clickPosition;
                         board.pickPiece(clickPosition, true);
-                        normalMoves.moveCalculator(clickPosition, true);
+                        normalMoves.normalMoveCalculator(clickPosition, true);
 
                         // Move piece
                     } else if(normalMoves.getPossibleMoves().contains(clickPosition)) {
@@ -53,9 +62,10 @@ public class MouseControl {
                         isPicked = false;
                         playerTurn = false;
                         computerTurn = true;
+
                     }
                 } else {
-                    // Pick new piece
+                    // Pick first piece
                     if(!board.isFieldNull(clickPosition)
                             && board.getPiece(clickPosition).getPieceColor() == Piece.Color.WHITE){
 
@@ -63,12 +73,16 @@ public class MouseControl {
 
                         pickedPosition = clickPosition;
                         board.pickPiece(clickPosition, true);
-                        normalMoves.moveCalculator(clickPosition, true);
+                        normalMoves.normalMoveCalculator(clickPosition, true);
                     }
                 }
             }
 
             if(computerTurn){
+                kickScanner.clear();
+
+                kickScanner.calculateAllPossibleBlackKicks();
+
                 if(isPicked){
                     // Change pick piece
                     if(!pickedPosition.equals(clickPosition)
@@ -78,7 +92,7 @@ public class MouseControl {
                         board.pickPiece(pickedPosition, false);
                         pickedPosition = clickPosition;
                         board.pickPiece(clickPosition, true);
-                        normalMoves.moveCalculator(clickPosition, false);
+                        normalMoves.normalMoveCalculator(clickPosition, false);
 
                     // Move piece
                     } else if(normalMoves.getPossibleMoves().contains(clickPosition)) {
@@ -89,9 +103,10 @@ public class MouseControl {
                         isPicked = false;
                         playerTurn = true;
                         computerTurn = false;
+                        kickScanner.clear();
                     }
                 } else {
-                    // Pick new piece
+                    // Pick first piece
                     if(!board.isFieldNull(clickPosition)
                             && board.getPiece(clickPosition).getPieceColor() == Piece.Color.BLACK){
 
@@ -99,7 +114,7 @@ public class MouseControl {
 
                         pickedPosition = clickPosition;
                         board.pickPiece(clickPosition, true);
-                        normalMoves.moveCalculator(clickPosition, false);
+                        normalMoves.normalMoveCalculator(clickPosition, false);
                     }
                 }
             }

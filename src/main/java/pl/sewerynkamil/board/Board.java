@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import pl.sewerynkamil.game.MouseControl;
 import pl.sewerynkamil.game.Resources;
+import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.NormalMoves;
 import pl.sewerynkamil.pieces.BlackPieces;
 import pl.sewerynkamil.pieces.Piece;
@@ -26,6 +27,7 @@ public class Board {
 
     private MouseControl mouseControl;
     private NormalMoves normalMoves = new NormalMoves(this);
+    private KickScanner kickScanner = new KickScanner(this);
 
     private BlackPieces blackPieces = new BlackPieces();
     private WhitePieces whitePieces = new WhitePieces();
@@ -42,7 +44,7 @@ public class Board {
             addPiece(pieces.getKey(), pieces.getValue(), false);
         }
 
-        mouseControl = new MouseControl(this, normalMoves);
+        mouseControl = new MouseControl(this, normalMoves, kickScanner);
     }
 
     public Background createBoardBackground(){
@@ -115,6 +117,10 @@ public class Board {
 
     public GridPane getGrid() {
         return grid;
+    }
+
+    public Map<PositionsPieces, Piece> getBoard() {
+        return board;
     }
 
     public MouseControl getMouseControl() {
