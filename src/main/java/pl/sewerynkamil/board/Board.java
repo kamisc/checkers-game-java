@@ -6,21 +6,25 @@ import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import pl.sewerynkamil.game.Resources;
 import pl.sewerynkamil.pieces.BlackPieces;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 import pl.sewerynkamil.pieces.WhitePieces;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Board {
 
     private GridPane grid = new GridPane();
     private Background background;
-    private Image imageBoard = new Image("file:resources/board.jpg");
+    private Image imageBoard = new Image(Resources.getPath("board.jpg"));
 
     private BlackPieces blackPieces = new BlackPieces();
     private WhitePieces whitePieces = new WhitePieces();
+    private Map<PositionsPieces, Piece> board= new HashMap<>();
 
     private PositionsPieces oldBlackPosition;
     private PositionsPieces pickedBlackPiece;
@@ -33,8 +37,13 @@ public class Board {
     public Board(){
         createBoardBackground();
         createBoardLayout();
-        whitePieces.setUpPieces(this);
-        blackPieces.setUpPieces(this);
+
+        board.putAll(whitePieces.setUpPieces());
+        board.putAll(blackPieces.setUpPieces());
+
+        for(Map.Entry<PositionsPieces, Piece> pieces : board.entrySet()){
+            addPieceOnBoard();
+        }
     }
 
     public Background createBoardBackground(){

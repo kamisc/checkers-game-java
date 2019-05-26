@@ -1,7 +1,6 @@
 package pl.sewerynkamil.pieces;
 
 import javafx.scene.image.Image;
-import pl.sewerynkamil.board.Board;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,8 +35,7 @@ public class WhitePieces implements PieceInterface {
     }
 
     @Override
-    public void setUpPieces(Board board){
-
+    public Map<PositionsPieces, Piece> setUpPieces(){
         whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(3,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(5,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
@@ -53,9 +51,7 @@ public class WhitePieces implements PieceInterface {
         whitePiecesMap.put(new PositionsPieces(5,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
 
-        for(Map.Entry<PositionsPieces, Piece> whitePiece : whitePiecesMap.entrySet()){
-            board.addPieceOnBoard(whitePiece.getKey(), whitePieceImage);
-        }
+        return whitePiecesMap;
     }
 
     public Image getWhitePieceImage() {

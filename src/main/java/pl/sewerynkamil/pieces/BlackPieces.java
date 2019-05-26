@@ -13,7 +13,6 @@ public class BlackPieces implements PieceInterface {
     private Image blackCrownImage = new Image("file:resources/black-piece-crown.png");
     private Image blackLightCrownImage = new Image("file:resources/black-piece-light-crown.png");
 
-
     private Map<PositionsPieces, Piece> blackPiecesMap = new HashMap<>();
 
     @Override
@@ -37,7 +36,7 @@ public class BlackPieces implements PieceInterface {
     }
 
     @Override
-    public void setUpPieces(Board board){
+    public Map<PositionsPieces, Piece> setUpPieces(){
 
         blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
         blackPiecesMap.put(new PositionsPieces(2,0), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
@@ -54,9 +53,7 @@ public class BlackPieces implements PieceInterface {
         blackPiecesMap.put(new PositionsPieces(4,2), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
         blackPiecesMap.put(new PositionsPieces(6,2), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
 
-        for(Map.Entry<PositionsPieces, Piece> blackPiece : blackPiecesMap.entrySet()){
-            board.addPieceOnBoard(blackPiece.getKey(), blackPieceImage);
-        }
+        return blackPiecesMap;
     }
 
     public Image getBlackPieceImage() {
