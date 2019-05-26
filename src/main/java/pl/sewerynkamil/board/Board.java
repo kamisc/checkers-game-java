@@ -27,7 +27,7 @@ public class Board {
 
     private BlackPieces blackPieces = new BlackPieces();
     private WhitePieces whitePieces = new WhitePieces();
-    private Map<PositionsPieces, Piece> board= new HashMap<>();
+    private Map<PositionsPieces, Piece> board = new HashMap<>();
 
     public Board(){
         createBoardBackground();

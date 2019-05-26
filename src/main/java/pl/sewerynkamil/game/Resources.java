@@ -8,6 +8,7 @@ public class Resources {
 
         URL resource = classLoader.getResource(fileName);
 
+        if (resource == null) throw new AssertionError();
         return resource.getProtocol() + ":" + resource.getPath();
     }
 }
