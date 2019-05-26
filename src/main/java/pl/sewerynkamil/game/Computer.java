@@ -18,7 +18,7 @@ public class Computer {
     }
 
     public void computerMove(boolean computerTurn, boolean playerTurn, KickScanner kickScanner, Board board, PieceMoves pieceMoves, Controller controller) {
-        if (computerTurn) {
+        /*if (computerTurn) {
             kickScanner.calculateAllPossibleBlackKicks();
             pieceMoves.allPossibleBlackMoves();
 
@@ -58,6 +58,6 @@ public class Computer {
                 playerTurn = true;
                 computerTurn = false;
             }
-        }
+        }*/
     }
 }

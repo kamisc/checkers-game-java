@@ -6,27 +6,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pl.sewerynkamil.board.Board;
-import pl.sewerynkamil.game.Computer;
-import pl.sewerynkamil.game.Controller;
-import pl.sewerynkamil.game.MouseControl;
-import pl.sewerynkamil.moves.KickScanner;
-import pl.sewerynkamil.moves.PieceMoves;
-import pl.sewerynkamil.moves.Promote;
 
 public class Start extends Application {
 
     private Board board = new Board();
-    private Computer computer = new Computer();
-    private Controller controller = new Controller(board);
-    private Promote promote = new Promote(board, controller);
-    private KickScanner kickScanner = new KickScanner(board, controller);
-    private PieceMoves pieceMoves = new PieceMoves(board, controller);
-    private MouseControl mouseControl = new MouseControl(board, controller, pieceMoves, kickScanner, computer, promote);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(board.getGrid(), 612, 612, Color.BLACK);
-        scene.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseControl.getMouseClick());
+        scene.addEventFilter(MouseEvent.MOUSE_CLICKED, board.getMouseControl().getMouseClick());
 
         primaryStage.setTitle("Checkers Game - Kamil Seweryn");
         primaryStage.setScene(scene);

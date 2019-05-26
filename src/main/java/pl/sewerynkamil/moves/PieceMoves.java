@@ -26,7 +26,7 @@ public class PieceMoves {
         this.controller = controller;
     }
 
-    public Set<PositionsPieces> moveBlack(PositionsPieces actualPosition) {
+   /* public Set<PositionsPieces> moveBlack(PositionsPieces actualPosition) {
         possibleBlackPieceMoves.clear();
         move(actualPosition, possibleBlackPieceMoves, true);
         return possibleBlackPieceMoves;
@@ -36,9 +36,9 @@ public class PieceMoves {
         possibleWhitePieceMoves.clear();
         move(actualPosition, possibleWhitePieceMoves, false);
         return possibleWhitePieceMoves;
-    }
+    }*/
 
-    public void allPossibleBlackMoves(){
+    /*public void allPossibleBlackMoves(){
         allPossibleBlack.clear();
         for (PositionsPieces position : board.getBlackPieces().getBlackPiecesMap().keySet()){
             moveBlack(position);
@@ -48,9 +48,9 @@ public class PieceMoves {
                 }
             }
         }
-    }
+    }*/
 
-    private void move(PositionsPieces actualPosition, Set<PositionsPieces> positionsPieces, boolean up) {
+    /*private void move(PositionsPieces actualPosition, Set<PositionsPieces> positionsPieces, boolean up) {
         int direction = up ? 1 : -1;
 
         PositionsPieces left = new PositionsPieces(actualPosition.getCol() - 1, actualPosition.getRow() + direction);
@@ -65,8 +65,8 @@ public class PieceMoves {
             positionsPieces.add(right);
         }
     }
-
-    public Set<PositionsPieces> moveBlackAfterKick(PositionsPieces position){
+*/
+    /*public Set<PositionsPieces> moveBlackAfterKick(PositionsPieces position){
         possibleBlackPieceMovesAfterKick.clear();
 
         if(!board.getBlackPieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() - 1))
@@ -147,7 +147,7 @@ public class PieceMoves {
         }
 
         return possibleWhitePieceMovesAfterKick;
-    }
+    }*/
 
     public void clear(){
         possibleBlackPieceMoves.clear();

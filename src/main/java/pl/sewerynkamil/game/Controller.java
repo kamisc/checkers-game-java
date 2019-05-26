@@ -12,7 +12,7 @@ public class Controller {
     }
 
     // You can pick black piece if on the checkPosition is any black piece
-    public boolean checkCanSelectBlackPiece(PositionsPieces checkPosition){
+   /* public boolean checkCanSelectBlackPiece(PositionsPieces checkPosition){
         return board.getBlackPieces().getBlackPiecesMap().containsKey(checkPosition);
     }
 
@@ -25,7 +25,7 @@ public class Controller {
     public boolean isFieldNull(PositionsPieces newPosition){
         return !board.getBlackPieces().getBlackPiecesMap().containsKey(newPosition) &&
                 !board.getWhitePieces().getWhitePiecesMap().containsKey(newPosition);
-    }
+    }*/
 
 }
 

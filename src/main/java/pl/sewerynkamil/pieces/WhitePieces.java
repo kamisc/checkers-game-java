@@ -1,38 +1,10 @@
 package pl.sewerynkamil.pieces;
 
-import javafx.scene.image.Image;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class WhitePieces implements PieceInterface {
-
-    private Image whitePieceImage = new Image("file:resources/white-piece.png");
-    private Image whiteLightPieceImage = new Image("file:resources/white-piece-light.png");
-    private Image whiteCrownImage = new Image("file:resources/white-piece-crown.png");
-    private Image whiteLightCrownImage = new Image("file:resources/white-piece-light-crown.png");
-
-    private Map<PositionsPieces, Piece> whitePiecesMap = new HashMap<>();
-
-    @Override
-    public Piece getPiece(PositionsPieces position){
-        return whitePiecesMap.get(position);
-    }
-
-    @Override
-    public boolean isFieldNotNull(PositionsPieces position){
-        return whitePiecesMap.get(position) != null;
-    }
-
-    @Override
-    public void addPieceToMap(PositionsPieces position, Piece piece){
-        whitePiecesMap.put(position, piece);
-    }
-
-    @Override
-    public void removePieceFromMap(PositionsPieces position){
-        whitePiecesMap.remove(position);
-    }
+    private final Map<PositionsPieces, Piece> whitePiecesMap = new HashMap<>();
 
     @Override
     public Map<PositionsPieces, Piece> setUpPieces(){
@@ -51,26 +23,6 @@ public class WhitePieces implements PieceInterface {
         whitePiecesMap.put(new PositionsPieces(5,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
 
-        return whitePiecesMap;
-    }
-
-    public Image getWhitePieceImage() {
-        return whitePieceImage;
-    }
-
-    public Image getWhiteLightPieceImage() {
-        return whiteLightPieceImage;
-    }
-
-    public Image getWhiteCrownImage() {
-        return whiteCrownImage;
-    }
-
-    public Image getWhiteLightCrownImage() {
-        return whiteLightCrownImage;
-    }
-
-    public Map<PositionsPieces, Piece> getWhitePiecesMap() {
         return whitePiecesMap;
     }
 }

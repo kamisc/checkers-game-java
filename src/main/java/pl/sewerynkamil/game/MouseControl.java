@@ -11,23 +11,12 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 public class MouseControl {
 
     private Board board;
-    private Controller controller;
-    private PieceMoves pieceMoves;
-    private KickScanner kickScanner;
-    private Computer computer;
-    private Promote promote;
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
 
-    public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, KickScanner kickScanner,
-                        Computer computer, Promote promote) {
+    public MouseControl(Board board) {
         this.board = board;
-        this.controller = controller;
-        this.pieceMoves = pieceMoves;
-        this.kickScanner = kickScanner;
-        this.computer = computer;
-        this.promote = promote;
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
@@ -35,7 +24,7 @@ public class MouseControl {
         public void handle(MouseEvent event) {
             PositionsPieces position = new PositionsPieces((int) ((event.getX() - 59) / 62), (int) ((event.getY() - 59) / 62));
 
-            if (playerTurn) {
+            /*if (playerTurn) {
                 kickScanner.calculateAllPossibleWhiteKicks();
 
                 if (!kickScanner.getAllPossibleWhiteKicks().isEmpty()){
@@ -138,7 +127,7 @@ public class MouseControl {
                         pieceMoves.clear();
                     }
                 } while(computerTurn);
-            }
+            }*/
         }
     };
 

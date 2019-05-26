@@ -35,7 +35,7 @@ public class KickScanner {
     }
 
     // Calculate all possible black kick moves (position where black pieces have white piece around)
-    public void calculateAllPossibleBlackKicks() {
+    /*public void calculateAllPossibleBlackKicks() {
         allPossibleBlackKicks.clear();
         allPossibleBlackMovesAfterKick.clear();
         allBlackPiecesWhichKick.clear();
@@ -128,7 +128,7 @@ public class KickScanner {
         }
         allPossibleWhiteKicks.removeAll(board.getWhitePieces().getWhitePiecesMap().keySet());
         allPossibleWhiteMovesAfterKick.removeAll(board.getWhitePieces().getWhitePiecesMap().keySet());
-    }
+    }*/
 
     /*public void calculateAllPossibleWhiteQueenKicks(Set<PositionsPieces> positions){
         for(PositionsPieces position : board.getBlackPieces().getBlackPiecesMap().keySet()){

@@ -6,6 +6,7 @@ import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import pl.sewerynkamil.game.MouseControl;
 import pl.sewerynkamil.game.Resources;
 import pl.sewerynkamil.pieces.BlackPieces;
 import pl.sewerynkamil.pieces.Piece;
@@ -22,17 +23,11 @@ public class Board {
     private Background background;
     private Image imageBoard = new Image(Resources.getPath("board.jpg"));
 
+    private MouseControl mouseControl;
+
     private BlackPieces blackPieces = new BlackPieces();
     private WhitePieces whitePieces = new WhitePieces();
     private Map<PositionsPieces, Piece> board= new HashMap<>();
-
-    private PositionsPieces oldBlackPosition;
-    private PositionsPieces pickedBlackPiece;
-    private PositionsPieces kickBlackPosition;
-
-    private PositionsPieces oldWhitePosition;
-    private PositionsPieces pickedWhitePiece;
-    private PositionsPieces kickWhitePosition;
 
     public Board(){
         createBoardBackground();
@@ -44,6 +39,8 @@ public class Board {
         for(Map.Entry<PositionsPieces, Piece> pieces : board.entrySet()){
             addPiece(pieces.getKey(), pieces.getValue(), false);
         }
+
+        mouseControl = new MouseControl(this);
     }
 
     public Background createBoardBackground(){
@@ -84,136 +81,18 @@ public class Board {
         grid.add(new ImageView(generateImagePath(piece, light)), position.getCol(), position.getRow());
     }
 
-    public void removePieceFromBoard(PositionsPieces position){
+    public void removePiece(PositionsPieces position){
         grid.getChildren().removeIf(node -> node instanceof ImageView && Objects.equals(GridPane.getColumnIndex(node), position.getCol())
                 && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
 
     }
 
-    public void pickBlackPiece(PositionsPieces actualPosition){
-        if(pickedBlackPiece != null){
-            removePieceFromBoard(oldBlackPosition);
-            addPieceOnBoard(oldBlackPosition, blackPieces.getBlackPieceImage());
+    public void pickPiece(PositionsPieces position, boolean light){
+        Piece piece = getPiece(position);
 
-            pickedBlackPiece = null;
-
-            addLightPieceOnBoard(actualPosition, blackPieces.getBlackLightPieceImage());
-        }
-
-        pickedBlackPiece = actualPosition;
-        oldBlackPosition = actualPosition;
-
-        addLightPieceOnBoard(actualPosition, blackPieces.getBlackLightPieceImage());
+        removePiece(position);
+        addPiece(position, piece, light);
     }
-
-    public void moveBlackPiece(PositionsPieces newPosition){
-        addPieceOnBoard(newPosition, blackPieces.getBlackPieceImage());
-        removePieceFromBoard(oldBlackPosition);
-
-        blackPieces.removePieceFromMap(oldBlackPosition);
-        blackPieces.addPieceToMap(newPosition, new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
-
-        pickedBlackPiece = null;
-        oldBlackPosition = null;
-    }
-
-    public void kickByBlack(PositionsPieces newPosition){
-        removePieceFromBoard(oldBlackPosition);
-
-        blackPieces.removePieceFromMap(oldBlackPosition);
-        blackPieces.addPieceToMap(newPosition, new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
-
-        kickBlackPosition = new PositionsPieces((oldBlackPosition.getCol() + newPosition.getCol())/2, (oldBlackPosition.getRow() + newPosition.getRow())/2);
-        removePieceFromBoard(kickBlackPosition);
-        whitePieces.removePieceFromMap(kickBlackPosition);
-
-        addLightPieceOnBoard(newPosition, blackPieces.getBlackLightPieceImage());
-
-        pickedBlackPiece = null;
-    }
-
-    public void pickWhitePiece(PositionsPieces actualPosition){
-        if(pickedWhitePiece != null) {
-            if(whitePieces.getWhitePiecesMap().get(oldWhitePosition).getPieceType() == Piece.Type.QUEEN){
-                addLightPieceOnBoard(oldWhitePosition, whitePieces.getWhiteCrownImage());
-            } else {
-                addLightPieceOnBoard(oldWhitePosition, whitePieces.getWhitePieceImage());
-            }
-
-            if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceType() == Piece.Type.QUEEN){
-                addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightCrownImage());
-            } else {
-                addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
-            }
-
-            pickedWhitePiece = actualPosition;
-            oldWhitePosition = actualPosition;
-
-        } else {
-            if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceType() == Piece.Type.QUEEN){
-                addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightCrownImage());
-            } else {
-                addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
-            }
-
-            pickedWhitePiece = actualPosition;
-            oldWhitePosition = actualPosition;
-        }
-
-    }
-
-    public void moveWhitePiece(PositionsPieces newPosition){
-        if(whitePieces.getPiece(oldWhitePosition).getPieceType().isQueen()){
-            removePieceFromBoard(oldWhitePosition);
-            addPieceOnBoard(newPosition, whitePieces.getWhiteCrownImage());
-
-            whitePieces.removePieceFromMap(oldWhitePosition);
-            whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
-
-            pickedWhitePiece = null;
-            oldWhitePosition = null;
-        } else {
-            removePieceFromBoard(oldWhitePosition);
-            addPieceOnBoard(newPosition, whitePieces.getWhitePieceImage());
-
-            whitePieces.removePieceFromMap(oldWhitePosition);
-            whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
-
-            pickedWhitePiece = null;
-            oldWhitePosition = null;
-        }
-
-        /*pickedWhitePiece = null;
-        oldWhitePosition = null;*/
-    }
-
-    public void kickByWhite(PositionsPieces newPosition){
-        removePieceFromBoard(oldWhitePosition);
-
-        whitePieces.removePieceFromMap(oldWhitePosition);
-        whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
-
-        kickWhitePosition = new PositionsPieces((oldWhitePosition.getCol() + newPosition.getCol())/2, (oldWhitePosition.getRow() + newPosition.getRow())/2);
-
-        removePieceFromBoard(kickWhitePosition);
-        blackPieces.removePieceFromMap(kickWhitePosition);
-
-        addLightPieceOnBoard(newPosition, whitePieces.getWhiteLightPieceImage());
-
-        pickedWhitePiece = null;
-    }
-
-
-
-    public void addPieceOnBoard(PositionsPieces position, Image piece){
-        grid.add(new ImageView(piece), position.getCol(), position.getRow());
-    }
-
-    public void addLightPieceOnBoard(PositionsPieces position, Image piece){
-        grid.add(new ImageView(piece), position.getCol(), position.getRow());
-    }
-
-
 
     private Image generateImagePath(Piece piece, boolean light) {
         if(light) {
@@ -227,20 +106,7 @@ public class Board {
         return grid;
     }
 
-    public WhitePieces getWhitePieces() {
-        return whitePieces;
+    public MouseControl getMouseControl() {
+        return mouseControl;
     }
-
-    public BlackPieces getBlackPieces() {
-        return blackPieces;
-    }
-
-    public PositionsPieces getOldWhitePosition() {
-        return oldWhitePosition;
-    }
-
-    public PositionsPieces getPickedWhitePiece() {
-        return pickedWhitePiece;
-    }
-
 }
