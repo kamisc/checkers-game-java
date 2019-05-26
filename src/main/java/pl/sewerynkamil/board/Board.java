@@ -42,7 +42,7 @@ public class Board {
         board.putAll(blackPieces.setUpPieces());
 
         for(Map.Entry<PositionsPieces, Piece> pieces : board.entrySet()){
-            addPieceOnBoard();
+            addPiece(pieces.getKey(), pieces.getValue(), false);
         }
     }
 
@@ -185,6 +185,10 @@ public class Board {
         pickedWhitePiece = null;
     }
 
+    public void addPiece(PositionsPieces position, Piece piece, boolean light){
+        grid.add(new ImageView(generateImagePath(piece, light)), position.getCol(), position.getRow());
+    }
+
     public void addPieceOnBoard(PositionsPieces position, Image piece){
         grid.add(new ImageView(piece), position.getCol(), position.getRow());
     }
@@ -194,9 +198,16 @@ public class Board {
     }
 
     public void removePieceFromBoard(PositionsPieces position){
-        if(position != null){
             grid.getChildren().removeIf(node -> node instanceof ImageView && Objects.equals(GridPane.getColumnIndex(node), position.getCol())
                     && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
+
+    }
+
+    private Image generateImagePath(Piece piece, boolean light) {
+        if(light) {
+            return new Image(Resources.getPath(piece.getPieceColor() + "-" + piece.getPieceType() + "-light.png"));
+        } else {
+            return new Image(Resources.getPath(piece.getPieceColor() + "-" + piece.getPieceType() + ".png"));
         }
     }
 
