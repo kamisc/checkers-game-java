@@ -181,5 +181,3 @@ public class PieceMoves {
     }
 
 }
-
-// Przerobić gettery - zmienna prywatna - wielokrotnie obliczanie pozycji - przy każdym wywołaniu w MouseControll
