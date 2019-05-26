@@ -17,13 +17,8 @@ public class NormalMoves {
     private Set<PositionsPieces> possibleMoves = new HashSet<>();
 
     public void normalMoveCalculator(PositionsPieces position, boolean up){
-        if(up){
             possibleMoves.clear();
-            normalMove(position, possibleMoves, true);
-        } else {
-            possibleMoves.clear();
-            normalMove(position, possibleMoves, false);
-        }
+            normalMove(position, possibleMoves, up);
     }
 
     private void normalMove(PositionsPieces actualPosition, Set<PositionsPieces> positionsPieces, boolean up) {

@@ -26,46 +26,6 @@ public class PieceMoves {
         this.controller = controller;
     }
 
-   /* public Set<PositionsPieces> moveBlack(PositionsPieces actualPosition) {
-        possibleBlackPieceMoves.clear();
-        move(actualPosition, possibleBlackPieceMoves, true);
-        return possibleBlackPieceMoves;
-    }
-
-    public Set<PositionsPieces> moveWhite(PositionsPieces actualPosition){
-        possibleWhitePieceMoves.clear();
-        move(actualPosition, possibleWhitePieceMoves, false);
-        return possibleWhitePieceMoves;
-    }*/
-
-    /*public void allPossibleBlackMoves(){
-        allPossibleBlack.clear();
-        for (PositionsPieces position : board.getBlackPieces().getBlackPiecesMap().keySet()){
-            moveBlack(position);
-            for(PositionsPieces positions : possibleBlackPieceMoves){
-                if(positions != null){
-                    allPossibleBlack.add(position);
-                }
-            }
-        }
-    }*/
-
-    /*private void move(PositionsPieces actualPosition, Set<PositionsPieces> positionsPieces, boolean up) {
-        int direction = up ? 1 : -1;
-
-        PositionsPieces left = new PositionsPieces(actualPosition.getCol() - 1, actualPosition.getRow() + direction);
-        PositionsPieces right = new PositionsPieces(actualPosition.getCol() + 1, actualPosition.getRow() + direction);
-
-        // Move forward-left
-        if (left.isValidPosition() && controller.isFieldNull(left)) {
-            positionsPieces.add(left);
-        }
-        // Move forward-right
-        if (right.isValidPosition() && controller.isFieldNull(right)) {
-            positionsPieces.add(right);
-        }
-    }
-*/
     /*public Set<PositionsPieces> moveBlackAfterKick(PositionsPieces position){
         possibleBlackPieceMovesAfterKick.clear();
 

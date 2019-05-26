@@ -1,10 +1,8 @@
 package pl.sewerynkamil.moves;
 
 import pl.sewerynkamil.board.Board;
-import pl.sewerynkamil.game.Controller;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
-import pl.sewerynkamil.pieces.WhitePieces;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -33,11 +31,10 @@ public class KickScanner {
         allPossibleMovesAfterKick.clear();
         for (Map.Entry<PositionsPieces, Piece> whitePiece : board.getBoard().entrySet()) {
             if(whitePiece.getValue().getPieceColor().isWhite() && whitePiece.getValue().getPieceType().isNormal()){
-                PositionsPieces key = whitePiece.getKey();
-                int col = key.getCol();
-                int row = key.getRow();
+                int col = whitePiece.getKey().getCol();
+                int row = whitePiece.getKey().getRow();
 
-                calculateAllPossibleKicks(key, col, row + 1, row + 2, row - 1, row - 2);
+                calculateAllPossibleKicks(whitePiece.getKey(), col, row + 1, row + 2, row - 1, row - 2);
             }
         }
     }
