@@ -41,11 +41,13 @@ public class KickScanner {
         allBlackPiecesWhichKick.clear();
 
         for (Map.Entry<PositionsPieces, Piece> blackPiece : board.getBlackPieces().getBlackPiecesMap().entrySet()) {
-            PositionsPieces key = blackPiece.getKey();
-            int col = key.getCol();
-            int row = key.getRow();
+            if(blackPiece.getValue().getPieceColor().isBlack()){
+                PositionsPieces key = blackPiece.getKey();
+                int col = key.getCol();
+                int row = key.getRow();
 
-            calculateAllPossibleKicks(key, col, board.getWhitePieces(), row + 1, row + 2, row - 1, row - 2);
+                calculateAllPossibleKicks(key, col, board.getWhitePieces(), row + 1, row + 2, row - 1, row - 2);
+            }
         }
         allPossibleBlackKicks.removeAll(board.getBlackPieces().getBlackPiecesMap().keySet());
         allPossibleBlackMovesAfterKick.removeAll(board.getBlackPieces().getBlackPiecesMap().keySet());
@@ -128,7 +130,7 @@ public class KickScanner {
         allPossibleWhiteMovesAfterKick.removeAll(board.getWhitePieces().getWhitePiecesMap().keySet());
     }
 
-    public void calculateAllPossibleWhiteQueenKicks(Set<PositionsPieces> positions){
+    /*public void calculateAllPossibleWhiteQueenKicks(Set<PositionsPieces> positions){
         for(PositionsPieces position : board.getBlackPieces().getBlackPiecesMap().keySet()){
             if(positions.contains(position)
                     && controller.isFieldNull(new PositionsPieces(position.getCol() - 1, position.getRow() - 1))){
@@ -150,7 +152,7 @@ public class KickScanner {
                 allWhiteQueenKicks.add(position);
             }
         }
-    }
+    }*/
 
 
     public void clear(){

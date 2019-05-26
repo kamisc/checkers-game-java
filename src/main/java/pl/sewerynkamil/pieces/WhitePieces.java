@@ -38,11 +38,7 @@ public class WhitePieces implements PieceInterface {
     @Override
     public void setUpPieces(Board board){
 
-        whitePiecesMap.put(new PositionsPieces(4,2), new Piece(Piece.Color.QUEEN_WHITE));
-        whitePiecesMap.put(new PositionsPieces(2,2), new Piece(Piece.Color.WHITE));
-
-
-        /*whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(3,5), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(5,5), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(7,5), new Piece(Piece.Color.WHITE));
@@ -55,7 +51,7 @@ public class WhitePieces implements PieceInterface {
         whitePiecesMap.put(new PositionsPieces(1,7), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(3,7), new Piece(Piece.Color.WHITE));
         whitePiecesMap.put(new PositionsPieces(5,7), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE));*/
+        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE));
 
         for(Map.Entry<PositionsPieces, Piece> whitePiece : whitePiecesMap.entrySet()){
             board.addPieceOnBoard(whitePiece.getKey(), whitePieceImage);

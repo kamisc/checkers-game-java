@@ -21,8 +21,6 @@ public class PieceMoves {
     private Set<PositionsPieces> allPossibleBlack = new HashSet<>();
     private Set<PositionsPieces> allPossibleWhite = new HashSet<>();
 
-    private Set<PositionsPieces> allPossibleWhiteQueen = new HashSet<>();
-
     public PieceMoves(Board board, Controller controller){
         this.board = board;
         this.controller = controller;
@@ -160,34 +158,6 @@ public class PieceMoves {
 
         allPossibleBlack.clear();
         allPossibleWhite.clear();
-
-        getAllPossibleWhiteQueen().clear();
-    }
-
-    public void queenMoves(PositionsPieces actualPosition){
-
-        for(int i = 0; i < 8; i++){
-            PositionsPieces upLeft = new PositionsPieces(actualPosition.getCol() - i, actualPosition.getRow() - i);
-            PositionsPieces upRight = new PositionsPieces(actualPosition.getCol() + i, actualPosition.getRow() - i);
-            PositionsPieces downLeft = new PositionsPieces(actualPosition.getCol() + i, actualPosition.getRow() + i);
-            PositionsPieces downRight = new PositionsPieces(actualPosition.getCol() - i, actualPosition.getRow() + i);
-
-            if (upLeft.isValidPosition() /*&& controller.isFieldNull(upLeft)*/) {
-                allPossibleWhiteQueen.add(upLeft);
-            }
-
-            if (upRight.isValidPosition() /*&& controller.isFieldNull(upRight)*/) {
-                allPossibleWhiteQueen.add(upRight);
-            }
-
-            if (downLeft.isValidPosition() /*&& controller.isFieldNull(downLeft)*/) {
-                allPossibleWhiteQueen.add(downLeft);
-            }
-
-            if (downRight.isValidPosition() /*&& controller.isFieldNull(downRight)*/) {
-                allPossibleWhiteQueen.add(downRight);
-            }
-        }
     }
 
     public Set<PositionsPieces> getPossibleBlackPieceMoves() {
@@ -210,9 +180,6 @@ public class PieceMoves {
         return allPossibleBlack;
     }
 
-    public Set<PositionsPieces> getAllPossibleWhiteQueen() {
-        return allPossibleWhiteQueen;
-    }
 }
 
 // Przerobić gettery - zmienna prywatna - wielokrotnie obliczanie pozycji - przy każdym wywołaniu w MouseControll

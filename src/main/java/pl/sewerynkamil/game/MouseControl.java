@@ -15,13 +15,14 @@ public class MouseControl {
     private PieceMoves pieceMoves;
     private KickScanner kickScanner;
     private Computer computer;
-    Promote promote;
+    private Promote promote;
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
     PositionsPieces queenPosition;
 
-    public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, KickScanner kickScanner, Computer computer, Promote promote) {
+    public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, KickScanner kickScanner,
+                        Computer computer, Promote promote) {
         this.board = board;
         this.controller = controller;
         this.pieceMoves = pieceMoves;
@@ -38,8 +39,7 @@ public class MouseControl {
             if (playerTurn) {
                 kickScanner.calculateAllPossibleWhiteKicks();
 
-                if (!kickScanner.getAllPossibleWhiteKicks().isEmpty()
-                        && !kickScanner.getAllPossibleWhiteMovesAfterKick().isEmpty()){
+                if (!kickScanner.getAllPossibleWhiteKicks().isEmpty()){
 
                     if (kickScanner.getAllWhitePiecesWhichKick().contains(position)) {
                         board.pickWhitePiece(position);
@@ -70,17 +70,15 @@ public class MouseControl {
                 } else {
                     if (controller.checkCanSelectWhitePiece(position)) {
                         board.pickWhitePiece(position);
-                        pieceMoves.moveWhite(position);
-                        pieceMoves.queenMoves(position);
-                        kickScanner.calculateAllPossibleWhiteQueenKicks(pieceMoves.getAllPossibleWhiteQueen());
 
-                        System.out.println(kickScanner.getAllWhiteQueenKicks());
-                        queenPosition = position;
+                        if(board.getWhitePieces().getPiece(position).getPieceColor().isQueenWhite()){
+
+                        } else {
+                            pieceMoves.moveWhite(position);
+                        }
 
                     } else if(controller.isFieldNull(position)
-                            && pieceMoves.getAllPossibleWhiteQueen().contains(position)
                             && board.getWhitePieces().getPiece(queenPosition).getPieceColor().isQueenWhite()){
-
 
                         board.moveWhitePiece(position);
                         playerTurn = false;
@@ -148,7 +146,6 @@ public class MouseControl {
                     }
                 } while(computerTurn);
             }
-
         }
     };
 
