@@ -84,7 +84,7 @@ public class Board {
         removePieceFromBoard(oldBlackPosition);
 
         blackPieces.removePieceFromMap(oldBlackPosition);
-        blackPieces.addPieceToMap(newPosition, new Piece(Piece.Color.BLACK));
+        blackPieces.addPieceToMap(newPosition, new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
 
         pickedBlackPiece = null;
         oldBlackPosition = null;
@@ -94,7 +94,7 @@ public class Board {
         removePieceFromBoard(oldBlackPosition);
 
         blackPieces.removePieceFromMap(oldBlackPosition);
-        blackPieces.addPieceToMap(newPosition, new Piece(Piece.Color.BLACK));
+        blackPieces.addPieceToMap(newPosition, new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
 
         kickBlackPosition = new PositionsPieces((oldBlackPosition.getCol() + newPosition.getCol())/2, (oldBlackPosition.getRow() + newPosition.getRow())/2);
         removePieceFromBoard(kickBlackPosition);
@@ -107,13 +107,13 @@ public class Board {
 
     public void pickWhitePiece(PositionsPieces actualPosition){
         if(pickedWhitePiece != null) {
-            if(whitePieces.getWhitePiecesMap().get(oldWhitePosition).getPieceColor() == Piece.Color.QUEEN_WHITE){
+            if(whitePieces.getWhitePiecesMap().get(oldWhitePosition).getPieceType() == Piece.Type.QUEEN){
                 addLightPieceOnBoard(oldWhitePosition, whitePieces.getWhiteCrownImage());
             } else {
                 addLightPieceOnBoard(oldWhitePosition, whitePieces.getWhitePieceImage());
             }
 
-            if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceColor() == Piece.Color.QUEEN_WHITE){
+            if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceType() == Piece.Type.QUEEN){
                 addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightCrownImage());
             } else {
                 addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
@@ -123,7 +123,7 @@ public class Board {
             oldWhitePosition = actualPosition;
 
         } else {
-            if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceColor() == Piece.Color.QUEEN_WHITE){
+            if(whitePieces.getWhitePiecesMap().get(actualPosition).getPieceType() == Piece.Type.QUEEN){
                 addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightCrownImage());
             } else {
                 addLightPieceOnBoard(actualPosition, whitePieces.getWhiteLightPieceImage());
@@ -136,12 +136,12 @@ public class Board {
     }
 
     public void moveWhitePiece(PositionsPieces newPosition){
-        if(whitePieces.getPiece(oldWhitePosition).getPieceColor().isQueenWhite()){
+        if(whitePieces.getPiece(oldWhitePosition).getPieceType().isQueen()){
             removePieceFromBoard(oldWhitePosition);
             addPieceOnBoard(newPosition, whitePieces.getWhiteCrownImage());
 
             whitePieces.removePieceFromMap(oldWhitePosition);
-            whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.QUEEN_WHITE));
+            whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
 
             pickedWhitePiece = null;
             oldWhitePosition = null;
@@ -150,7 +150,7 @@ public class Board {
             addPieceOnBoard(newPosition, whitePieces.getWhitePieceImage());
 
             whitePieces.removePieceFromMap(oldWhitePosition);
-            whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE));
+            whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
 
             pickedWhitePiece = null;
             oldWhitePosition = null;
@@ -164,7 +164,7 @@ public class Board {
         removePieceFromBoard(oldWhitePosition);
 
         whitePieces.removePieceFromMap(oldWhitePosition);
-        whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE));
+        whitePieces.addPieceToMap(newPosition, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
 
         kickWhitePosition = new PositionsPieces((oldWhitePosition.getCol() + newPosition.getCol())/2, (oldWhitePosition.getRow() + newPosition.getRow())/2);
 

@@ -19,7 +19,6 @@ public class MouseControl {
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
-    PositionsPieces queenPosition;
 
     public MouseControl(Board board, Controller controller, PieceMoves pieceMoves, KickScanner kickScanner,
                         Computer computer, Promote promote) {
@@ -70,15 +69,9 @@ public class MouseControl {
                 } else {
                     if (controller.checkCanSelectWhitePiece(position)) {
                         board.pickWhitePiece(position);
+                        pieceMoves.moveWhite(position);
 
-                        if(board.getWhitePieces().getPiece(position).getPieceColor().isQueenWhite()){
-
-                        } else {
-                            pieceMoves.moveWhite(position);
-                        }
-
-                    } else if(controller.isFieldNull(position)
-                            && board.getWhitePieces().getPiece(queenPosition).getPieceColor().isQueenWhite()){
+                    } else if(controller.isFieldNull(position)){
 
                         board.moveWhitePiece(position);
                         playerTurn = false;

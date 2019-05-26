@@ -12,7 +12,6 @@ import pl.sewerynkamil.game.MouseControl;
 import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.PieceMoves;
 import pl.sewerynkamil.moves.Promote;
-import pl.sewerynkamil.moves.QueenMoves;
 
 public class Start extends Application {
 
@@ -22,8 +21,7 @@ public class Start extends Application {
     private Promote promote = new Promote(board, controller);
     private KickScanner kickScanner = new KickScanner(board, controller);
     private PieceMoves pieceMoves = new PieceMoves(board, controller);
-    private QueenMoves queenMoves = new QueenMoves(board, controller);
-    private MouseControl mouseControl = new MouseControl(board, controller, pieceMoves, kickScanner, computer, promote, queenMoves);
+    private MouseControl mouseControl = new MouseControl(board, controller, pieceMoves, kickScanner, computer, promote);
 
     @Override
     public void start(Stage primaryStage) throws Exception {

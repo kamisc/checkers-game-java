@@ -27,7 +27,7 @@ public class Promote {
             board.removePieceFromBoard(position);
             board.addPieceOnBoard(position, board.getWhitePieces().getWhiteCrownImage());
             board.getWhitePieces().removePieceFromMap(position);
-            board.getWhitePieces().addPieceToMap(position, new Piece(Piece.Color.QUEEN_WHITE));
+            board.getWhitePieces().addPieceToMap(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN));
         }
         possibleWhitePromote.clear();
     }
@@ -46,7 +46,7 @@ public class Promote {
             board.removePieceFromBoard(position);
             board.addPieceOnBoard(position, board.getBlackPieces().getBlackCrownImage());
             board.getBlackPieces().removePieceFromMap(position);
-            board.getBlackPieces().addPieceToMap(position, new Piece(Piece.Color.QUEEN_BLACK));
+            board.getBlackPieces().addPieceToMap(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN));
         }
         possibleWhitePromote.clear();
     }

@@ -38,20 +38,20 @@ public class WhitePieces implements PieceInterface {
     @Override
     public void setUpPieces(Board board){
 
-        whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(3,5), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(5,5), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(7,5), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(3,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(5,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(7,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
 
-        whitePiecesMap.put(new PositionsPieces(0,6), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(2,6), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(4,6), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(6,6), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(0,6), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(2,6), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(4,6), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(6,6), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
 
-        whitePiecesMap.put(new PositionsPieces(1,7), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(3,7), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(5,7), new Piece(Piece.Color.WHITE));
-        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE));
+        whitePiecesMap.put(new PositionsPieces(1,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(3,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(5,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
 
         for(Map.Entry<PositionsPieces, Piece> whitePiece : whitePiecesMap.entrySet()){
             board.addPieceOnBoard(whitePiece.getKey(), whitePieceImage);
