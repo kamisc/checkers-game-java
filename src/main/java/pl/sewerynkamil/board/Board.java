@@ -72,6 +72,24 @@ public class Board {
         grid.setGridLinesVisible(false);
     }
 
+    public Piece getPiece(PositionsPieces position){
+        return board.get(position);
+    }
+
+    public boolean isFieldNull(PositionsPieces position){
+        return board.get(position) == null;
+    }
+
+    public void addPiece(PositionsPieces position, Piece piece, boolean light){
+        grid.add(new ImageView(generateImagePath(piece, light)), position.getCol(), position.getRow());
+    }
+
+    public void removePieceFromBoard(PositionsPieces position){
+        grid.getChildren().removeIf(node -> node instanceof ImageView && Objects.equals(GridPane.getColumnIndex(node), position.getCol())
+                && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
+
+    }
+
     public void pickBlackPiece(PositionsPieces actualPosition){
         if(pickedBlackPiece != null){
             removePieceFromBoard(oldBlackPosition);
@@ -185,9 +203,7 @@ public class Board {
         pickedWhitePiece = null;
     }
 
-    public void addPiece(PositionsPieces position, Piece piece, boolean light){
-        grid.add(new ImageView(generateImagePath(piece, light)), position.getCol(), position.getRow());
-    }
+
 
     public void addPieceOnBoard(PositionsPieces position, Image piece){
         grid.add(new ImageView(piece), position.getCol(), position.getRow());
@@ -197,11 +213,7 @@ public class Board {
         grid.add(new ImageView(piece), position.getCol(), position.getRow());
     }
 
-    public void removePieceFromBoard(PositionsPieces position){
-            grid.getChildren().removeIf(node -> node instanceof ImageView && Objects.equals(GridPane.getColumnIndex(node), position.getCol())
-                    && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
 
-    }
 
     private Image generateImagePath(Piece piece, boolean light) {
         if(light) {
@@ -230,4 +242,5 @@ public class Board {
     public PositionsPieces getPickedWhitePiece() {
         return pickedWhitePiece;
     }
+
 }
