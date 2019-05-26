@@ -84,7 +84,6 @@ public class Board {
     public void removePiece(PositionsPieces position){
         grid.getChildren().removeIf(node -> node instanceof ImageView && Objects.equals(GridPane.getColumnIndex(node), position.getCol())
                 && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
-
     }
 
     public void pickPiece(PositionsPieces position, boolean light){
