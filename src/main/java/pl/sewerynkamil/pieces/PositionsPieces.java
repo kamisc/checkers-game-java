@@ -14,38 +14,6 @@ public class PositionsPieces {
         return col >= 0 && col <= 7 && row >= 0 && row <= 7;
     }
 
-    public int nextCol(){
-       return col + 1;
-    }
-
-    public int prevCol(){
-        return col - 1;
-    }
-
-    public int nextRow(){
-        return row + 1;
-    }
-
-    public int prevRow(){
-        return row - 1;
-    }
-
-    public int secondNextCol(){
-        return col + 2;
-    }
-
-    public int secondPrevCol(){
-        return col - 2;
-    }
-
-    public int secondNextRow(){
-        return row + 2;
-    }
-
-    public int secondPrevRow(){
-        return row - 2;
-    }
-
     public int getCol() {
         return col;
     }
@@ -63,7 +31,6 @@ public class PositionsPieces {
 
         if (col != that.col) return false;
         return row == that.row;
-
     }
 
     @Override
