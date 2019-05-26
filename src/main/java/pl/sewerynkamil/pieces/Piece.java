@@ -2,8 +2,24 @@ package pl.sewerynkamil.pieces;
 
 public class Piece {
 
+    private Color pieceColor;
+    private Type pieceType;
+
+    public Piece(Color pieceColor, Type pieceType) {
+        this.pieceColor = pieceColor;
+        this.pieceType = pieceType;
+    }
+
+    public Color getPieceColor() {
+        return pieceColor;
+    }
+
+    public Type getPieceType() {
+        return pieceType;
+    }
+
     public enum Color{
-        BLACK, WHITE, QUEEN_BLACK, QUEEN_WHITE;
+        BLACK, WHITE;
 
         public boolean isWhite(){
             return this == WHITE;
@@ -12,24 +28,18 @@ public class Piece {
         public boolean isBlack(){
             return this == BLACK;
         }
-
-        public boolean isQueenBlack(){
-            return this == QUEEN_BLACK;
-        }
-
-        public boolean isQueenWhite(){
-            return this == QUEEN_WHITE;
-        }
     }
 
-    private Color pieceColor;
+    public enum Type{
+        NORMAL, QUEEN;
 
-    public Piece(Color pieceColor) {
-        this.pieceColor = pieceColor;
-    }
+        public boolean isNormal(){
+            return this == NORMAL;
+        }
 
-    public Color getPieceColor() {
-        return pieceColor;
+        public boolean isQueen(){
+            return this == QUEEN;
+        }
     }
 
     @Override
