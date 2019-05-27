@@ -44,11 +44,14 @@ public class MouseControl {
                 kickScanner.clear();
 
                 kickScanner.calculateAllPossibleWhiteKicks();
+
                 normalKick.kickMovesCalculator(clickPosition);
+
                 System.out.println(normalKick.getPossibleKickMoves());
 
                 if(isPicked){
                     // Change pick piece
+
                     if(!pickedPosition.equals(clickPosition)
                             && !board.isFieldNull(clickPosition)
                             && board.getPiece(clickPosition).getPieceColor() == Piece.Color.WHITE){

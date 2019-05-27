@@ -1,6 +1,7 @@
 package pl.sewerynkamil.moves;
 
 import pl.sewerynkamil.board.Board;
+import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.HashSet;
@@ -17,7 +18,6 @@ public class NormalKick {
     }
 
     public void kickMovesCalculator(PositionsPieces position){
-        possibleKickMoves.clear();
         kickMove(position, possibleKickMoves, 1, 1);
         kickMove(position, possibleKickMoves, - 1, - 1);
         kickMove(position, possibleKickMoves, - 1, 1);
@@ -25,14 +25,18 @@ public class NormalKick {
     }
 
     private void kickMove(PositionsPieces actualPosition, Set<PositionsPieces> positionsPieces, int col, int row){
-        if(!board.isFieldNull(new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row))
-                && board.getPiece(new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row))
-                .getPieceColor() != board.getPiece(actualPosition).getPieceColor()
-                && new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + col).isValidPosition()
-                && new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)).isValidPosition()
-                && board.isFieldNull(new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)))){
+        Piece piece = board.getPiece(actualPosition);
 
-            positionsPieces.add(new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)));
+        if(!board.isFieldNull(new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row))
+                && new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + col).isValidPosition()) {
+            if (new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)).isValidPosition()
+                    && board.isFieldNull(new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)))) {
+                if(piece.getPieceColor() != board.getPiece(
+                        new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row)).getPieceColor()){
+
+                    positionsPieces.add(new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)));
+                }
+            }
         }
     }
 
