@@ -10,11 +10,11 @@ public class NormalMoves {
 
     private Board board;
 
+    private Set<PositionsPieces> possibleMoves = new HashSet<>();
+
     public NormalMoves(Board board) {
         this.board = board;
     }
-
-    private Set<PositionsPieces> possibleMoves = new HashSet<>();
 
     public void normalMoveCalculator(PositionsPieces position, boolean up){
             possibleMoves.clear();

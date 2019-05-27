@@ -3,7 +3,7 @@ package pl.sewerynkamil.game;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import pl.sewerynkamil.board.Board;
-import pl.sewerynkamil.moves.KickMoves;
+import pl.sewerynkamil.moves.NormalKick;
 import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.NormalMoves;
 import pl.sewerynkamil.pieces.Piece;
@@ -12,21 +12,22 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 public class MouseControl {
 
     private Board board;
-    private PositionsPieces pickedPosition;
-
     private NormalMoves normalMoves;
-    private KickMoves kickMoves;
+    private NormalKick normalKick;
     private KickScanner kickScanner;
+
+    private PositionsPieces pickedPosition;
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
     private boolean isPicked = false;
 
-    public MouseControl(Board board, NormalMoves normalMoves /*KickScanner kickScanner*/, KickMoves kickMoves) {
+    public MouseControl(Board board, NormalMoves normalMoves /*KickScanner kickScanner*/, NormalKick normalKick) {
         this.board = board;
         this.normalMoves = normalMoves;
+        this.normalKick = normalKick;
+
         this.kickScanner = new KickScanner(board);
-        this.kickMoves = kickMoves;
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
@@ -43,6 +44,8 @@ public class MouseControl {
                 kickScanner.clear();
 
                 kickScanner.calculateAllPossibleWhiteKicks();
+                normalKick.kickMovesCalculator(clickPosition);
+                System.out.println(normalKick.getPossibleKickMoves());
 
                 if(isPicked){
                     // Change pick piece
@@ -120,9 +123,6 @@ public class MouseControl {
                     }
                 }
             }
-
-            System.out.println(kickScanner.getAllPiecesWhichKick());
-
         }
     };
 

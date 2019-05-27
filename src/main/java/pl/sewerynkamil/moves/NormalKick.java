@@ -1,16 +1,46 @@
 package pl.sewerynkamil.moves;
 
 import pl.sewerynkamil.board.Board;
+import pl.sewerynkamil.pieces.PositionsPieces;
 
-public class KickMoves {
+import java.util.HashSet;
+import java.util.Set;
+
+public class NormalKick {
 
     private Board board;
 
-    public KickMoves(Board board) {
+    private Set<PositionsPieces> possibleKickMoves = new HashSet<>();
+
+    public NormalKick(Board board) {
         this.board = board;
     }
 
-    /*public Set<PositionsPieces> moveWhiteAfterKick(PositionsPieces position){
+    public void kickMovesCalculator(PositionsPieces position){
+        possibleKickMoves.clear();
+        kickMove(position, possibleKickMoves, 1, 1);
+        kickMove(position, possibleKickMoves, - 1, - 1);
+        kickMove(position, possibleKickMoves, - 1, 1);
+        kickMove(position, possibleKickMoves, 1, - 1);
+    }
+
+    private void kickMove(PositionsPieces actualPosition, Set<PositionsPieces> positionsPieces, int col, int row){
+        if(!board.isFieldNull(new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row))
+                && board.getPiece(new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row))
+                .getPieceColor() != board.getPiece(actualPosition).getPieceColor()
+                && new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + col).isValidPosition()
+                && new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)).isValidPosition()
+                && board.isFieldNull(new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)))){
+
+            positionsPieces.add(new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)));
+        }
+    }
+
+    public Set<PositionsPieces> getPossibleKickMoves() {
+        return possibleKickMoves;
+    }
+
+    /*   public Set<PositionsPieces> moveWhiteAfterKick(PositionsPieces position){
         possibleWhitePieceMovesAfterKick.clear();
 
         if(!board.getWhitePieces().isFieldNotNull(new PositionsPieces(position.getCol() - 1, position.getRow() - 1))
