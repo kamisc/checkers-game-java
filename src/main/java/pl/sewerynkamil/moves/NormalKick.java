@@ -25,13 +25,12 @@ public class NormalKick {
     }
 
     private void kickMove(PositionsPieces actualPosition, Set<PositionsPieces> positionsPieces, int col, int row){
-        Piece piece = board.getPiece(actualPosition);
 
         if(!board.isFieldNull(new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row))
-                && new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + col).isValidPosition()) {
-            if (new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)).isValidPosition()
-                    && board.isFieldNull(new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)))) {
-                if(piece.getPieceColor() != board.getPiece(
+                && new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row).isValidPosition()) {
+            if (new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (row * 2)).isValidPosition()
+                    && board.isFieldNull(new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (row * 2)))) {
+                if(board.getPiece(actualPosition).getPieceColor() != board.getPiece(
                         new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row)).getPieceColor()){
 
                     positionsPieces.add(new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (col * 2)));
