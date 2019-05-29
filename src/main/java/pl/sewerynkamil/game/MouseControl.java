@@ -45,38 +45,30 @@ public class MouseControl {
                 kickScanner.calculateAllPossibleWhiteKicks();
 
                 if(!kickScanner.getAllPossibleKicks().isEmpty()){
-
                     if(kickScanner.getAllPiecesWhichKick().contains(clickPosition)
                             && board.getPiece(clickPosition).getPieceColor() == Piece.Color.WHITE){
 
                         if(pickedPosition != null){
                             board.pickPiece(pickedPosition, false);
                         }
-
                         board.pickPiece(clickPosition, true);
                         pickedPosition = clickPosition;
 
-                        normalKick.kickMovesCalculator(clickPosition);
+                    } else if(isKick) {
+                        normalKick.kickMovesCalculator(pickedPosition);
 
-                    } else if(normalKick.getPossibleKickMoves().contains(clickPosition)) {
+                        if(normalKick.getPossibleKickMoves().contains(clickPosition)){
+                            board.kickPiece(clickPosition, pickedPosition);
+                            pickedPosition = clickPosition;
 
-                        board.kickPiece(clickPosition, pickedPosition);
+                        } else {
+                            pickedPosition = null;
+                            playerTurn = false;
+                            computerTurn = true;
+                            // isKick = false;
 
-                        normalKick.kickMovesCalculator(clickPosition);
-                        kickScanner.calculateAllPossibleWhiteKicks();
-
-                        System.out.println(normalKick.getPossibleKickMoves());
-                        System.out.println(kickScanner.getAllPossibleKicks());
-
-                        Piece piece = board.getPiece(clickPosition);
-
-
-
-                        pickedPosition = null;
-                        playerTurn = false;
-                        computerTurn = true;
-
-                        normalMoves.getPossibleMoves().clear();
+                            normalMoves.getPossibleMoves().clear();
+                        }
                     }
                 } else {
 
