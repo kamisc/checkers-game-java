@@ -16,7 +16,7 @@ public class Computer {
         return (PositionsPieces) object[random.nextInt(object.length)];
     }
 
-    public void computerMove(boolean computerTurn, boolean playerTurn, KickScanner kickScanner, Board board, Controller controller) {
+    public void computerMove(boolean computerTurn, boolean playerTurn, KickScanner kickScanner, Board board) {
         /*if (computerTurn) {
             kickScanner.calculateAllPossibleBlackKicks();
             pieceMoves.allPossibleBlackMoves();

@@ -37,7 +37,7 @@ public class Board {
     private WhitePieces whitePieces = new WhitePieces();
     private Map<PositionsPieces, Piece> board = new HashMap<>();
 
-    public Board(){
+    public Board() {
         createBoardBackground();
         createBoardLayout();
 
@@ -51,19 +51,19 @@ public class Board {
         mouseControl = new MouseControl(this, normalMoves, normalKick, promote);
     }
 
-    public Background createBoardBackground(){
+    public Background createBoardBackground() {
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(imageBoard, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         background = new Background(backgroundImage);
         return background;
     }
 
-    public void createBoardLayout(){
+    public void createBoardLayout() {
         grid = new GridPane();
         grid.setPadding(new Insets(59));
         grid.setBackground(createBoardBackground());
 
-        for(int i = 0; i < 8; i++){
+        for(int i = 0; i < 8; i++) {
             ColumnConstraints columnConstraints = new ColumnConstraints();
             columnConstraints.setPercentWidth(496/8);
             columnConstraints.setHalignment(HPos.CENTER);
@@ -77,31 +77,36 @@ public class Board {
         grid.setGridLinesVisible(false);
     }
 
-    public Piece getPiece(PositionsPieces position){
+    public Piece getPiece(PositionsPieces position) {
         return board.get(position);
     }
 
-    public boolean isFieldNull(PositionsPieces position){
+    public boolean isFieldNull(PositionsPieces position) {
         return board.get(position) == null;
     }
 
-    public void addPiece(PositionsPieces position, Piece piece, boolean light){
+    public void addPiece(PositionsPieces position, Piece piece, boolean light) {
         grid.add(new ImageView(generateImagePath(piece, light)), position.getCol(), position.getRow());
     }
 
-    public void removePiece(PositionsPieces position){
+    public void removePiece(PositionsPieces position) {
         grid.getChildren().removeIf(node -> node instanceof ImageView && Objects.equals(GridPane.getColumnIndex(node), position.getCol())
                 && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
     }
 
-    public void pickPiece(PositionsPieces position, boolean light){
+    public void pickPiece(PositionsPieces position, PositionsPieces oldPosition, boolean light) {
         Piece piece = getPiece(position);
+
+        if(oldPosition != null) {
+            removePiece(oldPosition);
+            addPiece(oldPosition, piece, !light);
+        }
 
         removePiece(position);
         addPiece(position, piece, light);
     }
 
-    public void movePiece(PositionsPieces newPosition, PositionsPieces oldPosition){
+    public void movePiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
         Piece piece = getPiece(oldPosition);
 
         addPiece(newPosition, piece, false);
@@ -111,7 +116,7 @@ public class Board {
         board.put(newPosition, piece);
     }
 
-    public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition){
+    public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
         Piece piece = getPiece(oldPosition);
 
         PositionsPieces kickPositon = new PositionsPieces((newPosition.getCol() + oldPosition.getCol())/2,
@@ -128,7 +133,7 @@ public class Board {
         normalKick.kickMovesCalculator(newPosition);
 
         if(!normalKick.getPossibleKickMoves().isEmpty()){
-            pickPiece(newPosition, true);
+            pickPiece(newPosition, oldPosition, true);
         }
     }
 

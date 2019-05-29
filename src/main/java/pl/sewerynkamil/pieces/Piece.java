@@ -18,26 +18,26 @@ public class Piece {
         return pieceType;
     }
 
-    public enum Color{
+    public enum Color {
         BLACK, WHITE;
 
-        public boolean isWhite(){
+        public boolean isWhite() {
             return this == WHITE;
         }
 
-        public boolean isBlack(){
+        public boolean isBlack() {
             return this == BLACK;
         }
     }
 
-    public enum Type{
+    public enum Type {
         NORMAL, QUEEN;
 
-        public boolean isNormal(){
+        public boolean isNormal() {
             return this == NORMAL;
         }
 
-        public boolean isQueen(){
+        public boolean isQueen() {
             return this == QUEEN;
         }
     }

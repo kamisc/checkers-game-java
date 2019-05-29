@@ -73,7 +73,7 @@ public class KickScanner {
         }
     }
 
-    public void clear(){
+    public void clear() {
         allPossibleKicks.clear();
         allPiecesWhichKick.clear();
         allPossibleMovesAfterKick.clear();

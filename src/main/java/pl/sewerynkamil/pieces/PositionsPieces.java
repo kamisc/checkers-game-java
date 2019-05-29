@@ -10,7 +10,7 @@ public class PositionsPieces {
         this.row = row;
     }
 
-    public boolean isValidPosition(){
+    public boolean isValidPosition() {
         return col >= 0 && col <= 7 && row >= 0 && row <= 7;
     }
 

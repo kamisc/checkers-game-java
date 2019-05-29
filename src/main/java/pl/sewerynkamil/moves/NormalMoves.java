@@ -16,7 +16,7 @@ public class NormalMoves {
         this.board = board;
     }
 
-    public void normalMoveCalculator(PositionsPieces position, boolean up){
+    public void normalMoveCalculator(PositionsPieces position, boolean up) {
             possibleMoves.clear();
             normalMove(position, possibleMoves, up);
     }

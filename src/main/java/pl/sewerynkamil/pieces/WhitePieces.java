@@ -7,7 +7,7 @@ public class WhitePieces implements PieceInterface {
     private final Map<PositionsPieces, Piece> whitePiecesMap = new HashMap<>();
 
     @Override
-    public Map<PositionsPieces, Piece> setUpPieces(){
+    public Map<PositionsPieces, Piece> setUpPieces() {
         whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(3,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(5,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));

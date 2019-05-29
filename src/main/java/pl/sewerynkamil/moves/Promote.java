@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Promote {
 
-    Board board;
+    private Board board;
 
     private Set<PositionsPieces> possiblePromote = new HashSet<>();
 
@@ -22,10 +22,10 @@ public class Promote {
         possiblePromote.clear();
         calculatePromote();
 
-        for(PositionsPieces position : possiblePromote){
+        for(PositionsPieces position : possiblePromote) {
             Piece piece = board.getPiece(position);
 
-            if(piece.getPieceColor().isWhite() && piece.getPieceType().isNormal()){
+            if(piece.getPieceColor().isWhite() && piece.getPieceType().isNormal()) {
                 board.removePiece(position);
                 board.addPiece(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN), false);
 
@@ -33,7 +33,7 @@ public class Promote {
                 board.getBoard().put(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN));
             }
 
-            if(piece.getPieceColor().isBlack() && piece.getPieceType().isNormal()){
+            if(piece.getPieceColor().isBlack() && piece.getPieceType().isNormal()) {
                 board.removePiece(position);
                 board.addPiece(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN), false);
 
@@ -43,7 +43,7 @@ public class Promote {
         }
     }
 
-    private void calculatePromote(){
+    private void calculatePromote() {
 
         Set<PositionsPieces> whites = board.getBoard().keySet().stream()
                 .filter(positions -> positions.getRow() == 0)

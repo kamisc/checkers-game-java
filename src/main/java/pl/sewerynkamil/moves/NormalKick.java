@@ -16,27 +16,27 @@ public class NormalKick {
         this.board = board;
     }
 
-    public void kickMovesCalculator(PositionsPieces position){
+    public void kickMovesCalculator(PositionsPieces position) {
         possibleKickMoves.clear();
 
-        if(kickMove(position, 1, 1)){
+        if(kickMove(position, 1, 1)) {
             possibleKickMoves.add(new PositionsPieces(position.getCol() + 2, position.getRow() + 2));
         }
 
-        if(kickMove(position, - 1, - 1)){
+        if(kickMove(position, - 1, - 1)) {
             possibleKickMoves.add(new PositionsPieces(position.getCol() - 2, position.getRow() - 2));
         }
 
-        if(kickMove(position, 1, - 1)){
+        if(kickMove(position, 1, - 1)) {
             possibleKickMoves.add(new PositionsPieces(position.getCol() + 2, position.getRow() - 2));
         }
 
-        if(kickMove(position, - 1, 1)){
+        if(kickMove(position, - 1, 1)) {
             possibleKickMoves.add(new PositionsPieces(position.getCol() - 2, position.getRow() + 2));
         }
     }
 
-    private boolean kickMove(PositionsPieces actualPosition, int col, int row){
+    private boolean kickMove(PositionsPieces actualPosition, int col, int row) {
         return new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row).isValidPosition() &&
                 !board.isFieldNull(new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row))
                 && new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (row * 2)).isValidPosition()
