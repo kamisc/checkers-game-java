@@ -2,7 +2,6 @@ package pl.sewerynkamil.game;
 
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.moves.KickScanner;
-import pl.sewerynkamil.moves.PieceMoves;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.Random;
@@ -17,7 +16,7 @@ public class Computer {
         return (PositionsPieces) object[random.nextInt(object.length)];
     }
 
-    public void computerMove(boolean computerTurn, boolean playerTurn, KickScanner kickScanner, Board board, PieceMoves pieceMoves, Controller controller) {
+    public void computerMove(boolean computerTurn, boolean playerTurn, KickScanner kickScanner, Board board, Controller controller) {
         /*if (computerTurn) {
             kickScanner.calculateAllPossibleBlackKicks();
             pieceMoves.allPossibleBlackMoves();

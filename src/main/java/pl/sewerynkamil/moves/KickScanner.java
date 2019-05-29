@@ -12,13 +12,8 @@ public class KickScanner {
 
     private Board board;
 
-    // Contains all pieces which can be kicked
     private Set<PositionsPieces> allPossibleKicks = new HashSet<>();
-
-    // Contains all pieces which can kick other
     private Set<PositionsPieces> allPiecesWhichKick = new HashSet<>();
-
-    // Contains all move after kick
     private Set<PositionsPieces> allPossibleMovesAfterKick = new HashSet<>();
 
     public KickScanner(Board board) {
@@ -43,6 +38,7 @@ public class KickScanner {
         allPossibleKicks.clear();
         allPiecesWhichKick.clear();
         allPossibleMovesAfterKick.clear();
+
         for (Map.Entry<PositionsPieces, Piece> blackPiece : board.getBoard().entrySet()) {
             if(blackPiece.getValue().getPieceColor().isBlack() && blackPiece.getValue().getPieceType().isNormal()){
                 PositionsPieces key = blackPiece.getKey();

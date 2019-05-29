@@ -6,6 +6,7 @@ import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.moves.NormalKick;
 import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.NormalMoves;
+import pl.sewerynkamil.moves.Promote;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
@@ -15,6 +16,7 @@ public class MouseControl {
     private NormalMoves normalMoves;
     private NormalKick normalKick;
     private KickScanner kickScanner;
+    private Promote promote;
 
     private PositionsPieces pickedPosition;
 
@@ -23,10 +25,11 @@ public class MouseControl {
     private boolean isPicked = false;
     private boolean isKick = true;
 
-    public MouseControl(Board board, NormalMoves normalMoves /*KickScanner kickScanner*/, NormalKick normalKick) {
+    public MouseControl(Board board, NormalMoves normalMoves /*KickScanner kickScanner*/, NormalKick normalKick, Promote promote) {
         this.board = board;
         this.normalMoves = normalMoves;
         this.normalKick = normalKick;
+        this.promote = promote;
 
         this.kickScanner = new KickScanner(board);
     }
@@ -65,6 +68,8 @@ public class MouseControl {
                             pickedPosition = clickPosition;
 
                             if(normalKick.getPossibleKickMoves().isEmpty()){
+                                promote.promote();
+
                                 isKick = true;
                                 pickedPosition = null;
                                 playerTurn = false;
@@ -76,6 +81,8 @@ public class MouseControl {
                         }
 
                     } else {
+                        promote.promote();
+
                         pickedPosition = null;
                         playerTurn = false;
                         computerTurn = true;
@@ -99,9 +106,13 @@ public class MouseControl {
                     } else if(normalMoves.getPossibleMoves().contains(clickPosition)) {
                         board.movePiece(clickPosition, pickedPosition);
 
+                        promote.promote();
+
                         pickedPosition = null;
                         playerTurn = false;
                         computerTurn = true;
+
+                        promote.promote();
 
                         normalMoves.getPossibleMoves().clear();
                     }

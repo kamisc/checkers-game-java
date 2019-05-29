@@ -11,6 +11,7 @@ import pl.sewerynkamil.game.Resources;
 import pl.sewerynkamil.moves.NormalKick;
 import pl.sewerynkamil.moves.KickScanner;
 import pl.sewerynkamil.moves.NormalMoves;
+import pl.sewerynkamil.moves.Promote;
 import pl.sewerynkamil.pieces.BlackPieces;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
@@ -29,7 +30,8 @@ public class Board {
     private MouseControl mouseControl;
     private NormalMoves normalMoves = new NormalMoves(this);
     private NormalKick normalKick = new NormalKick(this);
-    private KickScanner kickScanner = new KickScanner(this);
+    private Promote promote = new Promote(this);
+    private KickScanner kickScanner = new KickScanner(this); // ??
 
     private BlackPieces blackPieces = new BlackPieces();
     private WhitePieces whitePieces = new WhitePieces();
@@ -46,7 +48,7 @@ public class Board {
             addPiece(pieces.getKey(), pieces.getValue(), false);
         }
 
-        mouseControl = new MouseControl(this, normalMoves, normalKick);
+        mouseControl = new MouseControl(this, normalMoves, normalKick, promote);
     }
 
     public Background createBoardBackground(){

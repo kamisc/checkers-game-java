@@ -37,21 +37,12 @@ public class NormalKick {
     }
 
     private boolean kickMove(PositionsPieces actualPosition, int col, int row){
-
-        if(new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row).isValidPosition() &&
-                !board.isFieldNull(new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row))) {
-
-            if (new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (row * 2)).isValidPosition()
-                    && board.isFieldNull(new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (row * 2)))) { // tu szukaj błędu
-
-                if(board.getPiece(actualPosition).getPieceColor() != board.getPiece(
-                        new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row)).getPieceColor()){
-
-                    return true;
-                }
-            }
-        }
-        return false;
+        return new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row).isValidPosition() &&
+                !board.isFieldNull(new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row))
+                && new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (row * 2)).isValidPosition()
+                && board.isFieldNull(new PositionsPieces(actualPosition.getCol() + (col * 2), actualPosition.getRow() + (row * 2)))
+                && (board.getPiece(actualPosition).getPieceColor() != board.getPiece(
+                        new PositionsPieces(actualPosition.getCol() + col, actualPosition.getRow() + row)).getPieceColor());
     }
 
     public Set<PositionsPieces> getPossibleKickMoves() {

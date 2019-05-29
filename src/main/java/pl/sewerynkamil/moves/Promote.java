@@ -1,62 +1,60 @@
 package pl.sewerynkamil.moves;
 
 import pl.sewerynkamil.board.Board;
-import pl.sewerynkamil.game.Controller;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Promote {
 
     Board board;
-    Controller controller;
 
-    private Set<PositionsPieces> possibleWhitePromote = new HashSet<>();
-    private Set<PositionsPieces> possibleBlackPromote = new HashSet<>();
+    private Set<PositionsPieces> possiblePromote = new HashSet<>();
 
-    public Promote(Board board, Controller controller) {
+    public Promote(Board board) {
         this.board = board;
-        this.controller = controller;
     }
 
-    public void promoteWhite(){
-        calculateWhitePromote();
-        for(PositionsPieces position : possibleWhitePromote){
-            /*board.removePieceFromBoard(position);
-            board.addPieceOnBoard(position, board.getWhitePieces().getWhiteCrownImage());
-            board.getWhitePieces().removePieceFromMap(position);
-            board.getWhitePieces().addPieceToMap(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN));*/
-        }
-        possibleWhitePromote.clear();
-    }
+    public void promote(){
+        possiblePromote.clear();
+        calculatePromote();
+        for(PositionsPieces position : possiblePromote){
+            Piece piece = board.getPiece(position);
 
-    private void calculateWhitePromote(){
-       /* for(PositionsPieces position : board.getWhitePieces().getWhitePiecesMap().keySet()){
-            if(position.getRow() == 0 && board.getWhitePieces().getWhitePiecesMap().get(position).getPieceColor() == Piece.Color.WHITE){
-                possibleWhitePromote.add(position);
+            if(piece.getPieceColor().isWhite() && piece.getPieceType().isNormal()){
+                board.removePiece(position);
+                board.addPiece(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN), false);
+
+                board.getBoard().remove(position);
+                board.getBoard().put(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN));
             }
-        }*/
-    }
 
-    public void promoteBlack(){
-        calculateBlackPromote();
-        for(PositionsPieces position : possibleBlackPromote){
-        /*    board.removePieceFromBoard(position);
-            board.addPieceOnBoard(position, board.getBlackPieces().getBlackCrownImage());
-            board.getBlackPieces().removePieceFromMap(position);
-            board.getBlackPieces().addPieceToMap(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN));*/
-        }
-        possibleWhitePromote.clear();
-    }
+            if(piece.getPieceColor().isBlack() && piece.getPieceType().isNormal()){
+                board.removePiece(position);
+                board.addPiece(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN), false);
 
-    private void calculateBlackPromote(){
-        /*for(PositionsPieces position : board.getBlackPieces().getBlackPiecesMap().keySet()){
-            if(position.getRow() == 7 && board.getBlackPieces().getBlackPiecesMap().get(position).getPieceColor() == Piece.Color.BLACK){
-                possibleBlackPromote.add(position);
+                board.getBoard().remove(position);
+                board.getBoard().put(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN));
             }
-        }*/
+        }
     }
 
+    private void calculatePromote(){
+
+        Set<PositionsPieces> white = board.getBoard().keySet().stream()
+                .filter(positions -> positions.getRow() == 0)
+                .filter(positions -> board.getBoard().get(positions).getPieceColor() == Piece.Color.WHITE)
+                .collect(Collectors.toSet());
+
+        Set<PositionsPieces> black = board.getBoard().keySet().stream()
+                .filter(positions -> positions.getRow() == 7)
+                .filter(positions -> board.getBoard().get(positions).getPieceColor() == Piece.Color.BLACK)
+                .collect(Collectors.toSet());
+
+        possiblePromote.addAll(white);
+        possiblePromote.addAll(black);
+    }
 }
