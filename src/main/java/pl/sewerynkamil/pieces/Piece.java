@@ -46,6 +46,7 @@ public class Piece {
     public String toString() {
         return "Piece{" +
                 "pieceColor=" + pieceColor +
+                ", pieceType=" + pieceType +
                 '}';
     }
 }

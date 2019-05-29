@@ -21,6 +21,7 @@ public class Promote {
     public void promote(){
         possiblePromote.clear();
         calculatePromote();
+
         for(PositionsPieces position : possiblePromote){
             Piece piece = board.getPiece(position);
 
@@ -44,17 +45,17 @@ public class Promote {
 
     private void calculatePromote(){
 
-        Set<PositionsPieces> white = board.getBoard().keySet().stream()
+        Set<PositionsPieces> whites = board.getBoard().keySet().stream()
                 .filter(positions -> positions.getRow() == 0)
                 .filter(positions -> board.getBoard().get(positions).getPieceColor() == Piece.Color.WHITE)
                 .collect(Collectors.toSet());
 
-        Set<PositionsPieces> black = board.getBoard().keySet().stream()
+        Set<PositionsPieces> blacks = board.getBoard().keySet().stream()
                 .filter(positions -> positions.getRow() == 7)
                 .filter(positions -> board.getBoard().get(positions).getPieceColor() == Piece.Color.BLACK)
                 .collect(Collectors.toSet());
 
-        possiblePromote.addAll(white);
-        possiblePromote.addAll(black);
+        possiblePromote.addAll(whites);
+        possiblePromote.addAll(blacks);
     }
 }

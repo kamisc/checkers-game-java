@@ -23,7 +23,7 @@ public class MouseControl {
     private boolean playerTurn = true;
     private boolean computerTurn = false;
     private boolean isPicked = false;
-    private boolean isKick = true;
+    private boolean isKick = false;
 
     public MouseControl(Board board, NormalMoves normalMoves /*KickScanner kickScanner*/, NormalKick normalKick, Promote promote) {
         this.board = board;
@@ -49,6 +49,8 @@ public class MouseControl {
 
                 if(!kickScanner.getAllPossibleKicks().isEmpty()){
 
+                    isKick = true;
+
                     if(kickScanner.getAllPiecesWhichKick().contains(clickPosition)
                             && board.getPiece(clickPosition).getPieceColor() == Piece.Color.WHITE){
 
@@ -68,12 +70,12 @@ public class MouseControl {
                             pickedPosition = clickPosition;
 
                             if(normalKick.getPossibleKickMoves().isEmpty()){
-                                promote.promote();
-
-                                isKick = true;
+                                isKick = false;
                                 pickedPosition = null;
                                 playerTurn = false;
                                 computerTurn = true;
+
+                                promote.promote();
 
                                 normalKick.getPossibleKickMoves().clear();
                                 kickScanner.clear();
@@ -86,7 +88,7 @@ public class MouseControl {
                         pickedPosition = null;
                         playerTurn = false;
                         computerTurn = true;
-                        isKick = true;
+                        isKick = false;
 
                         normalKick.getPossibleKickMoves().clear();
                         kickScanner.clear();
@@ -120,6 +122,86 @@ public class MouseControl {
             }
 
             if(computerTurn){
+
+                kickScanner.calculateAllPossibleBlackKicks();
+
+                if(!kickScanner.getAllPossibleKicks().isEmpty()){
+
+                    isKick = true;
+
+                    if(kickScanner.getAllPiecesWhichKick().contains(clickPosition)
+                            && board.getPiece(clickPosition).getPieceColor() == Piece.Color.BLACK){
+
+                        if(pickedPosition != null){
+                            board.pickPiece(pickedPosition, false);
+                        }
+
+                        board.pickPiece(clickPosition, true);
+                        pickedPosition = clickPosition;
+
+                        normalKick.kickMovesCalculator(pickedPosition);
+
+                    } else if(isKick) {
+
+                        if(normalKick.getPossibleKickMoves().contains(clickPosition)){
+                            board.kickPiece(clickPosition, pickedPosition);
+                            pickedPosition = clickPosition;
+
+                            if(normalKick.getPossibleKickMoves().isEmpty()){
+                                isKick = false;
+                                pickedPosition = null;
+                                playerTurn = true;
+                                computerTurn = false;
+
+                                promote.promote();
+
+                                normalKick.getPossibleKickMoves().clear();
+                                kickScanner.clear();
+                            }
+                        }
+
+                    } else {
+                        promote.promote();
+
+                        pickedPosition = null;
+                        playerTurn = true;
+                        computerTurn = false;
+                        isKick = false;
+
+                        normalKick.getPossibleKickMoves().clear();
+                        kickScanner.clear();
+                    }
+                } else {
+
+                    if(!board.isFieldNull(clickPosition)
+                            && board.getPiece(clickPosition).getPieceColor() == Piece.Color.BLACK){
+                        if(pickedPosition != null){
+                            board.pickPiece(pickedPosition, false);
+                        }
+                        board.pickPiece(clickPosition, true);
+                        pickedPosition = clickPosition;
+
+                        normalMoves.normalMoveCalculator(clickPosition, false);
+
+                    } else if(normalMoves.getPossibleMoves().contains(clickPosition)) {
+                        board.movePiece(clickPosition, pickedPosition);
+
+                        promote.promote();
+
+                        pickedPosition = null;
+                        playerTurn = true;
+                        computerTurn = false;
+
+                        promote.promote();
+
+                        normalMoves.getPossibleMoves().clear();
+                    }
+                }
+            }
+
+            System.out.println(board.getPiece(clickPosition));
+
+            /*if(computerTurn){
                 kickScanner.clear();
 
                 kickScanner.calculateAllPossibleBlackKicks();
@@ -158,7 +240,7 @@ public class MouseControl {
                         normalMoves.normalMoveCalculator(clickPosition, false);
                     }
                 }
-            }
+            }*/
         }
     };
 
