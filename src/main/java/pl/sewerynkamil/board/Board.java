@@ -109,6 +109,27 @@ public class Board {
         board.put(newPosition, piece);
     }
 
+    public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition){
+        Piece piece = getPiece(oldPosition);
+        PositionsPieces kickPositon = new PositionsPieces((newPosition.getCol() + oldPosition.getCol())/2,
+                (newPosition.getRow() + oldPosition.getRow())/2);
+
+        addPiece(newPosition, piece, false);
+        removePiece(oldPosition);
+        removePiece(kickPositon);
+
+        board.put(newPosition, piece);
+        board.remove(oldPosition);
+        board.remove(kickPositon);
+
+        normalKick.kickMovesCalculator(newPosition);
+
+        if(!normalKick.getPossibleKickMoves().isEmpty()){
+            pickPiece(newPosition, true);
+            System.out.println(kickPositon);
+        }
+    }
+
     private Image generateImagePath(Piece piece, boolean light) {
         if(light) {
             return new Image(Resources.getPath(piece.getPieceColor() + "-" + piece.getPieceType() + "-light.png"));

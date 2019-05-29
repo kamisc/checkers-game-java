@@ -21,6 +21,7 @@ public class MouseControl {
     private boolean playerTurn = true;
     private boolean computerTurn = false;
     private boolean isPicked = false;
+    private boolean isKick = true;
 
     public MouseControl(Board board, NormalMoves normalMoves /*KickScanner kickScanner*/, NormalKick normalKick) {
         this.board = board;
@@ -59,13 +60,17 @@ public class MouseControl {
 
                     } else if(normalKick.getPossibleKickMoves().contains(clickPosition)) {
 
-                        board.movePiece(clickPosition, pickedPosition);
-                        // remove from board
-                        board.removePiece(new PositionsPieces((clickPosition.getCol() + pickedPosition.getCol())/2,
-                                (clickPosition.getRow() + pickedPosition.getRow())/2));
-                        // remove from map
-                        board.getBoard().remove(new PositionsPieces((clickPosition.getCol() + pickedPosition.getCol())/2,
-                                (clickPosition.getRow() + pickedPosition.getRow())/2));
+                        board.kickPiece(clickPosition, pickedPosition);
+
+                        normalKick.kickMovesCalculator(clickPosition);
+                        kickScanner.calculateAllPossibleWhiteKicks();
+
+                        System.out.println(normalKick.getPossibleKickMoves());
+                        System.out.println(kickScanner.getAllPossibleKicks());
+
+                        Piece piece = board.getPiece(clickPosition);
+
+
 
                         pickedPosition = null;
                         playerTurn = false;
@@ -137,9 +142,6 @@ public class MouseControl {
                     }
                 }
             }
-            System.out.println(pickedPosition);
-            System.out.println(normalKick.getPossibleKickMoves());
-            System.out.println(normalMoves.getPossibleMoves());
         }
     };
 
