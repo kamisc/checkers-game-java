@@ -111,6 +111,7 @@ public class Board {
 
     public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition){
         Piece piece = getPiece(oldPosition);
+
         PositionsPieces kickPositon = new PositionsPieces((newPosition.getCol() + oldPosition.getCol())/2,
                 (newPosition.getRow() + oldPosition.getRow())/2);
 
@@ -126,7 +127,6 @@ public class Board {
 
         if(!normalKick.getPossibleKickMoves().isEmpty()){
             pickPiece(newPosition, true);
-            System.out.println(kickPositon);
         }
     }
 

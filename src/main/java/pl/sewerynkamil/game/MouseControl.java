@@ -45,30 +45,44 @@ public class MouseControl {
                 kickScanner.calculateAllPossibleWhiteKicks();
 
                 if(!kickScanner.getAllPossibleKicks().isEmpty()){
+
                     if(kickScanner.getAllPiecesWhichKick().contains(clickPosition)
                             && board.getPiece(clickPosition).getPieceColor() == Piece.Color.WHITE){
 
                         if(pickedPosition != null){
                             board.pickPiece(pickedPosition, false);
                         }
+
                         board.pickPiece(clickPosition, true);
                         pickedPosition = clickPosition;
 
-                    } else if(isKick) {
                         normalKick.kickMovesCalculator(pickedPosition);
+
+                    } else if(isKick) {
 
                         if(normalKick.getPossibleKickMoves().contains(clickPosition)){
                             board.kickPiece(clickPosition, pickedPosition);
                             pickedPosition = clickPosition;
 
-                        } else {
-                            pickedPosition = null;
-                            playerTurn = false;
-                            computerTurn = true;
-                            // isKick = false;
+                            if(normalKick.getPossibleKickMoves().isEmpty()){
+                                isKick = true;
+                                pickedPosition = null;
+                                playerTurn = false;
+                                computerTurn = true;
 
-                            normalMoves.getPossibleMoves().clear();
+                                normalKick.getPossibleKickMoves().clear();
+                                kickScanner.clear();
+                            }
                         }
+
+                    } else {
+                        pickedPosition = null;
+                        playerTurn = false;
+                        computerTurn = true;
+                        isKick = true;
+
+                        normalKick.getPossibleKickMoves().clear();
+                        kickScanner.clear();
                     }
                 } else {
 
