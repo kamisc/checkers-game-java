@@ -9,12 +9,11 @@ public class WhitePieces implements PieceInterface {
     @Override
     public Map<PositionsPieces, Piece> setUpPieces() {
 
-        whitePiecesMap.put(new PositionsPieces(4,4), new Piece(Piece.Color.WHITE, Piece.Type.QUEEN));
+        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE, Piece.Type.QUEEN));
 
         whitePiecesMap.put(new PositionsPieces(2,2), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(6,2), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(2,6), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
-        whitePiecesMap.put(new PositionsPieces(7,1), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
 
         whitePiecesMap.put(new PositionsPieces(1,1), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
 

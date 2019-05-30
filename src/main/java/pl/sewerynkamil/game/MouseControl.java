@@ -47,13 +47,14 @@ public class MouseControl {
                 System.out.println("Wrong place!");
             }
 
-            if(!board.isFieldNull(clickPosition)
+            /*if(!board.isFieldNull(clickPosition)
                     && board.getPiece(clickPosition).getPieceColor() == Piece.Color.WHITE) {
 
                 board.pickPiece(clickPosition, pickedPosition,true);
                 pickedPosition = clickPosition;
 
                 queenMoves.normalQueenMoveCalculator(clickPosition);
+                queenKicks.calculateAllPossibleQueenKicks(clickPosition);
 
             } else if(queenMoves.getPossibleQueenMoves().contains(clickPosition)) {
                 board.movePiece(clickPosition, pickedPosition);
@@ -66,27 +67,36 @@ public class MouseControl {
 
                 queenKickScanner.getAllPossibleQueenKicks().clear();
                 queenMoves.getPossibleQueenMoves().clear();
-            }
+                queenKicks.getPossibleKickMoves().clear();
+            }*/
 
-            /*if(playerTurn) {
+            if(playerTurn) {
 
                 kickScanner.calculateAllPossibleWhiteKicks();
+                queenKickScanner.calculateAllPossibleWhiteQueenKicks();
 
-                if(!kickScanner.getAllPossibleKicks().isEmpty()) {
+                if(!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
 
                     isKick = true;
 
                     if(kickScanner.getAllPiecesWhichKick().contains(clickPosition)
-                            && board.getPiece(clickPosition).getPieceColor() == Piece.Color.WHITE) {
+                            || queenKickScanner.getAllQueenPiecesWhichKick().contains(clickPosition)
+                            && board.getPiece(clickPosition).getPieceColor().isWhite()) {
 
                         board.pickPiece(clickPosition, pickedPosition, true);
                         pickedPosition = clickPosition;
 
-                        normalKicks.kickMovesCalculator(pickedPosition);
+                        if(board.getPiece(clickPosition).getPieceType().isNormal()){
+                            normalKicks.kickMovesCalculator(clickPosition);
+                        } else {
+                            queenKicks.calculateAllPossibleQueenKicks(clickPosition);
+                        }
 
                     } else if(isKick) {
 
-                        if(normalKicks.getPossibleKickMoves().contains(clickPosition)) {
+                        if(normalKicks.getPossibleKickMoves().contains(clickPosition)
+                                && board.getPiece(pickedPosition).getPieceType().isNormal()) {
+
                             board.kickPiece(clickPosition, pickedPosition);
                             pickedPosition = clickPosition;
 
@@ -99,6 +109,26 @@ public class MouseControl {
                                 promote.promote();
 
                                 normalKicks.getPossibleKickMoves().clear();
+                                queenKicks.getPossibleKickMoves().clear();
+                                queenKicks.getPossibleKicks().clear();
+                                kickScanner.clear();
+                            }
+
+                        } else if(queenKicks.getPossibleKickMoves().contains(clickPosition) && board.getPiece(pickedPosition).getPieceType().isQueen()){
+                            board.movePiece(clickPosition, pickedPosition);
+                            pickedPosition = clickPosition;
+
+                            if(queenKicks.getPossibleKickMoves().isEmpty()) {
+                                isKick = false;
+                                pickedPosition = null;
+                                playerTurn = false;
+                                computerTurn = true;
+
+                                promote.promote();
+
+                                normalKicks.getPossibleKickMoves().clear();
+                                queenKicks.getPossibleKickMoves().clear();
+                                queenKicks.getPossibleKicks().clear();
                                 kickScanner.clear();
                             }
                         }
@@ -114,6 +144,7 @@ public class MouseControl {
                         normalKicks.getPossibleKickMoves().clear();
                         kickScanner.clear();
                     }
+
                 } else {
                     if(!board.isFieldNull(clickPosition)
                             && board.getPiece(clickPosition).getPieceColor() == Piece.Color.WHITE) {
@@ -238,7 +269,9 @@ public class MouseControl {
                         queenMoves.getPossibleQueenMoves().clear();
                     }
                 }
-            }*/
+            }
+
+            System.out.println(queenKicks.getPossibleKickMoves());
         }
     };
 

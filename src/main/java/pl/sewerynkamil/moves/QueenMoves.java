@@ -68,4 +68,6 @@ public class QueenMoves {
     public Set<PositionsPieces> getPossibleQueenMoves() {
         return possibleQueenMoves;
     }
+
+
 }
