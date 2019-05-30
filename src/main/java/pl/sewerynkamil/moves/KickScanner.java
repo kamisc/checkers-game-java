@@ -4,6 +4,7 @@ import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
+import javax.swing.text.Position;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;

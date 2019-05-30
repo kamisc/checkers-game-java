@@ -13,7 +13,9 @@ public class MouseControl {
     private NormalMoves normalMoves;
     private QueenMoves queenMoves;
     private NormalKicks normalKicks;
+    private QueenKicks queenKicks;
     private KickScanner kickScanner;
+    private QueenKickScanner queenKickScanner;
     private Promote promote;
 
     private PositionsPieces pickedPosition;
@@ -24,11 +26,13 @@ public class MouseControl {
     private boolean isKick = false;
 
     public MouseControl(Board board, NormalMoves normalMoves, QueenMoves queenMoves /*KickScanner kickScanner*/,
-                        NormalKicks normalKicks, Promote promote) {
+                        NormalKicks normalKicks, QueenKicks queenKicks, QueenKickScanner queenKickScanner, Promote promote) {
         this.board = board;
         this.normalMoves = normalMoves;
         this.queenMoves = queenMoves;
         this.normalKicks = normalKicks;
+        this.queenKicks = queenKicks;
+        this.queenKickScanner = queenKickScanner;
         this.promote = promote;
 
         this.kickScanner = new KickScanner(board);
@@ -59,6 +63,9 @@ public class MouseControl {
                 computerTurn = true;
 
                 promote.promote();
+
+                queenKickScanner.getAllPossibleQueenKicks().clear();
+                queenMoves.getPossibleQueenMoves().clear();
             }
 
             /*if(playerTurn) {
