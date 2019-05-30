@@ -8,10 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import pl.sewerynkamil.game.MouseControl;
 import pl.sewerynkamil.game.Resources;
-import pl.sewerynkamil.moves.NormalKick;
-import pl.sewerynkamil.moves.KickScanner;
-import pl.sewerynkamil.moves.NormalMoves;
-import pl.sewerynkamil.moves.Promote;
+import pl.sewerynkamil.moves.*;
 import pl.sewerynkamil.pieces.BlackPieces;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
@@ -29,6 +26,7 @@ public class Board {
 
     private MouseControl mouseControl;
     private NormalMoves normalMoves = new NormalMoves(this);
+    private NormalQueenMoves normalQueenMoves = new NormalQueenMoves(this);
     private NormalKick normalKick = new NormalKick(this);
     private Promote promote = new Promote(this);
     private KickScanner kickScanner = new KickScanner(this); // ??
@@ -48,7 +46,7 @@ public class Board {
             addPiece(pieces.getKey(), pieces.getValue(), false);
         }
 
-        mouseControl = new MouseControl(this, normalMoves, normalKick, promote);
+        mouseControl = new MouseControl(this, normalMoves, normalQueenMoves, normalKick, promote);
     }
 
     public Background createBoardBackground() {
@@ -95,15 +93,16 @@ public class Board {
     }
 
     public void pickPiece(PositionsPieces position, PositionsPieces oldPosition, boolean light) {
-        Piece piece = getPiece(position);
+        Piece pieceNew = getPiece(position);
+        Piece pieceOld = getPiece(oldPosition);
 
         if(oldPosition != null) {
             removePiece(oldPosition);
-            addPiece(oldPosition, piece, !light);
+            addPiece(oldPosition, pieceOld, !light);
         }
 
         removePiece(position);
-        addPiece(position, piece, light);
+        addPiece(position, pieceNew, light);
     }
 
     public void movePiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
@@ -133,7 +132,8 @@ public class Board {
         normalKick.kickMovesCalculator(newPosition);
 
         if(!normalKick.getPossibleKickMoves().isEmpty()){
-            pickPiece(newPosition, oldPosition, true);
+            removePiece(oldPosition);
+            addPiece(newPosition, piece, true);
         }
     }
 
