@@ -6,18 +6,19 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 import java.util.HashSet;
 import java.util.Set;
 
-public class NormalQueenMoves {
+public class QueenMoves {
 
     private Board board;
 
     private Set<PositionsPieces> possibleQueenMoves = new HashSet<>();
-    private Set<PositionsPieces> possibleQueenKicks = new HashSet<>();
 
-    public NormalQueenMoves(Board board) {
+    public QueenMoves(Board board) {
         this.board = board;
     }
 
     public void normalQueenMoveCalculator(PositionsPieces position){
+
+        possibleQueenMoves.clear();
 
         for(int i = 1; i < 8; i ++){
             PositionsPieces upLeft = new PositionsPieces(position.getCol() - i, position.getRow() - i);
@@ -25,11 +26,7 @@ public class NormalQueenMoves {
             if(queenNormalMove(upLeft)){
                 possibleQueenMoves.add(upLeft);
             } else {
-                if(board.getBoard().containsValue(upLeft)){
-                    possibleQueenKicks.add(upLeft);
-                } else {
-                    break;
-                }
+                break;
             }
         }
 
@@ -65,19 +62,10 @@ public class NormalQueenMoves {
     }
 
     private boolean queenNormalMove(PositionsPieces position){
-        if (position.isValidPosition()) {
-            if(board.isFieldNull(position)){
-                return true;
-            }
-        }
-        return false;
+        return position.isValidPosition() && board.isFieldNull(position);
     }
 
     public Set<PositionsPieces> getPossibleQueenMoves() {
         return possibleQueenMoves;
-    }
-
-    public Set<PositionsPieces> getPossibleQueenKicks() {
-        return possibleQueenKicks;
     }
 }

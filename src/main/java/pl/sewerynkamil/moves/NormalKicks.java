@@ -6,13 +6,13 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 import java.util.HashSet;
 import java.util.Set;
 
-public class NormalKick {
+public class NormalKicks {
 
     private Board board;
 
     private Set<PositionsPieces> possibleKickMoves = new HashSet<>();
 
-    public NormalKick(Board board) {
+    public NormalKicks(Board board) {
         this.board = board;
     }
 

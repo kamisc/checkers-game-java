@@ -26,8 +26,8 @@ public class Board {
 
     private MouseControl mouseControl;
     private NormalMoves normalMoves = new NormalMoves(this);
-    private NormalQueenMoves normalQueenMoves = new NormalQueenMoves(this);
-    private NormalKick normalKick = new NormalKick(this);
+    private QueenMoves queenMoves = new QueenMoves(this);
+    private NormalKicks normalKicks = new NormalKicks(this);
     private Promote promote = new Promote(this);
     private KickScanner kickScanner = new KickScanner(this); // ??
 
@@ -46,7 +46,7 @@ public class Board {
             addPiece(pieces.getKey(), pieces.getValue(), false);
         }
 
-        mouseControl = new MouseControl(this, normalMoves, normalQueenMoves, normalKick, promote);
+        mouseControl = new MouseControl(this, normalMoves, queenMoves, normalKicks, promote);
     }
 
     public Background createBoardBackground() {
@@ -129,9 +129,9 @@ public class Board {
         board.remove(oldPosition);
         board.remove(kickPositon);
 
-        normalKick.kickMovesCalculator(newPosition);
+        normalKicks.kickMovesCalculator(newPosition);
 
-        if(!normalKick.getPossibleKickMoves().isEmpty()){
+        if(!normalKicks.getPossibleKickMoves().isEmpty()){
             removePiece(oldPosition);
             addPiece(newPosition, piece, true);
         }

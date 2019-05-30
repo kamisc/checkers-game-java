@@ -12,7 +12,7 @@ public class Start extends Application {
     private Board board = new Board();
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Scene scene = new Scene(board.getGrid(), 612, 612, Color.BLACK);
         scene.addEventFilter(MouseEvent.MOUSE_CLICKED, board.getMouseControl().getMouseClick());
 
