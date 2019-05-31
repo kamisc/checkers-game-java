@@ -101,48 +101,31 @@ public class MouseControl {
                             pickedPosition = clickPosition;
 
                             if(normalKicks.getPossibleKickMoves().isEmpty()) {
-                                isKick = false;
-                                pickedPosition = null;
                                 playerTurn = false;
                                 computerTurn = true;
 
-                                promote.promote();
-
-                                normalKicks.getPossibleKickMoves().clear();
-                                queenKicks.getPossibleKickMoves().clear();
-                                queenKicks.getPossibleKicks().clear();
-                                kickScanner.clear();
+                                endKick();
                             }
 
-                        } else if(queenKicks.getPossibleKickMoves().contains(clickPosition) && board.getPiece(pickedPosition).getPieceType().isQueen()){
+                        } else if(queenKicks.getPossibleKickMoves().contains(clickPosition)
+                                && board.getPiece(pickedPosition).getPieceType().isQueen()){
+
                             board.movePiece(clickPosition, pickedPosition);
                             pickedPosition = clickPosition;
 
                             if(queenKicks.getPossibleKickMoves().isEmpty()) {
-                                isKick = false;
-                                pickedPosition = null;
                                 playerTurn = false;
                                 computerTurn = true;
 
-                                promote.promote();
-
-                                normalKicks.getPossibleKickMoves().clear();
-                                queenKicks.getPossibleKickMoves().clear();
-                                queenKicks.getPossibleKicks().clear();
-                                kickScanner.clear();
+                                endKick();
                             }
                         }
 
                     } else {
-                        promote.promote();
-
-                        pickedPosition = null;
                         playerTurn = false;
                         computerTurn = true;
-                        isKick = false;
 
-                        normalKicks.getPossibleKickMoves().clear();
-                        kickScanner.clear();
+                        endKick();
                     }
 
                 } else {
@@ -159,26 +142,20 @@ public class MouseControl {
                             && board.getPiece(pickedPosition).getPieceType().isNormal()) {
                         board.movePiece(clickPosition, pickedPosition);
 
-                        promote.promote();
-
-                        pickedPosition = null;
                         playerTurn = false;
                         computerTurn = true;
 
-                        normalMoves.getPossibleMoves().clear();
-                        queenMoves.getPossibleQueenMoves().clear();
+                        endTurn();
 
                     } else if(queenMoves.getPossibleQueenMoves().contains(clickPosition)
                             && board.getPiece(pickedPosition).getPieceType().isQueen()) {
 
                         board.movePiece(clickPosition, pickedPosition);
 
-                        pickedPosition = null;
                         playerTurn = false;
                         computerTurn = true;
 
-                        normalMoves.getPossibleMoves().clear();
-                        queenMoves.getPossibleQueenMoves().clear();
+                        endTurn();
                     }
 
                 }
@@ -277,5 +254,28 @@ public class MouseControl {
 
     public EventHandler<MouseEvent> getMouseClick() {
         return mouseClick;
+    }
+
+    private void endTurn(){
+        promote.promote();
+
+        pickedPosition = null;
+
+        normalMoves.getPossibleMoves().clear();
+        kickScanner.clear();
+        queenMoves.getPossibleQueenMoves().clear();
+        queenKicks.clear();
+    }
+
+    private void endKick() {
+        isKick = false;
+        pickedPosition = null;
+
+        promote.promote();
+
+        normalKicks.getPossibleKickMoves().clear();
+        queenKicks.clear();
+        kickScanner.clear();
+        queenKickScanner.clear();
     }
 }

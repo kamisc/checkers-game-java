@@ -109,16 +109,16 @@ public class QueenKickScanner {
         return false;
     }
 
-    public void clear() {
-        allPossibleQueenKicks.clear();
-        allQueenPiecesWhichKick.clear();
-    }
-
     public Set<PositionsPieces> getAllPossibleQueenKicks() {
         return allPossibleQueenKicks;
     }
 
     public Set<PositionsPieces> getAllQueenPiecesWhichKick() {
         return allQueenPiecesWhichKick;
+    }
+
+    public void clear() {
+        allPossibleQueenKicks.clear();
+        allQueenPiecesWhichKick.clear();
     }
 }

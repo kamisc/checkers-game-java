@@ -21,76 +21,49 @@ public class QueenKicks {
         possibleKickMoves.clear();
 
         for(int i = 1; i < 8; i++){
+
             PositionsPieces upLeft = new PositionsPieces(position.getCol() - i, position.getRow() - i);
 
             if(calculatePossibleKick(position, upLeft, - 1, - 1)){
-                for(int j = 1; j < 8; j ++){
-
-                    if(board.isFieldNull(new PositionsPieces(upLeft.getCol() - j, upLeft.getRow() - j))){
-                        if(new PositionsPieces(upLeft.getCol() - j, upLeft.getRow() - j).isValidPosition()){
-                            possibleKickMoves.add(new PositionsPieces(upLeft.getCol() - j, upLeft.getRow() - j));
-                        }
-                    } else {
-                        break;
-                    }
-                }
+                possibleKickMoves.add(new PositionsPieces(upLeft.getCol() - 1, upLeft.getRow() - 1));
+                break;
             }
         }
 
         for(int i = 1; i < 8; i++){
+
             PositionsPieces upLeft = new PositionsPieces(position.getCol() - i, position.getRow() + i);
 
             if(calculatePossibleKick(position, upLeft, - 1, + 1)){
-                for(int j = 1; j < 8; j ++){
-
-                    if(board.isFieldNull(new PositionsPieces(upLeft.getCol() - j, upLeft.getRow() + j))){
-                        if(new PositionsPieces(upLeft.getCol() - j, upLeft.getRow() + j).isValidPosition()){
-                            possibleKickMoves.add(new PositionsPieces(upLeft.getCol() - j, upLeft.getRow() + j));
-                        }
-                    } else {
-                        break;
-                    }
-                }
+                possibleKickMoves.add(new PositionsPieces(upLeft.getCol() - 1, upLeft.getRow() + 1));
+                break;
             }
         }
 
         for(int i = 1; i < 8; i++){
+
             PositionsPieces upLeft = new PositionsPieces(position.getCol() + i, position.getRow() - i);
 
             if(calculatePossibleKick(position, upLeft, + 1, - 1)){
-                for(int j = 1; j < 8; j ++){
-
-                    if(board.isFieldNull(new PositionsPieces(upLeft.getCol() + j, upLeft.getRow() - j))){
-                        if(new PositionsPieces(upLeft.getCol() + j, upLeft.getRow() - j).isValidPosition()){
-                            possibleKickMoves.add(new PositionsPieces(upLeft.getCol() + j, upLeft.getRow() - j));
-                        }
-                    } else {
-                        break;
-                    }
-                }
+                possibleKickMoves.add(new PositionsPieces(upLeft.getCol() + 1, upLeft.getRow() - 1));
+                break;
             }
         }
 
         for(int i = 1; i < 8; i++){
+
             PositionsPieces upLeft = new PositionsPieces(position.getCol() + i, position.getRow() + i);
 
             if(calculatePossibleKick(position, upLeft, + 1, + 1)){
-                for(int j = 1; j < 8; j ++){
-
-                    if(board.isFieldNull(new PositionsPieces(upLeft.getCol() + j, upLeft.getRow() + j))){
-                        if(new PositionsPieces(upLeft.getCol() + j, upLeft.getRow() + j).isValidPosition()){
-                            possibleKickMoves.add(new PositionsPieces(upLeft.getCol() + j, upLeft.getRow() + j));
-                        }
-                    } else {
-                        break;
-                    }
-                }
+                possibleKickMoves.add(new PositionsPieces(upLeft.getCol() + 1, upLeft.getRow() + 1));
+                break;
             }
         }
     }
 
     private boolean calculatePossibleKick(PositionsPieces actualPosition, PositionsPieces checkPosition, int col, int row) {
         if (checkPosition.isValidPosition() && !board.isFieldNull(checkPosition)) {
+
             if (board.getPiece(actualPosition).getPieceColor() != board.getPiece(checkPosition).getPieceColor()
                     && board.isFieldNull(new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row))) {
                 return true;
@@ -105,5 +78,10 @@ public class QueenKicks {
 
     public Set<PositionsPieces> getPossibleKickMoves() {
         return possibleKickMoves;
+    }
+
+    public void clear(){
+        possibleKicks.clear();
+        possibleKickMoves.clear();
     }
 }

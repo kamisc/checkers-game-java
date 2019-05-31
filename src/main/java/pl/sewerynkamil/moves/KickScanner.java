@@ -15,7 +15,6 @@ public class KickScanner {
 
     private Set<PositionsPieces> allPossibleKicks = new HashSet<>();
     private Set<PositionsPieces> allPiecesWhichKick = new HashSet<>();
-    private Set<PositionsPieces> allPossibleMovesAfterKick = new HashSet<>();
 
     public KickScanner(Board board) {
         this.board = board;
@@ -24,7 +23,7 @@ public class KickScanner {
     public void calculateAllPossibleWhiteKicks() {
         allPossibleKicks.clear();
         allPiecesWhichKick.clear();
-        allPossibleMovesAfterKick.clear();
+
         for (Map.Entry<PositionsPieces, Piece> whitePiece : board.getBoard().entrySet()) {
             if(whitePiece.getValue().getPieceColor().isWhite() && whitePiece.getValue().getPieceType().isNormal()){
                 int col = whitePiece.getKey().getCol();
@@ -38,7 +37,6 @@ public class KickScanner {
     public void calculateAllPossibleBlackKicks() {
         allPossibleKicks.clear();
         allPiecesWhichKick.clear();
-        allPossibleMovesAfterKick.clear();
 
         for (Map.Entry<PositionsPieces, Piece> blackPiece : board.getBoard().entrySet()) {
             if(blackPiece.getValue().getPieceColor().isBlack() && blackPiece.getValue().getPieceType().isNormal()){
@@ -70,14 +68,12 @@ public class KickScanner {
 
             allPossibleKicks.add(new PositionsPieces(rightCol, nextRow));
             allPiecesWhichKick.add(key);
-            allPossibleMovesAfterKick.add(new PositionsPieces(secondRightCol, secondNextRow));
         }
     }
 
     public void clear() {
         allPossibleKicks.clear();
         allPiecesWhichKick.clear();
-        allPossibleMovesAfterKick.clear();
     }
 
     public Set<PositionsPieces> getAllPossibleKicks() {
@@ -87,9 +83,4 @@ public class KickScanner {
     public Set<PositionsPieces> getAllPiecesWhichKick() {
         return allPiecesWhichKick;
     }
-
-    public Set<PositionsPieces> getAllPossibleMovesAfterKick() {
-        return allPossibleMovesAfterKick;
-    }
-
 }
