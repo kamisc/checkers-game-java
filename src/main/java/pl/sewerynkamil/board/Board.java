@@ -120,8 +120,9 @@ public class Board {
     public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
         Piece piece = getPiece(oldPosition);
 
-        PositionsPieces kickPositon = new PositionsPieces((newPosition.getCol() + oldPosition.getCol())/2,
-                (newPosition.getRow() + oldPosition.getRow())/2);
+        PositionsPieces kickPositon = findOpositePosition(newPosition);
+
+        System.out.println(kickPositon);
 
         addPiece(newPosition, piece, false);
         removePiece(oldPosition);
@@ -132,11 +133,40 @@ public class Board {
         board.remove(kickPositon);
 
         normalKicks.kickMovesCalculator(newPosition);
+        queenKicks.calculateAllPossibleQueenKicks(newPosition);
 
-        if(!normalKicks.getPossibleKickMoves().isEmpty()){
+        if(!normalKicks.getPossibleKickMoves().isEmpty() || !queenKicks.getPossibleKickMoves().isEmpty()){
             removePiece(oldPosition);
             addPiece(newPosition, piece, true);
         }
+    }
+
+    private PositionsPieces findOpositePosition(PositionsPieces position){
+        PositionsPieces upLeft = new PositionsPieces(position.getCol() - 1, position.getRow() - 1);
+
+        if(queenKicks.getPossibleKicks().contains(upLeft) || normalKicks.getPossibleKicks().contains(upLeft)){
+            return upLeft;
+        }
+
+        PositionsPieces downLeft = new PositionsPieces(position.getCol() - 1, position.getRow() + 1);
+
+        if(queenKicks.getPossibleKicks().contains(downLeft) || normalKicks.getPossibleKicks().contains(downLeft)){
+            return downLeft;
+        }
+
+        PositionsPieces upRight = new PositionsPieces(position.getCol() + 1, position.getRow() - 1);
+
+        if(queenKicks.getPossibleKicks().contains(upRight) || normalKicks.getPossibleKicks().contains(upRight)){
+            return upRight;
+        }
+
+        PositionsPieces downRight = new PositionsPieces(position.getCol() + 1, position.getRow() + 1);
+
+        if(queenKicks.getPossibleKicks().contains(downRight) || normalKicks.getPossibleKicks().contains(downRight)){
+            return downRight;
+        }
+
+        return null;
     }
 
     private Image generateImagePath(Piece piece, boolean light) {

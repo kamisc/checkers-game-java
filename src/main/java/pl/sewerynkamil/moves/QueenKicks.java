@@ -109,7 +109,6 @@ public class QueenKicks {
 
             if(downRight.isValidPosition() && !board.isFieldNull(downRight)){
                 if(board.getPiece(position).getPieceColor() != board.getPiece(downRight).getPieceColor()){
-
                     if(board.isFieldNull(new PositionsPieces(downRight.getCol() + 1, downRight.getRow() + 1))){
                         possibleKicks.add(downRight);
                         possibleKickMoves.add(new PositionsPieces(downRight.getCol() + 1, downRight.getRow() + 1));
