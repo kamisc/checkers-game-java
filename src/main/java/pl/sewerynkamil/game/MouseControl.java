@@ -47,29 +47,6 @@ public class MouseControl {
                 System.out.println("Wrong place!");
             }
 
-            /*if(!board.isFieldNull(clickPosition)
-                    && board.getPiece(clickPosition).getPieceColor() == Piece.Color.WHITE) {
-
-                board.pickPiece(clickPosition, pickedPosition,true);
-                pickedPosition = clickPosition;
-
-                queenMoves.normalQueenMoveCalculator(clickPosition);
-                queenKicks.calculateAllPossibleQueenKicks(clickPosition);
-
-            } else if(queenMoves.getPossibleQueenMoves().contains(clickPosition)) {
-                board.movePiece(clickPosition, pickedPosition);
-
-                pickedPosition = null;
-                playerTurn = false;
-                computerTurn = true;
-
-                promote.promote();
-
-                queenKickScanner.getAllPossibleQueenKicks().clear();
-                queenMoves.getPossibleQueenMoves().clear();
-                queenKicks.getPossibleKickMoves().clear();
-            }*/
-
             if(playerTurn) {
 
                 kickScanner.calculateAllPossibleWhiteKicks();
