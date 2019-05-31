@@ -22,7 +22,6 @@ public class MouseControl {
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
-    private boolean isKick = true;
     private boolean isKickNormal = true;
     private boolean isKickQueen = true;
 
@@ -68,7 +67,7 @@ public class MouseControl {
                             queenKicks.calculateAllPossibleQueenKicks(clickPosition);
                         }
 
-                    } else if(isKick) {
+                    } else {
 
                         if(normalKicks.getPossibleKickMoves().contains(clickPosition)
                                 && board.getPiece(pickedPosition).getPieceType().isNormal()) {
@@ -155,7 +154,7 @@ public class MouseControl {
 
                         normalKicks.kickMovesCalculator(pickedPosition);
 
-                    } else if(isKick) {
+                    } else if(true) {
 
                         if(normalKicks.getPossibleKickMoves().contains(clickPosition)) {
                             board.kickPiece(clickPosition, pickedPosition);
@@ -235,7 +234,6 @@ public class MouseControl {
         pickedPosition = null;
         isKickNormal = true;
         isKickQueen = true;
-        isKick = true;
 
         promote.promote();
 
