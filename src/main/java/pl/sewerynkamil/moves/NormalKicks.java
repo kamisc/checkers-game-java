@@ -11,6 +11,7 @@ public class NormalKicks {
     private Board board;
 
     private Set<PositionsPieces> possibleKickMoves = new HashSet<>();
+    private Set<PositionsPieces> possibleKicks = new HashSet<>();
 
     public NormalKicks(Board board) {
         this.board = board;
@@ -18,21 +19,26 @@ public class NormalKicks {
 
     public void kickMovesCalculator(PositionsPieces position) {
         possibleKickMoves.clear();
+        possibleKicks.clear();
 
         if(kickMove(position, 1, 1)) {
             possibleKickMoves.add(new PositionsPieces(position.getCol() + 2, position.getRow() + 2));
+            possibleKicks.add(new PositionsPieces(position.getCol() + 1, position.getRow() + 1));
         }
 
         if(kickMove(position, - 1, - 1)) {
             possibleKickMoves.add(new PositionsPieces(position.getCol() - 2, position.getRow() - 2));
+            possibleKicks.add(new PositionsPieces(position.getCol() - 1, position.getRow() - 1));
         }
 
         if(kickMove(position, 1, - 1)) {
             possibleKickMoves.add(new PositionsPieces(position.getCol() + 2, position.getRow() - 2));
+            possibleKicks.add(new PositionsPieces(position.getCol() + 1, position.getRow() - 1));
         }
 
         if(kickMove(position, - 1, 1)) {
             possibleKickMoves.add(new PositionsPieces(position.getCol() - 2, position.getRow() + 2));
+            possibleKicks.add(new PositionsPieces(position.getCol() - 1, position.getRow() + 1));
         }
     }
 
@@ -47,5 +53,14 @@ public class NormalKicks {
 
     public Set<PositionsPieces> getPossibleKickMoves() {
         return possibleKickMoves;
+    }
+
+    public Set<PositionsPieces> getPossibleKicks() {
+        return possibleKicks;
+    }
+
+    public void clear(){
+        possibleKickMoves.clear();
+        possibleKicks.clear();
     }
 }

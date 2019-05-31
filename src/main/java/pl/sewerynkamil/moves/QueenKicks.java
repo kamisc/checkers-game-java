@@ -19,6 +19,7 @@ public class QueenKicks {
 
     public void calculateAllPossibleQueenKicks(PositionsPieces position){
         possibleKickMoves.clear();
+        possibleKicks.clear();
 
         for(int i = 1; i < 8; i++){
 
@@ -33,7 +34,9 @@ public class QueenKicks {
 
             if(upLeft.isValidPosition() && !board.isFieldNull(upLeft)){
                 if(board.getPiece(position).getPieceColor() != board.getPiece(upLeft).getPieceColor()){
+
                     if(board.isFieldNull(new PositionsPieces(upLeft.getCol() - 1, upLeft.getRow() - 1))){
+                        possibleKicks.add(upLeft);
                         possibleKickMoves.add(new PositionsPieces(upLeft.getCol() - 1, upLeft.getRow() - 1));
                         break;
                     }
@@ -56,7 +59,9 @@ public class QueenKicks {
 
             if(downLeft.isValidPosition() && !board.isFieldNull(downLeft)){
                 if(board.getPiece(position).getPieceColor() != board.getPiece(downLeft).getPieceColor()){
+
                     if(board.isFieldNull(new PositionsPieces(downLeft.getCol() - 1, downLeft.getRow() + 1))){
+                        possibleKicks.add(downLeft);
                         possibleKickMoves.add(new PositionsPieces(downLeft.getCol() - 1, downLeft.getRow() + 1));
                         break;
                     }
@@ -79,8 +84,10 @@ public class QueenKicks {
 
             if(upRight.isValidPosition() && !board.isFieldNull(upRight)){
                 if(board.getPiece(position).getPieceColor() != board.getPiece(upRight).getPieceColor()){
+
                     if(board.isFieldNull(new PositionsPieces(upRight.getCol() + 1, upRight.getRow() - 1))){
-                       possibleKickMoves.add(new PositionsPieces(upRight.getCol() + 1, upRight.getRow() - 1));
+                        possibleKicks.add(upRight);
+                        possibleKickMoves.add(new PositionsPieces(upRight.getCol() + 1, upRight.getRow() - 1));
                         break;
                     }
                 } else {
@@ -102,7 +109,9 @@ public class QueenKicks {
 
             if(downRight.isValidPosition() && !board.isFieldNull(downRight)){
                 if(board.getPiece(position).getPieceColor() != board.getPiece(downRight).getPieceColor()){
+
                     if(board.isFieldNull(new PositionsPieces(downRight.getCol() + 1, downRight.getRow() + 1))){
+                        possibleKicks.add(downRight);
                         possibleKickMoves.add(new PositionsPieces(downRight.getCol() + 1, downRight.getRow() + 1));
                         break;
                     }
@@ -124,16 +133,16 @@ public class QueenKicks {
         return false;
     }
 
-    public Set<PositionsPieces> getPossibleKicks() {
-        return possibleKicks;
-    }
-
     public Set<PositionsPieces> getPossibleKickMoves() {
         return possibleKickMoves;
     }
 
+    public Set<PositionsPieces> getPossibleKicks() {
+        return possibleKicks;
+    }
+
     public void clear(){
-        possibleKicks.clear();
         possibleKickMoves.clear();
+        possibleKicks.clear();
     }
 }

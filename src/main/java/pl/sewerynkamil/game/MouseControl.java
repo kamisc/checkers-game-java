@@ -224,8 +224,11 @@ public class MouseControl {
                     }
                 }
             }
+            System.out.println();
+            System.out.println(normalKicks.getPossibleKickMoves());
+            System.out.println();
+            System.out.println(normalKicks.getPossibleKicks());
 
-            System.out.println(queenKicks.getPossibleKickMoves());
         }
     };
 
@@ -250,7 +253,7 @@ public class MouseControl {
 
         promote.promote();
 
-        normalKicks.getPossibleKickMoves().clear();
+        normalKicks.clear();
         queenKicks.clear();
         kickScanner.clear();
         queenKickScanner.clear();
