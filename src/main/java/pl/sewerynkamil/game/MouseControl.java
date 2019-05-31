@@ -22,7 +22,7 @@ public class MouseControl {
 
     private boolean playerTurn = true;
     private boolean computerTurn = false;
-    private boolean isKick = true;
+    private boolean isKick = false;
 
     public MouseControl(Board board, NormalMoves normalMoves, QueenMoves queenMoves /*KickScanner kickScanner*/,
                         NormalKicks normalKicks, QueenKicks queenKicks, QueenKickScanner queenKickScanner, Promote promote) {
@@ -53,10 +53,10 @@ public class MouseControl {
 
                 if(!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
 
-                    if(!isKick
-                            && kickScanner.getAllPiecesWhichKick().contains(clickPosition)
-                            || queenKickScanner.getAllQueenPiecesWhichKick().contains(clickPosition)
-                            && board.getPiece(clickPosition).getPieceColor().isWhite()) {
+                    if((kickScanner.getAllPiecesWhichKick().contains(clickPosition)
+                            || queenKickScanner.getAllQueenPiecesWhichKick().contains(clickPosition))
+                            && board.getPiece(clickPosition).getPieceColor().isWhite()
+                            && !isKick) {
 
                         board.pickPiece(clickPosition, pickedPosition, true);
                         pickedPosition = clickPosition;
@@ -84,6 +84,9 @@ public class MouseControl {
                                 endKick();
 
                             } else {
+                                playerTurn = false;
+                                computerTurn = true;
+
                                 isKick = true;
                             }
 
@@ -102,10 +105,12 @@ public class MouseControl {
                                 endKick();
 
                             } else {
+                                playerTurn = false;
+                                computerTurn = true;
+
                                 isKick = true;
                             }
                         }
-
                     }
 
                 } else {
@@ -147,10 +152,10 @@ public class MouseControl {
 
                 if(!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
 
-                    if(!isKick
-                            && kickScanner.getAllPiecesWhichKick().contains(clickPosition)
-                            || queenKickScanner.getAllQueenPiecesWhichKick().contains(clickPosition)
-                            && board.getPiece(clickPosition).getPieceColor() == Piece.Color.BLACK) {
+                    if((kickScanner.getAllPiecesWhichKick().contains(clickPosition)
+                            || queenKickScanner.getAllQueenPiecesWhichKick().contains(clickPosition))
+                            && board.getPiece(clickPosition).getPieceColor() == Piece.Color.BLACK
+                            && !isKick) {
 
                         board.pickPiece(clickPosition, pickedPosition,true);
                         pickedPosition = clickPosition;
@@ -170,16 +175,20 @@ public class MouseControl {
                             pickedPosition = clickPosition;
 
                             if(normalKicks.getPossibleKickMoves().isEmpty()) {
-                                playerTurn = false;
-                                computerTurn = true;
+                                playerTurn = true;
+                                computerTurn = false;
 
                                 isKick = false;
 
                                 endKick();
 
                             } else {
+                                playerTurn = true;
+                                computerTurn = false;
+
                                 isKick = true;
                             }
+
                         } else if(queenKicks.getPossibleKickMoves().contains(clickPosition)
                             && board.getPiece(pickedPosition).getPieceType().isQueen()){
 
@@ -189,11 +198,15 @@ public class MouseControl {
                             if(queenKicks.getPossibleKickMoves().isEmpty()) {
                                 playerTurn = true;
                                 computerTurn = false;
+
                                 isKick = false;
 
                                 endKick();
 
                             } else {
+                                playerTurn = true;
+                                computerTurn = false;
+
                                 isKick = true;
                             }
                         }
@@ -243,10 +256,10 @@ public class MouseControl {
 
         pickedPosition = null;
 
-        normalMoves.getPossibleMoves().clear();
-        kickScanner.clear();
-        queenMoves.getPossibleQueenMoves().clear();
+        normalKicks.clear();
         queenKicks.clear();
+        kickScanner.clear();
+        queenKickScanner.clear();
     }
 
     private void endKick() {
