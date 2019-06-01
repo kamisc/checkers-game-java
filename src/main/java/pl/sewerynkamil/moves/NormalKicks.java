@@ -59,7 +59,7 @@ public class NormalKicks {
         return possibleKicks;
     }
 
-    public void clear(){
+    public void clear() {
         possibleKickMoves.clear();
         possibleKicks.clear();
     }

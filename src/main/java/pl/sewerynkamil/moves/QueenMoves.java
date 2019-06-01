@@ -16,44 +16,44 @@ public class QueenMoves {
         this.board = board;
     }
 
-    public void normalQueenMoveCalculator(PositionsPieces position){
+    public void normalQueenMoveCalculator(PositionsPieces position) {
 
         possibleQueenMoves.clear();
 
-        for(int i = 1; i < 8; i ++){
+        for(int i = 1; i < 8; i ++) {
             PositionsPieces upLeft = new PositionsPieces(position.getCol() - i, position.getRow() - i);
 
-            if(queenNormalMove(upLeft)){
+            if(queenNormalMove(upLeft)) {
                 possibleQueenMoves.add(upLeft);
             } else {
                 break;
             }
         }
 
-        for(int i = 1; i < 8; i ++){
+        for(int i = 1; i < 8; i ++) {
             PositionsPieces downLeft = new PositionsPieces(position.getCol() - i, position.getRow() + i);
 
-            if(queenNormalMove(downLeft)){
+            if(queenNormalMove(downLeft)) {
                 possibleQueenMoves.add(downLeft);
             } else {
                 break;
             }
         }
 
-        for(int i = 1; i < 8; i ++){
+        for(int i = 1; i < 8; i ++) {
             PositionsPieces upRight = new PositionsPieces(position.getCol() + i, position.getRow() - i);
 
-            if(queenNormalMove(upRight)){
+            if(queenNormalMove(upRight)) {
                 possibleQueenMoves.add(upRight);
             } else {
                 break;
             }
         }
 
-        for(int i = 1; i < 8; i ++){
+        for(int i = 1; i < 8; i ++) {
             PositionsPieces downRight = new PositionsPieces(position.getCol() + i, position.getRow() + i);
 
-            if(queenNormalMove(downRight)){
+            if(queenNormalMove(downRight)) {
                 possibleQueenMoves.add(downRight);
             } else {
                 break;
@@ -61,13 +61,11 @@ public class QueenMoves {
         }
     }
 
-    private boolean queenNormalMove(PositionsPieces position){
+    private boolean queenNormalMove(PositionsPieces position) {
         return position.isValidPosition() && board.isFieldNull(position);
     }
 
     public Set<PositionsPieces> getPossibleQueenMoves() {
         return possibleQueenMoves;
     }
-
-
 }

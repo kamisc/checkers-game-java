@@ -30,8 +30,6 @@ public class Board {
     private NormalKicks normalKicks = new NormalKicks(this);
     private QueenKicks queenKicks = new QueenKicks(this);
     private Promote promote = new Promote(this);
-    private KickScanner kickScanner = new KickScanner(this); // ??
-    private QueenKickScanner queenKickScanner = new QueenKickScanner(this);
 
     private BlackPieces blackPieces = new BlackPieces();
     private WhitePieces whitePieces = new WhitePieces();
@@ -48,7 +46,7 @@ public class Board {
             addPiece(pieces.getKey(), pieces.getValue(), false);
         }
 
-        mouseControl = new MouseControl(this, normalMoves, queenMoves, normalKicks, queenKicks ,queenKickScanner, promote);
+        mouseControl = new MouseControl(this, normalMoves, queenMoves, normalKicks, queenKicks, promote);
     }
 
     public Background createBoardBackground() {
@@ -135,34 +133,39 @@ public class Board {
         normalKicks.kickMovesCalculator(newPosition);
         queenKicks.calculateAllPossibleQueenKicks(newPosition);
 
-        if(!normalKicks.getPossibleKickMoves().isEmpty() || !queenKicks.getPossibleKickMoves().isEmpty()){
+        if(!normalKicks.getPossibleKickMoves().isEmpty() && piece.getPieceType().isNormal()) {
+            removePiece(oldPosition);
+            addPiece(newPosition, piece, true);
+        }
+
+        if(!queenKicks.getPossibleKickMoves().isEmpty() && piece.getPieceType().isQueen()) {
             removePiece(oldPosition);
             addPiece(newPosition, piece, true);
         }
     }
 
-    private PositionsPieces findOpositePosition(PositionsPieces position){
+    private PositionsPieces findOpositePosition(PositionsPieces position) {
         PositionsPieces upLeft = new PositionsPieces(position.getCol() - 1, position.getRow() - 1);
 
-        if(queenKicks.getPossibleKicks().contains(upLeft) || normalKicks.getPossibleKicks().contains(upLeft)){
+        if(queenKicks.getPossibleKicks().contains(upLeft) || normalKicks.getPossibleKicks().contains(upLeft)) {
             return upLeft;
         }
 
         PositionsPieces downLeft = new PositionsPieces(position.getCol() - 1, position.getRow() + 1);
 
-        if(queenKicks.getPossibleKicks().contains(downLeft) || normalKicks.getPossibleKicks().contains(downLeft)){
+        if(queenKicks.getPossibleKicks().contains(downLeft) || normalKicks.getPossibleKicks().contains(downLeft)) {
             return downLeft;
         }
 
         PositionsPieces upRight = new PositionsPieces(position.getCol() + 1, position.getRow() - 1);
 
-        if(queenKicks.getPossibleKicks().contains(upRight) || normalKicks.getPossibleKicks().contains(upRight)){
+        if(queenKicks.getPossibleKicks().contains(upRight) || normalKicks.getPossibleKicks().contains(upRight)) {
             return upRight;
         }
 
         PositionsPieces downRight = new PositionsPieces(position.getCol() + 1, position.getRow() + 1);
 
-        if(queenKicks.getPossibleKicks().contains(downRight) || normalKicks.getPossibleKicks().contains(downRight)){
+        if(queenKicks.getPossibleKicks().contains(downRight) || normalKicks.getPossibleKicks().contains(downRight)) {
             return downRight;
         }
 

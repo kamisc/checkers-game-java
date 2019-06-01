@@ -18,7 +18,7 @@ public class Promote {
         this.board = board;
     }
 
-    public void promote(){
+    public void promote() {
         possiblePromote.clear();
         calculatePromote();
 

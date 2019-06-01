@@ -19,7 +19,7 @@ public class QueenKickScanner {
         this.board = board;
     }
 
-    public void calculateAllPossibleWhiteQueenKicks(){
+    public void calculateAllPossibleWhiteQueenKicks() {
         allPossibleQueenKicks.clear();
         allQueenPiecesWhichKick.clear();
 
@@ -31,78 +31,78 @@ public class QueenKickScanner {
         }
     }
 
-    public void calculateAllPossibleBlackQueenKicks(){
+    public void calculateAllPossibleBlackQueenKicks() {
         allPossibleQueenKicks.clear();
         allQueenPiecesWhichKick.clear();
 
         for (Map.Entry<PositionsPieces, Piece> blackPiece : board.getBoard().entrySet()) {
-            if(blackPiece.getValue().getPieceColor().isBlack() && blackPiece.getValue().getPieceType().isQueen()){
+            if(blackPiece.getValue().getPieceColor().isBlack() && blackPiece.getValue().getPieceType().isQueen()) {
 
                 calculateAllPossibleQueenKicks(blackPiece.getKey());
             }
         }
     }
 
-    private void calculateAllPossibleQueenKicks(PositionsPieces position){
-        for(int i = 1; i < 8; i++){
+    private void calculateAllPossibleQueenKicks(PositionsPieces position) {
+        for(int i = 1; i < 8; i++) {
             PositionsPieces upLeft = new PositionsPieces(position.getCol() - i, position.getRow() - i);
 
-            if(calculatePossibleKick(position, upLeft, - 1, - 1)){
+            if(calculatePossibleKick(position, upLeft, - 1, - 1)) {
                 allPossibleQueenKicks.add(upLeft);
                 allQueenPiecesWhichKick.add(position);
             } else {
-                if(!board.isFieldNull(upLeft) && board.getPiece(upLeft).getPieceColor() == board.getPiece(position).getPieceColor()){
+                if(!board.isFieldNull(upLeft) && board.getPiece(upLeft).getPieceColor() == board.getPiece(position).getPieceColor()) {
                     break;
                 }
             }
         }
 
-        for(int i = 1; i < 8; i++){
+        for(int i = 1; i < 8; i++) {
             PositionsPieces downLeft = new PositionsPieces(position.getCol() - i, position.getRow() + i);
 
-            if(calculatePossibleKick(position, downLeft, - 1, + 1)){
+            if(calculatePossibleKick(position, downLeft, - 1, + 1)) {
                 allPossibleQueenKicks.add(downLeft);
                 allQueenPiecesWhichKick.add(position);
             } else {
-                if(!board.isFieldNull(downLeft) && board.getPiece(downLeft).getPieceColor() == board.getPiece(position).getPieceColor()){
+                if(!board.isFieldNull(downLeft) && board.getPiece(downLeft).getPieceColor() == board.getPiece(position).getPieceColor()) {
                     break;
                 }
             }
         }
 
-        for(int i = 1; i < 8; i++){
+        for(int i = 1; i < 8; i++) {
             PositionsPieces upRight = new PositionsPieces(position.getCol() + i, position.getRow() - i);
 
-            if(calculatePossibleKick(position, upRight, + 1, - 1)){
+            if(calculatePossibleKick(position, upRight, + 1, - 1)) {
                 allPossibleQueenKicks.add(upRight);
                 allQueenPiecesWhichKick.add(position);
             } else {
-                if(!board.isFieldNull(upRight) && board.getPiece(upRight).getPieceColor() == board.getPiece(position).getPieceColor()){
+                if(!board.isFieldNull(upRight) && board.getPiece(upRight).getPieceColor() == board.getPiece(position).getPieceColor()) {
                     break;
                 }
             }
         }
 
-        for(int i = 1; i < 8; i++){
+        for(int i = 1; i < 8; i++) {
             PositionsPieces downRight = new PositionsPieces(position.getCol() + i, position.getRow() + i);
 
-            if(calculatePossibleKick(position, downRight, + 1, + 1)){
+            if(calculatePossibleKick(position, downRight, + 1, + 1)) {
                 allPossibleQueenKicks.add(downRight);
                 allQueenPiecesWhichKick.add(position);
             } else {
-                if(!board.isFieldNull(downRight) && board.getPiece(downRight).getPieceColor() == board.getPiece(position).getPieceColor()){
+                if(!board.isFieldNull(downRight) && board.getPiece(downRight).getPieceColor() == board.getPiece(position).getPieceColor()) {
                     break;
                 }
             }
         }
     }
 
-    private boolean calculatePossibleKick(PositionsPieces actualPosition, PositionsPieces checkPosition, int col, int row){
+    private boolean calculatePossibleKick(PositionsPieces actualPosition, PositionsPieces checkPosition, int col, int row) {
         if(checkPosition.isValidPosition()
                 && !board.isFieldNull(checkPosition)
                 && new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row).isValidPosition()
-                && board.isFieldNull(new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row))){
-            if(board.getPiece(actualPosition).getPieceColor() != board.getPiece(checkPosition).getPieceColor()){
+                && board.isFieldNull(new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row))) {
+            if(board.getPiece(actualPosition).getPieceColor() != board.getPiece(checkPosition).getPieceColor()) {
                 return true;
             }
         }

@@ -24,17 +24,17 @@ public class MouseControl {
     private boolean computerTurn = false;
     private boolean isKick = false;
 
-    public MouseControl(Board board, NormalMoves normalMoves, QueenMoves queenMoves /*KickScanner kickScanner*/,
-                        NormalKicks normalKicks, QueenKicks queenKicks, QueenKickScanner queenKickScanner, Promote promote) {
+    public MouseControl(Board board, NormalMoves normalMoves, QueenMoves queenMoves, NormalKicks normalKicks,
+                        QueenKicks queenKicks, Promote promote) {
         this.board = board;
         this.normalMoves = normalMoves;
         this.queenMoves = queenMoves;
         this.normalKicks = normalKicks;
         this.queenKicks = queenKicks;
-        this.queenKickScanner = queenKickScanner;
         this.promote = promote;
 
         this.kickScanner = new KickScanner(board);
+        this.queenKickScanner = new QueenKickScanner(board);
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
@@ -43,7 +43,7 @@ public class MouseControl {
             PositionsPieces clickPosition = new PositionsPieces((int) ((event.getX() - 59) / 62), (int) ((event.getY() - 59) / 62));
 
             if(!clickPosition.isValidPosition()) {
-                System.out.println("Wrong place!");
+                return;
             }
 
             if(playerTurn) {
@@ -61,9 +61,14 @@ public class MouseControl {
                         board.pickPiece(clickPosition, pickedPosition, true);
                         pickedPosition = clickPosition;
 
-                        if(board.getPiece(clickPosition).getPieceType().isNormal()){
+                        if(board.getPiece(clickPosition).getPieceType().isNormal()) {
+
+                            queenKicks.clear();
                             normalKicks.kickMovesCalculator(clickPosition);
+
                         } else {
+
+                            normalKicks.clear();
                             queenKicks.calculateAllPossibleQueenKicks(clickPosition);
                         }
 
@@ -76,6 +81,7 @@ public class MouseControl {
                             pickedPosition = clickPosition;
 
                             if(normalKicks.getPossibleKickMoves().isEmpty()) {
+
                                 playerTurn = false;
                                 computerTurn = true;
 
@@ -84,19 +90,19 @@ public class MouseControl {
                                 endKick();
 
                             } else {
-                                playerTurn = false;
-                                computerTurn = true;
 
                                 isKick = true;
+
                             }
 
                         } else if(queenKicks.getPossibleKickMoves().contains(clickPosition)
-                                && board.getPiece(pickedPosition).getPieceType().isQueen()){
+                                && board.getPiece(pickedPosition).getPieceType().isQueen()) {
 
                             board.kickPiece(clickPosition, pickedPosition);
                             pickedPosition = clickPosition;
 
                             if(queenKicks.getPossibleKickMoves().isEmpty()) {
+
                                 playerTurn = false;
                                 computerTurn = true;
 
@@ -105,10 +111,9 @@ public class MouseControl {
                                 endKick();
 
                             } else {
-                                playerTurn = false;
-                                computerTurn = true;
 
                                 isKick = true;
+
                             }
                         }
                     }
@@ -120,11 +125,21 @@ public class MouseControl {
                         board.pickPiece(clickPosition, pickedPosition,true);
                         pickedPosition = clickPosition;
 
-                        normalMoves.normalMoveCalculator(clickPosition, true);
-                        queenMoves.normalQueenMoveCalculator(clickPosition);
+                        if(board.getPiece(clickPosition).getPieceType().isNormal()) {
+
+                            queenMoves.getPossibleQueenMoves().clear();
+                            normalMoves.normalMoveCalculator(clickPosition, true);
+
+                        } else {
+
+                            normalMoves.getPossibleMoves().clear();
+                            queenMoves.normalQueenMoveCalculator(clickPosition);
+
+                        }
 
                     } else if(normalMoves.getPossibleMoves().contains(clickPosition)
-                            && board.getPiece(pickedPosition).getPieceType().isNormal()) {
+                            && pickedPosition != null) {
+
                         board.movePiece(clickPosition, pickedPosition);
 
                         playerTurn = false;
@@ -133,7 +148,7 @@ public class MouseControl {
                         endTurn();
 
                     } else if(queenMoves.getPossibleQueenMoves().contains(clickPosition)
-                            && board.getPiece(pickedPosition).getPieceType().isQueen()) {
+                            && pickedPosition != null) {
 
                         board.movePiece(clickPosition, pickedPosition);
 
@@ -160,10 +175,16 @@ public class MouseControl {
                         board.pickPiece(clickPosition, pickedPosition,true);
                         pickedPosition = clickPosition;
 
-                        if(board.getPiece(clickPosition).getPieceType().isNormal()){
+                        if(board.getPiece(clickPosition).getPieceType().isNormal()) {
+
+                            queenKicks.clear();
                             normalKicks.kickMovesCalculator(clickPosition);
+
                         } else {
+
+                            normalKicks.clear();
                             queenKicks.calculateAllPossibleQueenKicks(clickPosition);
+
                         }
 
                     } else {
@@ -175,6 +196,7 @@ public class MouseControl {
                             pickedPosition = clickPosition;
 
                             if(normalKicks.getPossibleKickMoves().isEmpty()) {
+
                                 playerTurn = true;
                                 computerTurn = false;
 
@@ -183,19 +205,19 @@ public class MouseControl {
                                 endKick();
 
                             } else {
-                                playerTurn = true;
-                                computerTurn = false;
 
                                 isKick = true;
+
                             }
 
                         } else if(queenKicks.getPossibleKickMoves().contains(clickPosition)
-                            && board.getPiece(pickedPosition).getPieceType().isQueen()){
+                            && board.getPiece(pickedPosition).getPieceType().isQueen()) {
 
                             board.kickPiece(clickPosition, pickedPosition);
                             pickedPosition = clickPosition;
 
                             if(queenKicks.getPossibleKickMoves().isEmpty()) {
+
                                 playerTurn = true;
                                 computerTurn = false;
 
@@ -204,10 +226,9 @@ public class MouseControl {
                                 endKick();
 
                             } else {
-                                playerTurn = true;
-                                computerTurn = false;
 
                                 isKick = true;
+
                             }
                         }
                     }
@@ -220,11 +241,21 @@ public class MouseControl {
                         board.pickPiece(clickPosition, pickedPosition,true);
                         pickedPosition = clickPosition;
 
-                        normalMoves.normalMoveCalculator(clickPosition, false);
-                        queenMoves.normalQueenMoveCalculator(clickPosition);
+                        if(board.getPiece(clickPosition).getPieceType().isNormal()) {
+
+                            queenMoves.getPossibleQueenMoves().clear();
+                            normalMoves.normalMoveCalculator(clickPosition, true);
+
+                        } else {
+
+                            normalMoves.getPossibleMoves().clear();
+                            queenMoves.normalQueenMoveCalculator(clickPosition);
+
+                        }
 
                     } else if(normalMoves.getPossibleMoves().contains(clickPosition)
-                            && board.getPiece(pickedPosition).getPieceType().isNormal()) {
+                            && pickedPosition != null) {
+
                         board.movePiece(clickPosition, pickedPosition);
 
                         playerTurn = true;
@@ -233,7 +264,7 @@ public class MouseControl {
                         endTurn();
 
                     } else if(queenMoves.getPossibleQueenMoves().contains(clickPosition)
-                            && board.getPiece(pickedPosition).getPieceType().isQueen()) {
+                            && pickedPosition != null) {
 
                         board.movePiece(clickPosition, pickedPosition);
 
@@ -251,10 +282,10 @@ public class MouseControl {
         return mouseClick;
     }
 
-    private void endTurn(){
-        promote.promote();
-
+    private void endTurn() {
         pickedPosition = null;
+
+        promote.promote();
 
         normalKicks.clear();
         queenKicks.clear();
