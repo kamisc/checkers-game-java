@@ -1,9 +1,11 @@
 package pl.sewerynkamil.moves;
 
 import pl.sewerynkamil.board.Board;
+import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class NormalMoves {
@@ -11,6 +13,7 @@ public class NormalMoves {
     private Board board;
 
     private Set<PositionsPieces> possibleMoves = new HashSet<>();
+    private Set<PositionsPieces> allPossibleBlack = new HashSet<>();
 
     public NormalMoves(Board board) {
         this.board = board;
@@ -19,6 +22,20 @@ public class NormalMoves {
     public void normalMoveCalculator(PositionsPieces position, boolean up) {
             possibleMoves.clear();
             normalMove(position, possibleMoves, up);
+    }
+
+    public void allPossibleBlackMoves(){
+        allPossibleBlack.clear();
+        for(Map.Entry<PositionsPieces, Piece> blacks : board.getBoard().entrySet()){
+            if(blacks.getValue().getPieceColor().isBlack()){
+                normalMoveCalculator(blacks.getKey(), false);
+                for(PositionsPieces positon : possibleMoves){
+                    if(positon != null){
+                        allPossibleBlack.add(blacks.getKey());
+                    }
+                }
+            }
+        }
     }
 
     private void normalMove(PositionsPieces actualPosition, Set<PositionsPieces> possibleMoves, boolean up) {
@@ -38,5 +55,9 @@ public class NormalMoves {
 
     public Set<PositionsPieces> getPossibleMoves() {
         return possibleMoves;
+    }
+
+    public Set<PositionsPieces> getAllPossibleBlack() {
+        return allPossibleBlack;
     }
 }
