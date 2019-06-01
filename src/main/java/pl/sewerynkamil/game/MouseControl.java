@@ -160,32 +160,33 @@ public class MouseControl {
 
             if(!turn) {
 
-                do{
-                    kickScanner.calculateAllPossibleBlackKicks();
-                    queenKickScanner.calculateAllPossibleBlackQueenKicks();
+                kickScanner.calculateAllPossibleBlackKicks();
+                queenKickScanner.calculateAllPossibleBlackQueenKicks();
 
-                    if (!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
+                if (!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
 
-                        Set<PositionsPieces> allBlacks = new HashSet<>();
+                    Set<PositionsPieces> allBlacks = new HashSet<>();
 
-                        allBlacks.addAll(kickScanner.getAllPiecesWhichKick());
-                        allBlacks.addAll(queenKickScanner.getAllQueenPiecesWhichKick());
+                    allBlacks.addAll(kickScanner.getAllPiecesWhichKick());
+                    allBlacks.addAll(queenKickScanner.getAllQueenPiecesWhichKick());
 
-                        PositionsPieces computerKick = computer.selectPosition(allBlacks);
+                    PositionsPieces computerKick = computer.selectPosition(allBlacks);
 
-                        pickedPosition = computerKick;
+                    pickedPosition = computerKick;
 
-                        board.pickPiece(computerKick, pickedPosition, true);
+                    board.pickPiece(computerKick, pickedPosition, true);
 
-                        if (board.getPiece(computerKick).getPieceType().isNormal()) {
+                    if (board.getPiece(computerKick).getPieceType().isNormal()) {
 
-                            queenKicks.clear();
+                        queenKicks.clear();
+
+                        do {
                             normalKicks.kickMovesCalculator(computerKick);
-                            computerKick = computer.selectPosition(normalKicks.getPossibleKickMoves());
 
-                            board.kickPiece(computerKick, pickedPosition);
+                            if(!normalKicks.getPossibleKickMoves().isEmpty()) {
 
-                            if(!normalKicks.getPossibleKickMoves().isEmpty()){
+                                computerKick = computer.selectPosition(normalKicks.getPossibleKickMoves());
+
                                 board.kickPiece(computerKick, pickedPosition);
 
                             } else {
@@ -193,32 +194,40 @@ public class MouseControl {
 
                                 turn = true;
                             }
-
-                        } else {
-
-                            normalKicks.clear();
-                            queenKicks.calculateAllPossibleQueenKicks(computerKick);
-                            computerKick = computer.selectPosition(queenKicks.getPossibleKickMoves());
-
-                            board.kickPiece(computerKick, pickedPosition);
-
-                            if(!queenKicks.getPossibleKickMoves().isEmpty()){
-                                board.kickPiece(computerKick, pickedPosition);
-
-                            } else {
-                                endKick();
-
-                                turn = true;
-                            }
-                        }
+                        } while(!turn);
 
                     } else {
 
-                        normalMoves.allPossibleBlackMoves();
+                        normalKicks.clear();
 
-                        PositionsPieces computerMove = computer.selectPosition(normalMoves.getAllPossibleBlack());
+                        do {
+                            queenKicks.calculateAllPossibleQueenKicks(computerKick);
 
-                        pickedPosition = computerMove;
+                            if(!queenKicks.getPossibleKickMoves().isEmpty()) {
+
+                                computerKick = computer.selectPosition(queenKicks.getPossibleKickMoves());
+
+                                board.kickPiece(computerKick, pickedPosition);
+
+                            } else {
+                                endKick();
+
+                                turn = true;
+                            }
+
+                        } while (!turn);
+
+                    }
+
+                } else {
+
+                    normalMoves.allPossibleBlackMoves();
+
+                    PositionsPieces computerMove = computer.selectPosition(normalMoves.getAllPossibleBlack());
+
+                    pickedPosition = computerMove;
+
+                    if(board.getPiece(computerMove).getPieceType().isNormal()) {
 
                         normalMoves.normalMoveCalculator(computerMove, false);
 
@@ -226,15 +235,23 @@ public class MouseControl {
 
                         board.movePiece(computerMove, pickedPosition);
 
-                        System.out.println(computerMove);
+                        turn = true;
+
+                        endTurn();
+
+                    } else {
+
+                        queenMoves.normalQueenMoveCalculator(computerMove);
+
+                        computerMove = computer.selectPosition(queenMoves.getPossibleQueenMoves());
+
+                        board.movePiece(computerMove, pickedPosition);
 
                         turn = true;
 
                         endTurn();
                     }
-                } while (!turn);
-
-
+                }
             }
 
             /*if(!turn) {

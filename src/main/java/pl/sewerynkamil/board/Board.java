@@ -128,8 +128,8 @@ public class Board {
         board.remove(oldPosition);
         board.remove(kickPositon);
 
-        normalKicks.kickMovesCalculator(newPosition);
-        queenKicks.calculateAllPossibleQueenKicks(newPosition);
+        /*normalKicks.kickMovesCalculator(newPosition);
+        queenKicks.calculateAllPossibleQueenKicks(newPosition);*/
 
         if(!normalKicks.getPossibleKickMoves().isEmpty() && piece.getPieceType().isNormal()) {
             removePiece(oldPosition);

@@ -1,9 +1,12 @@
 package pl.sewerynkamil.moves;
 
+import javafx.geometry.Pos;
 import pl.sewerynkamil.board.Board;
+import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class QueenMoves {
@@ -11,10 +14,25 @@ public class QueenMoves {
     private Board board;
 
     private Set<PositionsPieces> possibleQueenMoves = new HashSet<>();
+    private Set<PositionsPieces> allPossibleBlackQueens = new HashSet<>();
 
     public QueenMoves(Board board) {
         this.board = board;
     }
+
+    /*public void allPossibleBlackQueenMoves(){
+        allPossibleBlackQueens.clear();
+        for(Map.Entry<PositionsPieces, Piece> blacks : board.getBoard().entrySet()){
+            if(blacks.getValue().getPieceColor().isBlack()){
+                normalMoveCalculator(blacks.getKey(), false);
+                for(PositionsPieces positon : possibleMoves){
+                    if(positon != null){
+                        allPossibleBlack.add(blacks.getKey());
+                    }
+                }
+            }
+        }
+    }*/
 
     public void normalQueenMoveCalculator(PositionsPieces position) {
 
