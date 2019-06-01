@@ -213,7 +213,6 @@ public class MouseControl {
 
                                 turn = true;
                             }
-
                         }
 
                     } else {
@@ -251,6 +250,8 @@ public class MouseControl {
                     }
                 } while (!turn);
             }
+
+            System.out.println(turn);
 
             /*if(!turn) {
 
