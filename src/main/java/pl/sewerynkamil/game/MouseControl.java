@@ -127,12 +127,10 @@ public class MouseControl {
 
                         if(board.getPiece(clickPosition).getPieceType().isNormal()) {
 
-                            queenMoves.getPossibleQueenMoves().clear();
                             normalMoves.normalMoveCalculator(clickPosition, true);
 
                         } else {
 
-                            normalMoves.getPossibleMoves().clear();
                             queenMoves.normalQueenMoveCalculator(clickPosition);
 
                         }
@@ -244,7 +242,7 @@ public class MouseControl {
                         if(board.getPiece(clickPosition).getPieceType().isNormal()) {
 
                             queenMoves.getPossibleQueenMoves().clear();
-                            normalMoves.normalMoveCalculator(clickPosition, true);
+                            normalMoves.normalMoveCalculator(clickPosition, false);
 
                         } else {
 
