@@ -120,8 +120,6 @@ public class Board {
 
         PositionsPieces kickPositon = findOpositePosition(newPosition);
 
-        System.out.println(kickPositon);
-
         addPiece(newPosition, piece, false);
         removePiece(oldPosition);
         removePiece(kickPositon);
