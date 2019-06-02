@@ -11,8 +11,6 @@ import java.util.Set;
 public class QueenKickScanner {
 
     private Board board;
-    private boolean isKick;
-    private int count = 0;
 
     private Set<PositionsPieces> allPossibleQueenKicks = new HashSet<>();
     private Set<PositionsPieces> allQueenPiecesWhichKick = new HashSet<>();
@@ -74,7 +72,6 @@ public class QueenKickScanner {
             PositionsPieces downRight = new PositionsPieces(position.getCol() + i, position.getRow() + i);
 
             if(calculatePossibleKick(position, downRight, + 1, + 1)){
-                System.out.println(count++);
                 break;
             } else {
 
@@ -83,15 +80,16 @@ public class QueenKickScanner {
     }
 
     private boolean calculatePossibleKick(PositionsPieces actualPosition, PositionsPieces checkPosition, int col, int row) {
-        if(checkPosition.isValidPosition()){
+        if(!checkPosition.isValidPosition()){
             return true;
         }
 
-        if(!board.isFieldNull(checkPosition)
-                && board.getPiece(actualPosition).getPieceColor() != board.getPiece(checkPosition).getPieceColor()
-                && board.isFieldNull(new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row))) {
-            allPossibleQueenKicks.add(checkPosition);
-            allQueenPiecesWhichKick.add(actualPosition);
+        if(!board.isFieldNull(checkPosition)) {
+            if(board.getPiece(actualPosition).getPieceColor() != board.getPiece(checkPosition).getPieceColor()
+                    && board.isFieldNull(new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row))) {
+                allPossibleQueenKicks.add(checkPosition);
+                allQueenPiecesWhichKick.add(actualPosition);
+            }
             return true;
         } else {
             return false;

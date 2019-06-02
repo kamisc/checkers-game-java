@@ -230,6 +230,8 @@ public class MouseControl {
 
                         if (board.getPiece(computerMove).getPieceType().isNormal()) {
 
+                            normalMoves.clear();
+
                             normalMoves.normalMoveCalculator(computerMove, false);
 
                             computerMove = computer.selectPosition(normalMoves.getPossibleMoves());

@@ -20,7 +20,7 @@ public class NormalMoves {
     }
 
     public void normalMoveCalculator(PositionsPieces position, boolean up) {
-            normalMove(position, possibleMoves, up);
+        normalMove(position, possibleMoves, up);
     }
 
     public void allPossibleBlackMoves(){
