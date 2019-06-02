@@ -33,7 +33,7 @@ public class EndGame {
         }
     }
 
-    private void calculatePieces(){
+    private void calculatePieces() {
         restOfWhites.clear();
         restOfBlacks.clear();
 

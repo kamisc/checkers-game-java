@@ -25,5 +25,9 @@ public class BlackPieces implements PieceInterface {
 
         return blackPiecesMap;
     }
+
+    public Map<PositionsPieces, Piece> getBlackPiecesMap() {
+        return blackPiecesMap;
+    }
 }
 

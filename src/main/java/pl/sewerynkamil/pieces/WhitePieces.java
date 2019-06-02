@@ -25,5 +25,9 @@ public class WhitePieces implements PieceInterface {
 
         return whitePiecesMap;
     }
+
+    public Map<PositionsPieces, Piece> getWhitePiecesMap() {
+        return whitePiecesMap;
+    }
 }
 

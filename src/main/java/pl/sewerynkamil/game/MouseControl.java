@@ -44,6 +44,7 @@ public class MouseControl {
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
+
         @Override
         public void handle(MouseEvent event) {
             PositionsPieces clickPosition = new PositionsPieces((int) ((event.getX() - 59) / 62), (int) ((event.getY() - 59) / 62));

@@ -38,10 +38,10 @@ public class NormalMoves {
         }
     }
 
-    public void allPossibleBlackMoves(){
+    public void allPossibleBlackMoves() {
         allPossibleBlack.clear();
 
-        for(Map.Entry<PositionsPieces, Piece> blacks : board.getBoard().entrySet()){
+        for(Map.Entry<PositionsPieces, Piece> blacks : board.getBoard().entrySet()) {
             if(blacks.getValue().getPieceColor().isWhite()) {
                 continue;
             }
@@ -51,7 +51,7 @@ public class NormalMoves {
             if(blacks.getValue().getPieceType().isNormal()) {
                 normalMoveCalculator(blacks.getKey(), false);
                 for(PositionsPieces position : possibleMoves){
-                    if(position != null && position.isValidPosition()){
+                    if(position != null && position.isValidPosition()) {
                         allPossibleBlack.add(blacks.getKey());
                     }
                 }
@@ -59,7 +59,7 @@ public class NormalMoves {
                 normalMoveCalculator(blacks.getKey(), true);
                 normalMoveCalculator(blacks.getKey(), false);
                 for(PositionsPieces position : possibleMoves){
-                    if(position != null && position.isValidPosition()){
+                    if(position != null && position.isValidPosition()) {
                         allPossibleBlack.add(blacks.getKey());
                     }
                 }
@@ -75,7 +75,7 @@ public class NormalMoves {
         return allPossibleBlack;
     }
 
-    public void clear(){
+    public void clear() {
         possibleMoves.clear();
         allPossibleBlack.clear();
     }

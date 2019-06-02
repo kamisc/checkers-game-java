@@ -24,7 +24,7 @@ public class QueenKickScanner {
         allQueenPiecesWhichKick.clear();
 
         for (Map.Entry<PositionsPieces, Piece> whitePiece : board.getBoard().entrySet()) {
-            if(whitePiece.getValue().getPieceColor().isWhite() && whitePiece.getValue().getPieceType().isQueen()){
+            if(whitePiece.getValue().getPieceColor().isWhite() && whitePiece.getValue().getPieceType().isQueen()) {
 
                 calculateAllPossibleQueenKicks(whitePiece.getKey());
             }
@@ -47,7 +47,7 @@ public class QueenKickScanner {
         for(int i = 1; i < 8; i++) {
             PositionsPieces upLeft = new PositionsPieces(position.getCol() - i, position.getRow() - i);
 
-            if(calculatePossibleKick(position, upLeft, - 1, - 1)){
+            if(calculatePossibleKick(position, upLeft, - 1, - 1)) {
                 break;
             }
         }
@@ -55,7 +55,7 @@ public class QueenKickScanner {
         for(int i = 1; i < 8; i++) {
             PositionsPieces downLeft = new PositionsPieces(position.getCol() - i, position.getRow() + i);
 
-            if(calculatePossibleKick(position, downLeft, - 1, + 1)){
+            if(calculatePossibleKick(position, downLeft, - 1, + 1)) {
                 break;
             }
         }
@@ -63,7 +63,7 @@ public class QueenKickScanner {
         for(int i = 1; i < 8; i++) {
             PositionsPieces upRight = new PositionsPieces(position.getCol() + i, position.getRow() - i);
 
-            if(calculatePossibleKick(position, upRight, + 1, - 1)){
+            if(calculatePossibleKick(position, upRight, + 1, - 1)) {
                 break;
             }
         }
@@ -71,14 +71,14 @@ public class QueenKickScanner {
         for(int i = 1; i < 8; i++) {
             PositionsPieces downRight = new PositionsPieces(position.getCol() + i, position.getRow() + i);
 
-            if(calculatePossibleKick(position, downRight, + 1, + 1)){
+            if(calculatePossibleKick(position, downRight, + 1, + 1)) {
                 break;
             }
         }
     }
 
     private boolean calculatePossibleKick(PositionsPieces actualPosition, PositionsPieces checkPosition, int col, int row) {
-        if(!checkPosition.isValidPosition()){
+        if(!checkPosition.isValidPosition()) {
             return true;
         }
 

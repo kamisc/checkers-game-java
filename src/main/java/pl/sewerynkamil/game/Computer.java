@@ -9,7 +9,7 @@ public class Computer {
 
     private Random random = new Random();
 
-    public PositionsPieces selectPosition(Set<PositionsPieces> positions){
+    public PositionsPieces selectPosition(Set<PositionsPieces> positions) {
         Object[] object = positions.toArray();
         return (PositionsPieces) object[random.nextInt(object.length)];
     }
