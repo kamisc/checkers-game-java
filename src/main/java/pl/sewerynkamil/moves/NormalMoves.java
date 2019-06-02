@@ -20,7 +20,6 @@ public class NormalMoves {
     }
 
     public void normalMoveCalculator(PositionsPieces position, boolean up) {
-            // possibleMoves.clear();
             normalMove(position, possibleMoves, up);
     }
 
@@ -31,6 +30,8 @@ public class NormalMoves {
             if(blacks.getValue().getPieceColor().isWhite()) {
                 continue;
             }
+
+            possibleMoves.clear();
 
             if(blacks.getValue().getPieceType().isNormal()) {
                 normalMoveCalculator(blacks.getKey(), false);
@@ -76,5 +77,6 @@ public class NormalMoves {
 
     public void clear(){
         possibleMoves.clear();
+        allPossibleBlack.clear();
     }
 }

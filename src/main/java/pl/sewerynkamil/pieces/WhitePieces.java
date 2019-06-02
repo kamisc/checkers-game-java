@@ -8,9 +8,15 @@ public class WhitePieces implements PieceInterface {
 
     @Override
     public Map<PositionsPieces, Piece> setUpPieces() {
-       // whitePiecesMap.put(new PositionsPieces(5,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE, Piece.Type.QUEEN));
+        whitePiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.WHITE, Piece.Type.QUEEN));
 
-        whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(2,2), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(4,4), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+
+
+
+        /*whitePiecesMap.put(new PositionsPieces(1,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(3,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(5,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(7,5), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
@@ -23,7 +29,7 @@ public class WhitePieces implements PieceInterface {
         whitePiecesMap.put(new PositionsPieces(1,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(3,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
         whitePiecesMap.put(new PositionsPieces(5,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
-        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        whitePiecesMap.put(new PositionsPieces(7,7), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));*/
 
         return whitePiecesMap;
     }

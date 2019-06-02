@@ -228,8 +228,6 @@ public class MouseControl {
 
                         pickedPosition = computerMove;
 
-                        normalMoves.clear();
-
                         if (board.getPiece(computerMove).getPieceType().isNormal()) {
 
                             normalMoves.normalMoveCalculator(computerMove, false);
@@ -386,7 +384,6 @@ public class MouseControl {
         promote.promote();
 
         normalMoves.clear();
-
         normalKicks.clear();
         queenKicks.clear();
         kickScanner.clear();
