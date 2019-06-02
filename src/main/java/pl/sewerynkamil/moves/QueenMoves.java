@@ -14,25 +14,10 @@ public class QueenMoves {
     private Board board;
 
     private Set<PositionsPieces> possibleQueenMoves = new HashSet<>();
-    private Set<PositionsPieces> allPossibleBlackQueens = new HashSet<>();
 
     public QueenMoves(Board board) {
         this.board = board;
     }
-
-    /*public void allPossibleBlackQueenMoves(){
-        allPossibleBlackQueens.clear();
-        for(Map.Entry<PositionsPieces, Piece> blacks : board.getBoard().entrySet()){
-            if(blacks.getValue().getPieceColor().isBlack()){
-                normalMoveCalculator(blacks.getKey(), false);
-                for(PositionsPieces positon : possibleMoves){
-                    if(positon != null){
-                        allPossibleBlack.add(blacks.getKey());
-                    }
-                }
-            }
-        }
-    }*/
 
     public void normalQueenMoveCalculator(PositionsPieces position) {
 

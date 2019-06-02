@@ -55,9 +55,6 @@ public class MouseControl {
                 kickScanner.calculateAllPossibleWhiteKicks();
                 queenKickScanner.calculateAllPossibleWhiteQueenKicks();
 
-                System.out.println(queenKickScanner.getAllQueenPiecesWhichKick());
-                System.out.println(queenKickScanner.getAllPossibleQueenKicks());
-
                 if(!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
 
                     if((kickScanner.getAllPiecesWhichKick().contains(clickPosition)
@@ -169,9 +166,6 @@ public class MouseControl {
                     kickScanner.calculateAllPossibleBlackKicks();
                     queenKickScanner.calculateAllPossibleBlackQueenKicks();
 
-                    System.out.println(queenKickScanner.getAllQueenPiecesWhichKick());
-                    System.out.println(queenKickScanner.getAllPossibleQueenKicks());
-
                     if (!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
 
                         Set<PositionsPieces> allBlacks = new HashSet<>();
@@ -230,13 +224,11 @@ public class MouseControl {
 
                         normalMoves.allPossibleBlackMoves();
 
-                        System.out.println(normalMoves.getAllPossibleBlack());
-
                         PositionsPieces computerMove = computer.selectPosition(normalMoves.getAllPossibleBlack());
 
-                        System.out.println(computerMove);
-
                         pickedPosition = computerMove;
+
+                        normalMoves.clear();
 
                         if (board.getPiece(computerMove).getPieceType().isNormal()) {
 
@@ -392,6 +384,8 @@ public class MouseControl {
         pickedPosition = null;
 
         promote.promote();
+
+        normalMoves.clear();
 
         normalKicks.clear();
         queenKicks.clear();

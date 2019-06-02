@@ -20,21 +20,26 @@ public class NormalMoves {
     }
 
     public void normalMoveCalculator(PositionsPieces position, boolean up) {
-            possibleMoves.clear();
+            // possibleMoves.clear();
             normalMove(position, possibleMoves, up);
     }
 
     public void allPossibleBlackMoves(){
         allPossibleBlack.clear();
+
         for(Map.Entry<PositionsPieces, Piece> blacks : board.getBoard().entrySet()){
-            if(blacks.getValue().getPieceColor().isBlack() && blacks.getValue().getPieceType().isNormal()) {
+            if(blacks.getValue().getPieceColor().isWhite()) {
+                continue;
+            }
+
+            if(blacks.getValue().getPieceType().isNormal()) {
                 normalMoveCalculator(blacks.getKey(), false);
                 for(PositionsPieces position : possibleMoves){
                     if(position != null && position.isValidPosition()){
                         allPossibleBlack.add(blacks.getKey());
                     }
                 }
-            } else if(blacks.getValue().getPieceColor().isBlack() && blacks.getValue().getPieceType().isQueen()) {
+            } else {
                 normalMoveCalculator(blacks.getKey(), true);
                 normalMoveCalculator(blacks.getKey(), false);
                 for(PositionsPieces position : possibleMoves){
@@ -67,5 +72,9 @@ public class NormalMoves {
 
     public Set<PositionsPieces> getAllPossibleBlack() {
         return allPossibleBlack;
+    }
+
+    public void clear(){
+        possibleMoves.clear();
     }
 }
