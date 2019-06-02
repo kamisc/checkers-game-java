@@ -8,9 +8,6 @@ public class BlackPieces implements PieceInterface {
 
     @Override
     public Map<PositionsPieces, Piece> setUpPieces() {
-       /* blackPiecesMap.put(new PositionsPieces(2,2), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
-        blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK, Piece.Type.QUEEN));*/
-
         blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
         blackPiecesMap.put(new PositionsPieces(2,0), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
         blackPiecesMap.put(new PositionsPieces(4,0), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));

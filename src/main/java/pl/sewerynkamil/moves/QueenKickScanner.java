@@ -47,11 +47,15 @@ public class QueenKickScanner {
         for(int i = 1; i < 8; i++) {
             PositionsPieces upLeft = new PositionsPieces(position.getCol() - i, position.getRow() - i);
 
-            if(calculatePossibleKick(position, upLeft, - 1, - 1)) {
-                allPossibleQueenKicks.add(upLeft);
-                allQueenPiecesWhichKick.add(position);
-            } else {
-                if(!board.isFieldNull(upLeft) && board.getPiece(upLeft).getPieceColor() == board.getPiece(position).getPieceColor()) {
+            if(upLeft.isValidPosition()
+                    && !board.isFieldNull(upLeft)) {
+                if(new PositionsPieces(upLeft.getCol() + i, upLeft.getRow() + i).isValidPosition()
+                        && board.isFieldNull(new PositionsPieces(upLeft.getCol() + i, upLeft.getRow() + i))) {
+                    if(board.getPiece(position).getPieceColor() != board.getPiece(upLeft).getPieceColor()) {
+                        allPossibleQueenKicks.add(upLeft);
+                        allQueenPiecesWhichKick.add(position);
+                    }
+                } else {
                     break;
                 }
             }
@@ -60,11 +64,15 @@ public class QueenKickScanner {
         for(int i = 1; i < 8; i++) {
             PositionsPieces downLeft = new PositionsPieces(position.getCol() - i, position.getRow() + i);
 
-            if(calculatePossibleKick(position, downLeft, - 1, + 1)) {
-                allPossibleQueenKicks.add(downLeft);
-                allQueenPiecesWhichKick.add(position);
-            } else {
-                if(!board.isFieldNull(downLeft) && board.getPiece(downLeft).getPieceColor() == board.getPiece(position).getPieceColor()) {
+            if(downLeft.isValidPosition()
+                    && !board.isFieldNull(downLeft)) {
+                if(new PositionsPieces(downLeft.getCol() + i, downLeft.getRow() + i).isValidPosition()
+                        && board.isFieldNull(new PositionsPieces(downLeft.getCol() + i, downLeft.getRow() + i))) {
+                    if(board.getPiece(position).getPieceColor() != board.getPiece(downLeft).getPieceColor()) {
+                        allPossibleQueenKicks.add(downLeft);
+                        allQueenPiecesWhichKick.add(position);
+                    }
+                } else {
                     break;
                 }
             }
@@ -73,11 +81,15 @@ public class QueenKickScanner {
         for(int i = 1; i < 8; i++) {
             PositionsPieces upRight = new PositionsPieces(position.getCol() + i, position.getRow() - i);
 
-            if(calculatePossibleKick(position, upRight, + 1, - 1)) {
-                allPossibleQueenKicks.add(upRight);
-                allQueenPiecesWhichKick.add(position);
-            } else {
-                if(!board.isFieldNull(upRight) && board.getPiece(upRight).getPieceColor() == board.getPiece(position).getPieceColor()) {
+            if(upRight.isValidPosition()
+                    && !board.isFieldNull(upRight)) {
+                if(new PositionsPieces(upRight.getCol() + i, upRight.getRow() + i).isValidPosition()
+                        && board.isFieldNull(new PositionsPieces(upRight.getCol() + i, upRight.getRow() + i))) {
+                    if(board.getPiece(position).getPieceColor() != board.getPiece(upRight).getPieceColor()) {
+                        allPossibleQueenKicks.add(upRight);
+                        allQueenPiecesWhichKick.add(position);
+                    }
+                } else {
                     break;
                 }
             }
@@ -86,11 +98,15 @@ public class QueenKickScanner {
         for(int i = 1; i < 8; i++) {
             PositionsPieces downRight = new PositionsPieces(position.getCol() + i, position.getRow() + i);
 
-            if(calculatePossibleKick(position, downRight, + 1, + 1)) {
-                allPossibleQueenKicks.add(downRight);
-                allQueenPiecesWhichKick.add(position);
-            } else {
-                if(!board.isFieldNull(downRight) && board.getPiece(downRight).getPieceColor() == board.getPiece(position).getPieceColor()) {
+            if(downRight.isValidPosition()
+                    && !board.isFieldNull(downRight)) {
+                if(new PositionsPieces(downRight.getCol() + i, downRight.getRow() + i).isValidPosition()
+                        && board.isFieldNull(new PositionsPieces(downRight.getCol() + i, downRight.getRow() + i))) {
+                    if(board.getPiece(position).getPieceColor() != board.getPiece(downRight).getPieceColor()) {
+                        allPossibleQueenKicks.add(downRight);
+                        allQueenPiecesWhichKick.add(position);
+                    }
+                } else {
                     break;
                 }
             }
