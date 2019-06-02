@@ -17,8 +17,8 @@ public class EndGame {
         this.board = board;
     }
 
-    public void checkEndGame() {
-        calculatePieces();
+    public void checkEndGame(Set<PositionsPieces> positions) {
+        calculatePieces(positions);
 
         if(restOfWhites.size() == 0) {
             System.out.println("Black player win!");
@@ -33,15 +33,15 @@ public class EndGame {
         }
     }
 
-    private void calculatePieces() {
+    private void calculatePieces(Set<PositionsPieces> positions) {
         restOfWhites.clear();
         restOfBlacks.clear();
 
-        Set<PositionsPieces> whites = board.getBoard().keySet().stream()
+        Set<PositionsPieces> whites = positions.stream()
                 .filter(position -> board.getPiece(position).getPieceColor().isWhite())
                 .collect(Collectors.toSet());
 
-        Set<PositionsPieces> blacks = board.getBoard().keySet().stream()
+        Set<PositionsPieces> blacks = positions.stream()
                 .filter(position -> board.getPiece(position).getPieceColor().isBlack())
                 .collect(Collectors.toSet());
 

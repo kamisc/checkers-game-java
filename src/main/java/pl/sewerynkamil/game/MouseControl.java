@@ -55,7 +55,7 @@ public class MouseControl {
 
             if(turn) {
 
-                endGame.checkEndGame();
+                endGame.checkEndGame(board.getBoard().keySet());
 
                 kickScanner.calculateAllPossibleWhiteKicks();
                 queenKickScanner.calculateAllPossibleWhiteQueenKicks();
@@ -166,7 +166,7 @@ public class MouseControl {
 
             if(!turn) {
 
-                endGame.checkEndGame();
+                endGame.checkEndGame(board.getBoard().keySet());
 
                 do {
 
