@@ -73,8 +73,6 @@ public class QueenKickScanner {
 
             if(calculatePossibleKick(position, downRight, + 1, + 1)){
                 break;
-            } else {
-
             }
         }
     }
@@ -86,7 +84,8 @@ public class QueenKickScanner {
 
         if(!board.isFieldNull(checkPosition)) {
             if(board.getPiece(actualPosition).getPieceColor() != board.getPiece(checkPosition).getPieceColor()
-                    && board.isFieldNull(new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row))) {
+                    && board.isFieldNull(new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row))
+                    && new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row).isValidPosition()) {
                 allPossibleQueenKicks.add(checkPosition);
                 allQueenPiecesWhichKick.add(actualPosition);
             }

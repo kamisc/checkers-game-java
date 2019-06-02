@@ -23,6 +23,21 @@ public class NormalMoves {
         normalMove(position, possibleMoves, up);
     }
 
+    private void normalMove(PositionsPieces actualPosition, Set<PositionsPieces> possibleMoves, boolean up) {
+        int direction = up ? - 1 : 1;
+
+        PositionsPieces left = new PositionsPieces(actualPosition.getCol() - 1, actualPosition.getRow() + direction);
+        PositionsPieces right = new PositionsPieces(actualPosition.getCol() + 1, actualPosition.getRow() + direction);
+
+        if (left.isValidPosition() && board.isFieldNull(left)) {
+            possibleMoves.add(left);
+        }
+
+        if (right.isValidPosition() && board.isFieldNull(right)) {
+            possibleMoves.add(right);
+        }
+    }
+
     public void allPossibleBlackMoves(){
         allPossibleBlack.clear();
 
@@ -49,21 +64,6 @@ public class NormalMoves {
                     }
                 }
             }
-        }
-    }
-
-    private void normalMove(PositionsPieces actualPosition, Set<PositionsPieces> possibleMoves, boolean up) {
-        int direction = up ? - 1 : 1;
-
-        PositionsPieces left = new PositionsPieces(actualPosition.getCol() - 1, actualPosition.getRow() + direction);
-        PositionsPieces right = new PositionsPieces(actualPosition.getCol() + 1, actualPosition.getRow() + direction);
-
-        if (left.isValidPosition() && board.isFieldNull(left)) {
-            possibleMoves.add(left);
-        }
-
-        if (right.isValidPosition() && board.isFieldNull(right)) {
-            possibleMoves.add(right);
         }
     }
 

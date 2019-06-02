@@ -6,6 +6,7 @@ import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import pl.sewerynkamil.game.EndGame;
 import pl.sewerynkamil.game.MouseControl;
 import pl.sewerynkamil.game.Resources;
 import pl.sewerynkamil.moves.*;
@@ -30,6 +31,7 @@ public class Board {
     private NormalKicks normalKicks = new NormalKicks(this);
     private QueenKicks queenKicks = new QueenKicks(this);
     private Promote promote = new Promote(this);
+    private EndGame endGame = new EndGame(this);
 
     private BlackPieces blackPieces = new BlackPieces();
     private WhitePieces whitePieces = new WhitePieces();
@@ -46,7 +48,7 @@ public class Board {
             addPiece(pieces.getKey(), pieces.getValue(), false);
         }
 
-        mouseControl = new MouseControl(this, normalMoves, queenMoves, normalKicks, queenKicks, promote);
+        mouseControl = new MouseControl(this, normalMoves, queenMoves, normalKicks, queenKicks, promote, endGame);
     }
 
     public Background createBoardBackground() {

@@ -1,12 +1,9 @@
 package pl.sewerynkamil.moves;
 
-import javafx.geometry.Pos;
 import pl.sewerynkamil.board.Board;
-import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class QueenMoves {

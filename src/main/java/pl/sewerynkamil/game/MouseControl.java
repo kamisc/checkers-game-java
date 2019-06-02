@@ -21,6 +21,7 @@ public class MouseControl {
     private QueenKickScanner queenKickScanner;
     private Promote promote;
     private Computer computer;
+    private EndGame endGame;
 
     private PositionsPieces pickedPosition;
 
@@ -28,13 +29,14 @@ public class MouseControl {
     private boolean isKick = false;
 
     public MouseControl(Board board, NormalMoves normalMoves, QueenMoves queenMoves, NormalKicks normalKicks,
-                        QueenKicks queenKicks, Promote promote) {
+                        QueenKicks queenKicks, Promote promote, EndGame endGame) {
         this.board = board;
         this.normalMoves = normalMoves;
         this.queenMoves = queenMoves;
         this.normalKicks = normalKicks;
         this.queenKicks = queenKicks;
         this.promote = promote;
+        this.endGame = endGame;
 
         this.kickScanner = new KickScanner(board);
         this.queenKickScanner = new QueenKickScanner(board);
@@ -51,6 +53,8 @@ public class MouseControl {
             }
 
             if(turn) {
+
+                endGame.checkEndGame();
 
                 kickScanner.calculateAllPossibleWhiteKicks();
                 queenKickScanner.calculateAllPossibleWhiteQueenKicks();
@@ -161,6 +165,8 @@ public class MouseControl {
 
             if(!turn) {
 
+                endGame.checkEndGame();
+
                 do {
 
                     kickScanner.calculateAllPossibleBlackKicks();
@@ -258,121 +264,6 @@ public class MouseControl {
 
                 } while(!turn);
             }
-
-/*            if(!turn) {
-
-                kickScanner.calculateAllPossibleBlackKicks();
-                queenKickScanner.calculateAllPossibleBlackQueenKicks();
-
-                System.out.println(queenKickScanner.getAllQueenPiecesWhichKick());
-                System.out.println(queenKickScanner.getAllPossibleQueenKicks());
-
-                if(!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
-
-                    if((kickScanner.getAllPiecesWhichKick().contains(clickPosition)
-                            || queenKickScanner.getAllQueenPiecesWhichKick().contains(clickPosition))
-                            && board.getPiece(clickPosition).getPieceColor() == Piece.Color.BLACK
-                            && !isKick) {
-
-                        board.pickPiece(clickPosition, pickedPosition,true);
-                        pickedPosition = clickPosition;
-
-                        if(board.getPiece(clickPosition).getPieceType().isNormal()) {
-
-                            queenKicks.clear();
-                            normalKicks.kickMovesCalculator(clickPosition);
-
-                        } else {
-
-                            normalKicks.clear();
-                            queenKicks.calculateAllPossibleQueenKicks(clickPosition);
-
-                        }
-
-                    } else {
-
-                        if(normalKicks.getPossibleKickMoves().contains(clickPosition)
-                                && board.getPiece(pickedPosition).getPieceType().isNormal()) {
-
-                            board.kickPiece(clickPosition, pickedPosition);
-                            pickedPosition = clickPosition;
-
-                            if(normalKicks.getPossibleKickMoves().isEmpty()) {
-
-                                turn = true;
-
-                                isKick = false;
-
-                                endKick();
-
-                            } else {
-
-                                isKick = true;
-
-                            }
-
-                        } else if(queenKicks.getPossibleKickMoves().contains(clickPosition)
-                            && board.getPiece(pickedPosition).getPieceType().isQueen()) {
-
-                            board.kickPiece(clickPosition, pickedPosition);
-                            pickedPosition = clickPosition;
-
-                            if(queenKicks.getPossibleKickMoves().isEmpty()) {
-
-                                turn = true;
-
-                                isKick = false;
-
-                                endKick();
-
-                            } else {
-
-                                isKick = true;
-
-                            }
-                        }
-                    }
-
-                } else {
-
-                    if(!board.isFieldNull(clickPosition)
-                            && board.getPiece(clickPosition).getPieceColor() == Piece.Color.BLACK) {
-
-                        board.pickPiece(clickPosition, pickedPosition,true);
-                        pickedPosition = clickPosition;
-
-                        if(board.getPiece(clickPosition).getPieceType().isNormal()) {
-
-                            queenMoves.getPossibleQueenMoves().clear();
-                            normalMoves.normalMoveCalculator(clickPosition, false);
-
-                        } else {
-
-                            normalMoves.getPossibleMoves().clear();
-                            queenMoves.normalQueenMoveCalculator(clickPosition);
-
-                        }
-
-                    } else if(normalMoves.getPossibleMoves().contains(clickPosition)
-                            && pickedPosition != null) {
-
-                        board.movePiece(clickPosition, pickedPosition);
-
-                        turn = true;
-
-                        endTurn();
-
-                    } else if(queenMoves.getPossibleQueenMoves().contains(clickPosition)
-                            && pickedPosition != null) {
-
-                        board.movePiece(clickPosition, pickedPosition);
-
-                        turn = true;
-
-                        endTurn();
-                    }
-                }
-            }*/
         }
     };
 
