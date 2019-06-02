@@ -55,6 +55,9 @@ public class MouseControl {
                 kickScanner.calculateAllPossibleWhiteKicks();
                 queenKickScanner.calculateAllPossibleWhiteQueenKicks();
 
+                System.out.println(queenKickScanner.getAllQueenPiecesWhichKick());
+                System.out.println(queenKickScanner.getAllPossibleQueenKicks());
+
                 if(!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
 
                     if((kickScanner.getAllPiecesWhichKick().contains(clickPosition)
@@ -121,6 +124,7 @@ public class MouseControl {
                     }
 
                 } else {
+
                     if(!board.isFieldNull(clickPosition)
                             && board.getPiece(clickPosition).getPieceColor() == Piece.Color.WHITE) {
 
@@ -160,102 +164,116 @@ public class MouseControl {
 
             if(!turn) {
 
-                kickScanner.calculateAllPossibleBlackKicks();
-                queenKickScanner.calculateAllPossibleBlackQueenKicks();
+                do {
 
-                if (!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
+                    kickScanner.calculateAllPossibleBlackKicks();
+                    queenKickScanner.calculateAllPossibleBlackQueenKicks();
 
-                    Set<PositionsPieces> allBlacks = new HashSet<>();
+                    System.out.println(queenKickScanner.getAllQueenPiecesWhichKick());
+                    System.out.println(queenKickScanner.getAllPossibleQueenKicks());
 
-                    allBlacks.addAll(kickScanner.getAllPiecesWhichKick());
-                    allBlacks.addAll(queenKickScanner.getAllQueenPiecesWhichKick());
+                    if (!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
 
-                    PositionsPieces computerKick = computer.selectPosition(allBlacks);
+                        Set<PositionsPieces> allBlacks = new HashSet<>();
 
-                    pickedPosition = computerKick;
+                        allBlacks.addAll(kickScanner.getAllPiecesWhichKick());
+                        allBlacks.addAll(queenKickScanner.getAllQueenPiecesWhichKick());
 
-                    board.pickPiece(computerKick, pickedPosition, true);
+                        PositionsPieces computerKick = computer.selectPosition(allBlacks);
 
-                    if (board.getPiece(pickedPosition).getPieceType().isNormal()) {
+                        pickedPosition = computerKick;
 
-                        queenKicks.clear();
+                        board.pickPiece(computerKick, pickedPosition, true);
 
-                        normalKicks.kickMovesCalculator(pickedPosition);
+                        if (board.getPiece(pickedPosition).getPieceType().isNormal()) {
 
-                        if (!normalKicks.getPossibleKickMoves().isEmpty()) {
+                            queenKicks.clear();
 
-                            computerKick = computer.selectPosition(normalKicks.getPossibleKickMoves());
+                            normalKicks.kickMovesCalculator(pickedPosition);
 
-                            board.kickPiece(computerKick, pickedPosition);
+                            if (!normalKicks.getPossibleKickMoves().isEmpty()) {
 
-                            if(normalKicks.getPossibleKickMoves().isEmpty()) {
+                                computerKick = computer.selectPosition(normalKicks.getPossibleKickMoves());
 
-                                endKick();
+                                board.kickPiece(computerKick, pickedPosition);
 
-                                turn = true;
+                                if (normalKicks.getPossibleKickMoves().isEmpty()) {
+
+                                    endKick();
+
+                                    turn = true;
+                                }
+                            }
+
+                        } else {
+
+                            normalKicks.clear();
+
+                            queenKicks.calculateAllPossibleQueenKicks(pickedPosition);
+
+                            if (!queenKicks.getPossibleKickMoves().isEmpty()) {
+
+                                computerKick = computer.selectPosition(queenKicks.getPossibleKickMoves());
+
+                                board.kickPiece(computerKick, pickedPosition);
+
+                                if (queenKicks.getPossibleKickMoves().isEmpty()) {
+
+                                    endKick();
+
+                                    turn = true;
+                                }
                             }
                         }
 
                     } else {
 
-                        normalKicks.clear();
+                        normalMoves.allPossibleBlackMoves();
 
-                        queenKicks.calculateAllPossibleQueenKicks(pickedPosition);
+                        System.out.println(normalMoves.getAllPossibleBlack());
 
-                        if (!queenKicks.getPossibleKickMoves().isEmpty()) {
+                        PositionsPieces computerMove = computer.selectPosition(normalMoves.getAllPossibleBlack());
 
-                            computerKick = computer.selectPosition(queenKicks.getPossibleKickMoves());
+                        System.out.println(computerMove);
 
-                            board.kickPiece(computerKick, pickedPosition);
+                        pickedPosition = computerMove;
 
-                            if(queenKicks.getPossibleKickMoves().isEmpty()) {
+                        if (board.getPiece(computerMove).getPieceType().isNormal()) {
 
-                                endKick();
+                            normalMoves.normalMoveCalculator(computerMove, false);
 
-                                turn = true;
-                            }
+                            computerMove = computer.selectPosition(normalMoves.getPossibleMoves());
+
+                            board.movePiece(computerMove, pickedPosition);
+
+                            turn = true;
+
+                            endTurn();
+
+                        } else {
+
+                            queenMoves.normalQueenMoveCalculator(computerMove);
+
+                            computerMove = computer.selectPosition(queenMoves.getPossibleQueenMoves());
+
+                            board.movePiece(computerMove, pickedPosition);
+
+                            turn = true;
+
+                            endTurn();
                         }
                     }
 
-                } else {
-
-                    normalMoves.allPossibleBlackMoves();
-
-                    PositionsPieces computerMove = computer.selectPosition(normalMoves.getAllPossibleBlack());
-
-                    pickedPosition = computerMove;
-
-                    if (board.getPiece(computerMove).getPieceType().isNormal()) {
-
-                        normalMoves.normalMoveCalculator(computerMove, false);
-
-                        computerMove = computer.selectPosition(normalMoves.getPossibleMoves());
-
-                        board.movePiece(computerMove, pickedPosition);
-
-                        turn = true;
-
-                        endTurn();
-
-                    } else {
-
-                        queenMoves.normalQueenMoveCalculator(computerMove);
-
-                        computerMove = computer.selectPosition(queenMoves.getPossibleQueenMoves());
-
-                        board.movePiece(computerMove, pickedPosition);
-
-                        turn = true;
-
-                        endTurn();
-                    }
-                }
+                } while(!turn);
             }
 
-            /*if(!turn) {
+/*            if(!turn) {
 
                 kickScanner.calculateAllPossibleBlackKicks();
                 queenKickScanner.calculateAllPossibleBlackQueenKicks();
+
+                System.out.println(queenKickScanner.getAllQueenPiecesWhichKick());
+                System.out.println(queenKickScanner.getAllPossibleQueenKicks());
 
                 if(!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
 

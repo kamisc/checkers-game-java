@@ -47,58 +47,74 @@ public class QueenKickScanner {
         for(int i = 1; i < 8; i++) {
             PositionsPieces upLeft = new PositionsPieces(position.getCol() - i, position.getRow() - i);
 
-            if(upLeft.isValidPosition()
+            if(calculatePossibleKick(position, upLeft, - 1,  - 1)){
+                allPossibleQueenKicks.add(upLeft);
+                allQueenPiecesWhichKick.add(position);
+            }
+
+
+            /*if(upLeft.isValidPosition()
                     && !board.isFieldNull(upLeft)) {
-                if(new PositionsPieces(upLeft.getCol() + i, upLeft.getRow() + i).isValidPosition()
-                        && board.isFieldNull(new PositionsPieces(upLeft.getCol() + i, upLeft.getRow() + i))) {
+                if(new PositionsPieces(upLeft.getCol() - i, upLeft.getRow() - i).isValidPosition()
+                        && board.isFieldNull(new PositionsPieces(upLeft.getCol() - i, upLeft.getRow() - i))) {
                     if(board.getPiece(position).getPieceColor() != board.getPiece(upLeft).getPieceColor()) {
                         allPossibleQueenKicks.add(upLeft);
                         allQueenPiecesWhichKick.add(position);
                     }
-                } else {
-                    break;
                 }
-            }
+            }*/
         }
 
         for(int i = 1; i < 8; i++) {
             PositionsPieces downLeft = new PositionsPieces(position.getCol() - i, position.getRow() + i);
 
-            if(downLeft.isValidPosition()
+            if(calculatePossibleKick(position, downLeft, - 1,  + 1)){
+                allPossibleQueenKicks.add(downLeft);
+                allQueenPiecesWhichKick.add(position);
+            }
+
+            /*if(downLeft.isValidPosition()
                     && !board.isFieldNull(downLeft)) {
-                if(new PositionsPieces(downLeft.getCol() + i, downLeft.getRow() + i).isValidPosition()
-                        && board.isFieldNull(new PositionsPieces(downLeft.getCol() + i, downLeft.getRow() + i))) {
+                if(new PositionsPieces(downLeft.getCol() - i, downLeft.getRow() + i).isValidPosition()
+                        && board.isFieldNull(new PositionsPieces(downLeft.getCol() - i, downLeft.getRow() + i))) {
                     if(board.getPiece(position).getPieceColor() != board.getPiece(downLeft).getPieceColor()) {
                         allPossibleQueenKicks.add(downLeft);
                         allQueenPiecesWhichKick.add(position);
                     }
-                } else {
-                    break;
                 }
-            }
+            }*/
         }
 
         for(int i = 1; i < 8; i++) {
             PositionsPieces upRight = new PositionsPieces(position.getCol() + i, position.getRow() - i);
 
-            if(upRight.isValidPosition()
+            if(calculatePossibleKick(position, upRight, + 1,  - 1)){
+                allPossibleQueenKicks.add(upRight);
+                allQueenPiecesWhichKick.add(position);
+            }
+
+            /*if(upRight.isValidPosition()
                     && !board.isFieldNull(upRight)) {
-                if(new PositionsPieces(upRight.getCol() + i, upRight.getRow() + i).isValidPosition()
-                        && board.isFieldNull(new PositionsPieces(upRight.getCol() + i, upRight.getRow() + i))) {
+                if(new PositionsPieces(upRight.getCol() + i, upRight.getRow() - i).isValidPosition()
+                        && board.isFieldNull(new PositionsPieces(upRight.getCol() + i, upRight.getRow() - i))) {
                     if(board.getPiece(position).getPieceColor() != board.getPiece(upRight).getPieceColor()) {
                         allPossibleQueenKicks.add(upRight);
                         allQueenPiecesWhichKick.add(position);
                     }
-                } else {
-                    break;
                 }
-            }
+            }*/
         }
 
         for(int i = 1; i < 8; i++) {
             PositionsPieces downRight = new PositionsPieces(position.getCol() + i, position.getRow() + i);
 
-            if(downRight.isValidPosition()
+            if(calculatePossibleKick(position, downRight, + 1,  + 1)){
+                allPossibleQueenKicks.add(downRight);
+                allQueenPiecesWhichKick.add(position);
+            }
+
+
+            /*if(downRight.isValidPosition()
                     && !board.isFieldNull(downRight)) {
                 if(new PositionsPieces(downRight.getCol() + i, downRight.getRow() + i).isValidPosition()
                         && board.isFieldNull(new PositionsPieces(downRight.getCol() + i, downRight.getRow() + i))) {
@@ -106,10 +122,8 @@ public class QueenKickScanner {
                         allPossibleQueenKicks.add(downRight);
                         allQueenPiecesWhichKick.add(position);
                     }
-                } else {
-                    break;
                 }
-            }
+            }*/
         }
     }
 
