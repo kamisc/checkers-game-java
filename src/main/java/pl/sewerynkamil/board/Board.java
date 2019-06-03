@@ -40,6 +40,14 @@ public class Board {
         mouseControl = new MouseControl(this, normalMoves, queenMoves, normalKicks, queenKicks, promote, endGame);
     }
 
+    public Piece addPieceToBoard(PositionsPieces position, Piece piece) {
+        return board.put(position, piece);
+    }
+
+    public void removePieceFromBoard(PositionsPieces position) {
+        board.remove(position);
+    }
+
     public Piece getPiece(PositionsPieces position) {
         return board.get(position);
     }
@@ -67,8 +75,8 @@ public class Board {
         graphics.addPiece(newPosition, piece, false);
         graphics.removePiece(oldPosition);
 
-        board.remove(oldPosition);
-        board.put(newPosition, piece);
+        removePieceFromBoard(oldPosition);
+        addPieceToBoard(newPosition, piece);
     }
 
     public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
@@ -80,9 +88,9 @@ public class Board {
         graphics.removePiece(oldPosition);
         graphics.removePiece(kickPositon);
 
-        board.put(newPosition, piece);
-        board.remove(oldPosition);
-        board.remove(kickPositon);
+        addPieceToBoard(newPosition, piece);
+        removePieceFromBoard(oldPosition);
+        removePieceFromBoard(kickPositon);
 
         normalKicks.kickMovesCalculator(newPosition);
         queenKicks.calculateAllPossibleQueenKicks(newPosition);

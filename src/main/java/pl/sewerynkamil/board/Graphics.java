@@ -9,6 +9,7 @@ import javafx.scene.layout.*;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class Graphics {
@@ -20,7 +21,6 @@ public class Graphics {
     public Graphics(){
         createBoardBackground();
         createBoardLayout();
-
     }
 
     public Background createBoardBackground() {
