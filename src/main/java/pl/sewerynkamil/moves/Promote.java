@@ -26,16 +26,16 @@ public class Promote {
             Piece piece = board.getPiece(position);
 
             if(piece.getPieceColor().isWhite() && piece.getPieceType().isNormal()) {
-                board.removePiece(position);
-                board.addPiece(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN), false);
+                board.getGraphics().removePiece(position);
+                board.getGraphics().addPiece(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN), false);
 
                 board.getBoard().remove(position);
                 board.getBoard().put(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN));
             }
 
             if(piece.getPieceColor().isBlack() && piece.getPieceType().isNormal()) {
-                board.removePiece(position);
-                board.addPiece(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN), false);
+                board.getGraphics().removePiece(position);
+                board.getGraphics().addPiece(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN), false);
 
                 board.getBoard().remove(position);
                 board.getBoard().put(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN));

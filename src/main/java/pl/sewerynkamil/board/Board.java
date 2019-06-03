@@ -1,14 +1,7 @@
 package pl.sewerynkamil.board;
 
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.VPos;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
 import pl.sewerynkamil.game.EndGame;
 import pl.sewerynkamil.game.MouseControl;
-import pl.sewerynkamil.game.Resources;
 import pl.sewerynkamil.moves.*;
 import pl.sewerynkamil.pieces.BlackPieces;
 import pl.sewerynkamil.pieces.Piece;
@@ -17,13 +10,10 @@ import pl.sewerynkamil.pieces.WhitePieces;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Board {
 
-    private GridPane grid = new GridPane();
-    private Background background;
-    private Image imageBoard = new Image(Resources.getPath("board.jpg"));
+    private Graphics graphics;
 
     private MouseControl mouseControl;
     private NormalMoves normalMoves = new NormalMoves(this);
@@ -38,43 +28,16 @@ public class Board {
     private Map<PositionsPieces, Piece> board = new HashMap<>();
 
     public Board() {
-        createBoardBackground();
-        createBoardLayout();
+        graphics = new Graphics();
 
         board.putAll(whitePieces.setUpPieces());
         board.putAll(blackPieces.setUpPieces());
 
         for(Map.Entry<PositionsPieces, Piece> pieces : board.entrySet()){
-            addPiece(pieces.getKey(), pieces.getValue(), false);
+             graphics.addPiece(pieces.getKey(), pieces.getValue(), false);
         }
 
         mouseControl = new MouseControl(this, normalMoves, queenMoves, normalKicks, queenKicks, promote, endGame);
-    }
-
-    public Background createBoardBackground() {
-        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-        BackgroundImage backgroundImage = new BackgroundImage(imageBoard, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
-        background = new Background(backgroundImage);
-        return background;
-    }
-
-    public void createBoardLayout() {
-        grid = new GridPane();
-        grid.setPadding(new Insets(59));
-        grid.setBackground(createBoardBackground());
-
-        for(int i = 0; i < 8; i++) {
-            ColumnConstraints columnConstraints = new ColumnConstraints();
-            columnConstraints.setPercentWidth(496/8);
-            columnConstraints.setHalignment(HPos.CENTER);
-            grid.getColumnConstraints().add(columnConstraints);
-
-            RowConstraints rowConstraints = new RowConstraints();
-            rowConstraints.setPercentHeight(496/8);
-            rowConstraints.setValignment(VPos.CENTER);
-            grid.getRowConstraints().add(rowConstraints);
-        }
-        grid.setGridLinesVisible(false);
     }
 
     public Piece getPiece(PositionsPieces position) {
@@ -85,33 +48,24 @@ public class Board {
         return board.get(position) == null;
     }
 
-    public void addPiece(PositionsPieces position, Piece piece, boolean light) {
-        grid.add(new ImageView(generateImagePath(piece, light)), position.getCol(), position.getRow());
-    }
-
-    public void removePiece(PositionsPieces position) {
-        grid.getChildren().removeIf(node -> node instanceof ImageView && Objects.equals(GridPane.getColumnIndex(node), position.getCol())
-                && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
-    }
-
     public void pickPiece(PositionsPieces position, PositionsPieces oldPosition, boolean light) {
         Piece pieceNew = getPiece(position);
         Piece pieceOld = getPiece(oldPosition);
 
         if(oldPosition != null) {
-            removePiece(oldPosition);
-            addPiece(oldPosition, pieceOld, !light);
+            graphics.removePiece(oldPosition);
+            graphics.addPiece(oldPosition, pieceOld, !light);
         }
 
-        removePiece(position);
-        addPiece(position, pieceNew, light);
+        graphics.removePiece(position);
+        graphics.addPiece(position, pieceNew, light);
     }
 
     public void movePiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
         Piece piece = getPiece(oldPosition);
 
-        addPiece(newPosition, piece, false);
-        removePiece(oldPosition);
+        graphics.addPiece(newPosition, piece, false);
+        graphics.removePiece(oldPosition);
 
         board.remove(oldPosition);
         board.put(newPosition, piece);
@@ -122,9 +76,9 @@ public class Board {
 
         PositionsPieces kickPositon = findOpositePosition(newPosition);
 
-        addPiece(newPosition, piece, false);
-        removePiece(oldPosition);
-        removePiece(kickPositon);
+        graphics.addPiece(newPosition, piece, false);
+        graphics.removePiece(oldPosition);
+        graphics.removePiece(kickPositon);
 
         board.put(newPosition, piece);
         board.remove(oldPosition);
@@ -134,13 +88,13 @@ public class Board {
         queenKicks.calculateAllPossibleQueenKicks(newPosition);
 
         if(!normalKicks.getPossibleKickMoves().isEmpty() && piece.getPieceType().isNormal()) {
-            removePiece(oldPosition);
-            addPiece(newPosition, piece, true);
+            graphics.removePiece(oldPosition);
+            graphics.addPiece(newPosition, piece, true);
         }
 
         if(!queenKicks.getPossibleKickMoves().isEmpty() && piece.getPieceType().isQueen()) {
-            removePiece(oldPosition);
-            addPiece(newPosition, piece, true);
+            graphics.removePiece(oldPosition);
+            graphics.addPiece(newPosition, piece, true);
         }
     }
 
@@ -172,23 +126,15 @@ public class Board {
         return null;
     }
 
-    private Image generateImagePath(Piece piece, boolean light) {
-        if(light) {
-            return new Image(Resources.getPath(piece.getPieceColor() + "-" + piece.getPieceType() + "-light.png"));
-        } else {
-            return new Image(Resources.getPath(piece.getPieceColor() + "-" + piece.getPieceType() + ".png"));
-        }
-    }
-
-    public GridPane getGrid() {
-        return grid;
-    }
-
     public Map<PositionsPieces, Piece> getBoard() {
         return board;
     }
 
     public MouseControl getMouseControl() {
         return mouseControl;
+    }
+
+    public Graphics getGraphics() {
+        return graphics;
     }
 }

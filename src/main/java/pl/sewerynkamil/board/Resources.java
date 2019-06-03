@@ -1,4 +1,4 @@
-package pl.sewerynkamil.game;
+package pl.sewerynkamil.board;
 
 import java.net.URL;
 
