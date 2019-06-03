@@ -1,7 +1,6 @@
 package pl.sewerynkamil.board;
 
 import pl.sewerynkamil.game.EndGame;
-import pl.sewerynkamil.game.MouseControl;
 import pl.sewerynkamil.moves.*;
 import pl.sewerynkamil.pieces.BlackPieces;
 import pl.sewerynkamil.pieces.Piece;
@@ -15,12 +14,11 @@ public class Board {
 
     private Graphics graphics;
 
-    private MouseControl mouseControl;
     private NormalMoves normalMoves = new NormalMoves(this);
     private QueenMoves queenMoves = new QueenMoves(this);
     private NormalKicks normalKicks = new NormalKicks(this);
     private QueenKicks queenKicks = new QueenKicks(this);
-    private Promote promote = new Promote(this);
+    private Promote promote = new Promote(this, graphics);
     private EndGame endGame = new EndGame(this);
 
     private BlackPieces blackPieces = new BlackPieces();
@@ -28,16 +26,8 @@ public class Board {
     private Map<PositionsPieces, Piece> board = new HashMap<>();
 
     public Board() {
-        graphics = new Graphics();
-
         board.putAll(whitePieces.setUpPieces());
         board.putAll(blackPieces.setUpPieces());
-
-        for(Map.Entry<PositionsPieces, Piece> pieces : board.entrySet()){
-             graphics.addPiece(pieces.getKey(), pieces.getValue(), false);
-        }
-
-        mouseControl = new MouseControl(this, normalMoves, queenMoves, normalKicks, queenKicks, promote, endGame);
     }
 
     public Piece addPieceToBoard(PositionsPieces position, Piece piece) {
@@ -56,57 +46,7 @@ public class Board {
         return board.get(position) == null;
     }
 
-    public void pickPiece(PositionsPieces position, PositionsPieces oldPosition, boolean light) {
-        Piece pieceNew = getPiece(position);
-        Piece pieceOld = getPiece(oldPosition);
-
-        if(oldPosition != null) {
-            graphics.removePiece(oldPosition);
-            graphics.addPiece(oldPosition, pieceOld, !light);
-        }
-
-        graphics.removePiece(position);
-        graphics.addPiece(position, pieceNew, light);
-    }
-
-    public void movePiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
-        Piece piece = getPiece(oldPosition);
-
-        graphics.addPiece(newPosition, piece, false);
-        graphics.removePiece(oldPosition);
-
-        removePieceFromBoard(oldPosition);
-        addPieceToBoard(newPosition, piece);
-    }
-
-    public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
-        Piece piece = getPiece(oldPosition);
-
-        PositionsPieces kickPositon = findOpositePosition(newPosition);
-
-        graphics.addPiece(newPosition, piece, false);
-        graphics.removePiece(oldPosition);
-        graphics.removePiece(kickPositon);
-
-        addPieceToBoard(newPosition, piece);
-        removePieceFromBoard(oldPosition);
-        removePieceFromBoard(kickPositon);
-
-        normalKicks.kickMovesCalculator(newPosition);
-        queenKicks.calculateAllPossibleQueenKicks(newPosition);
-
-        if(!normalKicks.getPossibleKickMoves().isEmpty() && piece.getPieceType().isNormal()) {
-            graphics.removePiece(oldPosition);
-            graphics.addPiece(newPosition, piece, true);
-        }
-
-        if(!queenKicks.getPossibleKickMoves().isEmpty() && piece.getPieceType().isQueen()) {
-            graphics.removePiece(oldPosition);
-            graphics.addPiece(newPosition, piece, true);
-        }
-    }
-
-    private PositionsPieces findOpositePosition(PositionsPieces position) {
+    public PositionsPieces findOpositePosition(PositionsPieces position) {
         PositionsPieces upLeft = new PositionsPieces(position.getCol() - 1, position.getRow() - 1);
 
         if(queenKicks.getPossibleKicks().contains(upLeft) || normalKicks.getPossibleKicks().contains(upLeft)) {
@@ -138,11 +78,23 @@ public class Board {
         return board;
     }
 
-    public MouseControl getMouseControl() {
-        return mouseControl;
+    public NormalKicks getNormalKicks() {
+        return normalKicks;
     }
 
-    public Graphics getGraphics() {
-        return graphics;
+    public QueenKicks getQueenKicks() {
+        return queenKicks;
+    }
+
+    public NormalMoves getNormalMoves() {
+        return normalMoves;
+    }
+
+    public QueenMoves getQueenMoves() {
+        return queenMoves;
+    }
+
+    public EndGame getEndGame() {
+        return endGame;
     }
 }

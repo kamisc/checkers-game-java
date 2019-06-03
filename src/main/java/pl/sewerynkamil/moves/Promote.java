@@ -1,6 +1,7 @@
 package pl.sewerynkamil.moves;
 
 import pl.sewerynkamil.board.Board;
+import pl.sewerynkamil.board.Graphics;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
@@ -11,11 +12,13 @@ import java.util.stream.Collectors;
 public class Promote {
 
     private Board board;
+    private Graphics graphics;
 
     private Set<PositionsPieces> possiblePromote = new HashSet<>();
 
-    public Promote(Board board) {
+    public Promote(Board board, Graphics graphics) {
         this.board = board;
+        this.graphics = graphics;
     }
 
     public void promote() {
@@ -26,16 +29,16 @@ public class Promote {
             Piece piece = board.getPiece(position);
 
             if(piece.getPieceColor().isWhite() && piece.getPieceType().isNormal()) {
-                board.getGraphics().removePiece(position);
-                board.getGraphics().addPiece(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN), false);
+                graphics.removePiece(position);
+                graphics.addPiece(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN), false);
 
                 board.getBoard().remove(position);
                 board.getBoard().put(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN));
             }
 
             if(piece.getPieceColor().isBlack() && piece.getPieceType().isNormal()) {
-                board.getGraphics().removePiece(position);
-                board.getGraphics().addPiece(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN), false);
+                graphics.removePiece(position);
+                graphics.addPiece(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN), false);
 
                 board.getBoard().remove(position);
                 board.getBoard().put(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN));

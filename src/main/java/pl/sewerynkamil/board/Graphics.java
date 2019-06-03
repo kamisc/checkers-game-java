@@ -6,6 +6,7 @@ import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import pl.sewerynkamil.game.MouseControl;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
@@ -14,13 +15,30 @@ import java.util.Objects;
 
 public class Graphics {
 
+    private Board board;
+    private MouseControl mouseControl;
+
     private GridPane grid = new GridPane();
     private Background background;
     private Image imageBoard = new Image(Resources.getPath("board.jpg"));
 
-    public Graphics(){
+    public Graphics(Board board){
+        this.board = board;
+
         createBoardBackground();
         createBoardLayout();
+
+        for(Map.Entry<PositionsPieces, Piece> pieces : board.getBoard().entrySet()){
+            addPiece(pieces.getKey(), pieces.getValue(), false);
+        }
+
+        mouseControl = new MouseControl(this,
+                board,
+                board.getNormalMoves(),
+                board.getQueenMoves(),
+                board.getNormalKicks(),
+                board.getQueenKicks(),
+                board.getEndGame());
     }
 
     public Background createBoardBackground() {
@@ -58,6 +76,56 @@ public class Graphics {
                 && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
     }
 
+    public void pickPiece(PositionsPieces position, PositionsPieces oldPosition, boolean light) {
+        Piece pieceNew = board.getPiece(position);
+        Piece pieceOld = board.getPiece(oldPosition);
+
+        if(oldPosition != null) {
+            removePiece(oldPosition);
+            addPiece(oldPosition, pieceOld, !light);
+        }
+
+        removePiece(position);
+        addPiece(position, pieceNew, light);
+    }
+
+    public void movePiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
+        Piece piece = board.getPiece(oldPosition);
+
+        addPiece(newPosition, piece, false);
+        removePiece(oldPosition);
+
+        board.removePieceFromBoard(oldPosition);
+        board.addPieceToBoard(newPosition, piece);
+    }
+
+    public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
+        Piece piece = board.getPiece(oldPosition);
+
+        PositionsPieces kickPositon = board.findOpositePosition(newPosition);
+
+        addPiece(newPosition, piece, false);
+        removePiece(oldPosition);
+        removePiece(kickPositon);
+
+        board.addPieceToBoard(newPosition, piece);
+        board.removePieceFromBoard(oldPosition);
+        board.removePieceFromBoard(kickPositon);
+
+        board.getNormalKicks().kickMovesCalculator(newPosition);
+        board.getQueenKicks().calculateAllPossibleQueenKicks(newPosition);
+
+        if(!board.getNormalKicks().getPossibleKickMoves().isEmpty() && piece.getPieceType().isNormal()) {
+            removePiece(oldPosition);
+            addPiece(newPosition, piece, true);
+        }
+
+        if(!board.getQueenKicks().getPossibleKickMoves().isEmpty() && piece.getPieceType().isQueen()) {
+            removePiece(oldPosition);
+            addPiece(newPosition, piece, true);
+        }
+    }
+
     private Image generateImagePath(Piece piece, boolean light) {
         if(light) {
             return new Image(Resources.getPath(piece.getPieceColor() + "-" + piece.getPieceType() + "-light.png"));
@@ -68,5 +136,9 @@ public class Graphics {
 
     public GridPane getGrid() {
         return grid;
+    }
+
+    public MouseControl getMouseControl() {
+        return mouseControl;
     }
 }
