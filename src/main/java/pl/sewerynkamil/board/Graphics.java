@@ -95,8 +95,7 @@ public class Graphics {
         addPiece(newPosition, piece, false);
         removePiece(oldPosition);
 
-        board.removePieceFromBoard(oldPosition);
-        board.addPieceToBoard(newPosition, piece);
+        board.movePiece(newPosition, oldPosition, piece);
     }
 
     public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition) {

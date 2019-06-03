@@ -32,10 +32,10 @@ public class PositionPiecesTestSuite {
     @Test
     public void testValidPosition() {
         // Given
-        PositionsPieces positionsPieces1 = new PositionsPieces(6, 4);
+        PositionsPieces positionsPieces = new PositionsPieces(6, 4);
 
         // When
-        boolean isValid = positionsPieces1.isValidPosition();
+        boolean isValid = positionsPieces.isValidPosition();
 
         // Then
         Assert.assertTrue(isValid);
