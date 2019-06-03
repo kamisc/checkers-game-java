@@ -173,7 +173,7 @@ public class BoardTestSuite {
     }
 
     @Test
-    public void testVirtualMoveWhite() {
+    public void testMovePieceOnBoardWhite() {
         // Given
         PositionsPieces newPosition = new PositionsPieces(4,4);
         PositionsPieces oldPosition = new PositionsPieces(3, 5);
@@ -190,7 +190,7 @@ public class BoardTestSuite {
     }
 
     @Test
-    public void testVirtualMoveBlack() {
+    public void testMovePieceOnBoardBlack() {
         // Given
         PositionsPieces newPosition = new PositionsPieces(3,3);
         PositionsPieces oldPosition = new PositionsPieces(2, 2);
@@ -205,4 +205,49 @@ public class BoardTestSuite {
         Assert.assertEquals(piece, pieceBlack);
         Assert.assertTrue(isFieldNull);
     }
+
+    @Test
+    public void testKickPieceFromBoardByWhite() {
+        // Given
+        board.removePieceFromBoard(new PositionsPieces(6,2));
+        board.addPieceToBoard(new PositionsPieces(4,4), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+
+        PositionsPieces newPosition = new PositionsPieces(5,3);
+        PositionsPieces oldPosition = new PositionsPieces(3,5);
+        PositionsPieces kickPositon = new PositionsPieces(4,4);
+
+        Piece piece = board.getPiece(oldPosition);
+
+        // When
+        board.kickPieceFromBoard(newPosition, oldPosition, kickPositon, piece);
+        long blacksAmount = board.getBoard().keySet().stream()
+                .filter(position -> board.getPiece(position).getPieceColor().isBlack())
+                .count();
+
+        // Then
+        Assert.assertEquals(11, blacksAmount);
+    }
+
+    @Test
+    public void testKickPieceFromBoardByBlack() {
+        // Given
+        board.removePieceFromBoard(new PositionsPieces(3,5));
+        board.addPieceToBoard(new PositionsPieces(1,3), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+
+        PositionsPieces newPosition = new PositionsPieces(2,4);
+        PositionsPieces oldPosition = new PositionsPieces(0,2);
+        PositionsPieces kickPositon = new PositionsPieces(1,3);
+
+        Piece piece = board.getPiece(oldPosition);
+
+        // When
+        board.kickPieceFromBoard(newPosition, oldPosition, kickPositon, piece);
+        long whitesAmount = board.getBoard().keySet().stream()
+                .filter(position -> board.getPiece(position).getPieceColor().isWhite())
+                .count();
+
+        // Then
+        Assert.assertEquals(11, whitesAmount);
+    }
+
 }

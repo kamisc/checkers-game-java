@@ -109,6 +109,10 @@ public class Graphics {
 
         board.kickPieceFromBoard(newPosition, oldPosition, kickPositon, piece);
 
+       /* board.addPieceToBoard(newPosition, piece);
+        board.removePieceFromBoard(oldPosition);
+        board.removePieceFromBoard(kickPositon);*/
+
         board.getNormalKicks().kickMovesCalculator(newPosition);
         board.getQueenKicks().calculateAllPossibleQueenKicks(newPosition);
 
