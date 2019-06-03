@@ -95,7 +95,7 @@ public class Graphics {
         addPiece(newPosition, piece, false);
         removePiece(oldPosition);
 
-        board.movePiece(newPosition, oldPosition, piece);
+        board.movePieceOnBoard(newPosition, oldPosition, piece);
     }
 
     public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
@@ -107,9 +107,7 @@ public class Graphics {
         removePiece(oldPosition);
         removePiece(kickPositon);
 
-        board.addPieceToBoard(newPosition, piece);
-        board.removePieceFromBoard(oldPosition);
-        board.removePieceFromBoard(kickPositon);
+        board.kickPieceFromBoard(newPosition, oldPosition, kickPositon, piece);
 
         board.getNormalKicks().kickMovesCalculator(newPosition);
         board.getQueenKicks().calculateAllPossibleQueenKicks(newPosition);

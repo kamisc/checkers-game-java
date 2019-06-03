@@ -173,11 +173,36 @@ public class BoardTestSuite {
     }
 
     @Test
-    public void testVirtualMove() {
+    public void testVirtualMoveWhite() {
+        // Given
+        PositionsPieces newPosition = new PositionsPieces(4,4);
+        PositionsPieces oldPosition = new PositionsPieces(3, 5);
+        Piece pieceWhite = new Piece(Piece.Color.WHITE, Piece.Type.NORMAL);
 
         // When
-
+        board.movePieceOnBoard(newPosition, oldPosition, pieceWhite);
+        Piece piece = board.getPiece(newPosition);
+        Boolean isFieldNull = board.isFieldNull(oldPosition);
 
         // Then
+        Assert.assertEquals(piece, pieceWhite);
+        Assert.assertTrue(isFieldNull);
+    }
+
+    @Test
+    public void testVirtualMoveBlack() {
+        // Given
+        PositionsPieces newPosition = new PositionsPieces(3,3);
+        PositionsPieces oldPosition = new PositionsPieces(2, 2);
+        Piece pieceBlack = new Piece(Piece.Color.BLACK, Piece.Type.NORMAL);
+
+        // When
+        board.movePieceOnBoard(newPosition, oldPosition, pieceBlack);
+        Piece piece = board.getPiece(newPosition);
+        Boolean isFieldNull = board.isFieldNull(oldPosition);
+
+        // Then
+        Assert.assertEquals(piece, pieceBlack);
+        Assert.assertTrue(isFieldNull);
     }
 }

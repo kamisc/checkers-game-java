@@ -46,9 +46,15 @@ public class Board {
         return board.get(position) == null;
     }
 
-    public void movePiece(PositionsPieces newPosition, PositionsPieces oldPosition, Piece piece) {
+    public void movePieceOnBoard(PositionsPieces newPosition, PositionsPieces oldPosition, Piece piece) {
         removePieceFromBoard(oldPosition);
         addPieceToBoard(newPosition, piece);
+    }
+
+    public void kickPieceFromBoard(PositionsPieces newPosition, PositionsPieces oldPosition, PositionsPieces kickPositon, Piece piece) {
+        addPieceToBoard(newPosition, piece);
+        removePieceFromBoard(oldPosition);
+        removePieceFromBoard(kickPositon);
     }
 
     public PositionsPieces findOpositePosition(PositionsPieces position) {
