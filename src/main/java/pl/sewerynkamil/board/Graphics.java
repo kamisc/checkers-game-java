@@ -91,7 +91,7 @@ public class Graphics {
     public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
         Piece piece = board.getPiece(oldPosition);
 
-        PositionsPieces kickPositon = board.findOpositePosition(newPosition);
+        PositionsPieces kickPositon = board.findOpositePosition(newPosition, board.getNormalKicks().getPossibleKicks(), board.getQueenKicks().getPossibleKicks());
 
         addPiece(newPosition, piece, false);
         removePiece(oldPosition);

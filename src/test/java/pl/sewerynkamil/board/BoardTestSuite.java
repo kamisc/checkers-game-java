@@ -3,17 +3,23 @@ package pl.sewerynkamil.board;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pl.sewerynkamil.moves.NormalKicks;
+import pl.sewerynkamil.moves.QueenKicks;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 public class BoardTestSuite {
 
     private Board board;
+    private NormalKicks normalKicks;
+    private QueenKicks queenKicks;
 
     @Before
     public void setUp() {
         // Given
         board = new Board();
+        normalKicks = new NormalKicks(board);
+        queenKicks = new QueenKicks(board);
     }
 
     @Test
@@ -207,16 +213,39 @@ public class BoardTestSuite {
     }
 
     @Test
+    public void testFindOpositePiece() {
+        // Given
+        PositionsPieces oldPosition = new PositionsPieces(2,2);
+        PositionsPieces newPosition = new PositionsPieces(4,4);
+        PositionsPieces expectedPosition = new PositionsPieces(3,3);
+
+        board.removePieceFromBoard(new PositionsPieces(5,5));
+        board.addPieceToBoard(expectedPosition, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+
+        normalKicks.kickMovesCalculator(oldPosition);
+
+        // When
+        PositionsPieces kickPosition = board.findOpositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
+
+        // Then
+        Assert.assertEquals(expectedPosition, kickPosition);
+    }
+
+    @Test
     public void testKickPieceFromBoardByWhite() {
         // Given
-        board.removePieceFromBoard(new PositionsPieces(6,2));
-        board.addPieceToBoard(new PositionsPieces(4,4), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
-
-        PositionsPieces newPosition = new PositionsPieces(5,3);
         PositionsPieces oldPosition = new PositionsPieces(3,5);
-        PositionsPieces kickPositon = new PositionsPieces(4,4);
+        PositionsPieces newPosition = new PositionsPieces(5,3);
+        PositionsPieces expectedKickPosition = new PositionsPieces(4, 4);
 
         Piece piece = board.getPiece(oldPosition);
+
+        board.removePieceFromBoard(new PositionsPieces(6,2));
+        board.addPieceToBoard(expectedKickPosition, new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+
+        normalKicks.kickMovesCalculator(oldPosition);;
+
+        PositionsPieces kickPositon = board.findOpositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
 
         // When
         board.kickPieceFromBoard(newPosition, oldPosition, kickPositon, piece);
@@ -226,19 +255,24 @@ public class BoardTestSuite {
 
         // Then
         Assert.assertEquals(11, blacksAmount);
+        Assert.assertEquals(expectedKickPosition,kickPositon);
     }
 
     @Test
     public void testKickPieceFromBoardByBlack() {
         // Given
-        board.removePieceFromBoard(new PositionsPieces(3,5));
-        board.addPieceToBoard(new PositionsPieces(1,3), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
-
-        PositionsPieces newPosition = new PositionsPieces(2,4);
         PositionsPieces oldPosition = new PositionsPieces(0,2);
-        PositionsPieces kickPositon = new PositionsPieces(1,3);
+        PositionsPieces newPosition = new PositionsPieces(2,4);
+        PositionsPieces expectedKickPosition = new PositionsPieces(1, 3);
 
         Piece piece = board.getPiece(oldPosition);
+
+        board.removePieceFromBoard(new PositionsPieces(3,5));
+        board.addPieceToBoard(expectedKickPosition, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+
+        normalKicks.kickMovesCalculator(oldPosition);
+
+        PositionsPieces kickPositon = board.findOpositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
 
         // When
         board.kickPieceFromBoard(newPosition, oldPosition, kickPositon, piece);
@@ -248,10 +282,6 @@ public class BoardTestSuite {
 
         // Then
         Assert.assertEquals(11, whitesAmount);
+        Assert.assertEquals(expectedKickPosition,kickPositon);
     }
-
-    public void testFindOpositePiece() {
-
-    }
-
 }

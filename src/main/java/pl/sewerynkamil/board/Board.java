@@ -9,16 +9,14 @@ import pl.sewerynkamil.pieces.WhitePieces;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Board {
-
-    private Graphics graphics;
 
     private NormalMoves normalMoves = new NormalMoves(this);
     private QueenMoves queenMoves = new QueenMoves(this);
     private NormalKicks normalKicks = new NormalKicks(this);
     private QueenKicks queenKicks = new QueenKicks(this);
-    private Promote promote = new Promote(this, graphics);
     private EndGame endGame = new EndGame(this);
 
     private BlackPieces blackPieces = new BlackPieces();
@@ -57,28 +55,28 @@ public class Board {
         removePieceFromBoard(kickPositon);
     }
 
-    public PositionsPieces findOpositePosition(PositionsPieces position) {
+    public PositionsPieces findOpositePosition(PositionsPieces position, Set<PositionsPieces> normalPosition, Set<PositionsPieces> queenPosition) {
         PositionsPieces upLeft = new PositionsPieces(position.getCol() - 1, position.getRow() - 1);
 
-        if(queenKicks.getPossibleKicks().contains(upLeft) || normalKicks.getPossibleKicks().contains(upLeft)) {
+        if(normalPosition.contains(upLeft) || queenPosition.contains(upLeft)) {
             return upLeft;
         }
 
         PositionsPieces downLeft = new PositionsPieces(position.getCol() - 1, position.getRow() + 1);
 
-        if(queenKicks.getPossibleKicks().contains(downLeft) || normalKicks.getPossibleKicks().contains(downLeft)) {
+        if(normalPosition.contains(downLeft) || queenPosition.contains(downLeft)) {
             return downLeft;
         }
 
         PositionsPieces upRight = new PositionsPieces(position.getCol() + 1, position.getRow() - 1);
 
-        if(queenKicks.getPossibleKicks().contains(upRight) || normalKicks.getPossibleKicks().contains(upRight)) {
+        if(normalPosition.contains(upRight) || queenPosition.contains(upRight)) {
             return upRight;
         }
 
         PositionsPieces downRight = new PositionsPieces(position.getCol() + 1, position.getRow() + 1);
 
-        if(queenKicks.getPossibleKicks().contains(downRight) || normalKicks.getPossibleKicks().contains(downRight)) {
+        if(normalPosition.contains(downRight) || queenPosition.contains(downRight)) {
             return downRight;
         }
 
