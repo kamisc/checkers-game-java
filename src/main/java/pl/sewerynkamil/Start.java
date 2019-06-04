@@ -7,16 +7,24 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.board.Graphics;
+import pl.sewerynkamil.game.MouseControl;
 
 public class Start extends Application {
 
     private Board board = new Board();
     private Graphics graphics = new Graphics(board);
+    private MouseControl mouseControl = new MouseControl(graphics,
+            board,
+            board.getNormalMoves(),
+            board.getQueenMoves(),
+            board.getNormalKicks(),
+            board.getQueenKicks(),
+            board.getEndGame());
 
     @Override
     public void start(Stage primaryStage) {
         Scene scene = new Scene(graphics.getGrid(), 612, 612, Color.BLACK);
-        scene.addEventFilter(MouseEvent.MOUSE_CLICKED, graphics.getMouseControl().getMouseClick());
+        scene.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseControl.getMouseClick());
 
         primaryStage.setTitle("Checkers Game - Kamil Seweryn");
         primaryStage.setScene(scene);

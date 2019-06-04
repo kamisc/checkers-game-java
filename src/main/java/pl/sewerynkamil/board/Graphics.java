@@ -6,7 +6,6 @@ import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import pl.sewerynkamil.game.MouseControl;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
@@ -16,7 +15,6 @@ import java.util.Objects;
 public class Graphics {
 
     private Board board;
-    private MouseControl mouseControl;
 
     private GridPane grid = new GridPane();
     private Background background;
@@ -31,14 +29,6 @@ public class Graphics {
         for(Map.Entry<PositionsPieces, Piece> pieces : board.getBoard().entrySet()){
             addPiece(pieces.getKey(), pieces.getValue(), false);
         }
-
-        mouseControl = new MouseControl(this,
-                board,
-                board.getNormalMoves(),
-                board.getQueenMoves(),
-                board.getNormalKicks(),
-                board.getQueenKicks(),
-                board.getEndGame());
     }
 
     public Background createBoardBackground() {
@@ -109,10 +99,6 @@ public class Graphics {
 
         board.kickPieceFromBoard(newPosition, oldPosition, kickPositon, piece);
 
-       /* board.addPieceToBoard(newPosition, piece);
-        board.removePieceFromBoard(oldPosition);
-        board.removePieceFromBoard(kickPositon);*/
-
         board.getNormalKicks().kickMovesCalculator(newPosition);
         board.getQueenKicks().calculateAllPossibleQueenKicks(newPosition);
 
@@ -137,9 +123,5 @@ public class Graphics {
 
     public GridPane getGrid() {
         return grid;
-    }
-
-    public MouseControl getMouseControl() {
-        return mouseControl;
     }
 }

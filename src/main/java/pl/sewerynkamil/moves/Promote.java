@@ -30,18 +30,18 @@ public class Promote {
 
             if(piece.getPieceColor().isWhite() && piece.getPieceType().isNormal()) {
                 graphics.removePiece(position);
-                graphics.addPiece(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN), false);
+                graphics.addPiece(position, new Piece(piece.getPieceColor(), Piece.Type.QUEEN), false);
 
                 board.getBoard().remove(position);
-                board.getBoard().put(position, new Piece(Piece.Color.WHITE, Piece.Type.QUEEN));
+                board.getBoard().put(position, new Piece(piece.getPieceColor(), Piece.Type.QUEEN));
             }
 
             if(piece.getPieceColor().isBlack() && piece.getPieceType().isNormal()) {
                 graphics.removePiece(position);
-                graphics.addPiece(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN), false);
+                graphics.addPiece(position, new Piece(piece.getPieceColor(), Piece.Type.QUEEN), false);
 
                 board.getBoard().remove(position);
-                board.getBoard().put(position, new Piece(Piece.Color.BLACK, Piece.Type.QUEEN));
+                board.getBoard().put(position, new Piece(piece.getPieceColor(), Piece.Type.QUEEN));
             }
         }
     }

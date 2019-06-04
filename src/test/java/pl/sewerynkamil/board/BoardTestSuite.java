@@ -250,4 +250,8 @@ public class BoardTestSuite {
         Assert.assertEquals(11, whitesAmount);
     }
 
+    public void testFindOpositePiece() {
+
+    }
+
 }
