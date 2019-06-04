@@ -17,7 +17,7 @@ public class Promote {
 
     public void promote() {
         board.getPossiblePromote().clear();
-        board.calculatePromote();
+        board.calculatePromote(board.getBoard().keySet());
 
         for(PositionsPieces position : board.getPossiblePromote()) {
             Piece piece = board.getPiece(position);

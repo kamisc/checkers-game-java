@@ -330,7 +330,7 @@ public class BoardTestSuite {
     public void testCalculatePromoteWhenStart() {
 
         // When
-        board.calculatePromote();
+        board.calculatePromote(board.getBoard().keySet());
         int size = board.getPossiblePromote().size();
 
         // Then
@@ -353,10 +353,20 @@ public class BoardTestSuite {
         board.addPieceToBoard(positionWhite, pieceBlack);
 
         // When
-        board.calculatePromote();
+        board.calculatePromote(board.getBoard().keySet());
         int size = board.getPossiblePromote().size();
 
         // Then
         Assert.assertEquals(2, size);
+    }
+
+    @Test
+    public void test() {
+        // Given
+        Map<PositionsPieces, Piece> testBoard = new HashMap<>();
+        testBoard.put(new PositionsPieces(3,7), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+        testBoard.put(new PositionsPieces(6,0), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+
+
     }
 }

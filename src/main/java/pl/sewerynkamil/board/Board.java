@@ -93,16 +93,16 @@ public class Board {
         addPieceToBoard(position, new Piece(piece.getPieceColor(), Piece.Type.QUEEN));
     }
 
-    public void calculatePromote() {
+    public void calculatePromote(Set<PositionsPieces> positions) {
 
-        Set<PositionsPieces> whites = board.keySet().stream()
-                .filter(positions -> positions.getRow() == 0)
-                .filter(positions -> board.get(positions).getPieceColor() == Piece.Color.WHITE)
+        Set<PositionsPieces> whites = positions.stream()
+                .filter(position -> position.getRow() == 0)
+                .filter(position -> getPiece(position).getPieceColor() == Piece.Color.WHITE)
                 .collect(Collectors.toSet());
 
-        Set<PositionsPieces> blacks = board.keySet().stream()
-                .filter(positions -> positions.getRow() == 7)
-                .filter(positions -> board.get(positions).getPieceColor() == Piece.Color.BLACK)
+        Set<PositionsPieces> blacks = positions.stream()
+                .filter(position -> position.getRow() == 7)
+                .filter(position -> getPiece(position).getPieceColor() == Piece.Color.BLACK)
                 .collect(Collectors.toSet());
 
         possiblePromote.addAll(whites);
