@@ -8,8 +8,10 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 import pl.sewerynkamil.pieces.WhitePieces;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Board {
 
@@ -21,6 +23,9 @@ public class Board {
 
     private BlackPieces blackPieces = new BlackPieces();
     private WhitePieces whitePieces = new WhitePieces();
+
+    private Set<PositionsPieces> possiblePromote = new HashSet<>();
+
     private Map<PositionsPieces, Piece> board = new HashMap<>();
 
     public Board() {
@@ -83,6 +88,27 @@ public class Board {
         return null;
     }
 
+    public void promoteOnBoard(PositionsPieces position, Piece piece) {
+        removePieceFromBoard(position);
+        addPieceToBoard(position, new Piece(piece.getPieceColor(), Piece.Type.QUEEN));
+    }
+
+    public void calculatePromote() {
+
+        Set<PositionsPieces> whites = board.keySet().stream()
+                .filter(positions -> positions.getRow() == 0)
+                .filter(positions -> board.get(positions).getPieceColor() == Piece.Color.WHITE)
+                .collect(Collectors.toSet());
+
+        Set<PositionsPieces> blacks = board.keySet().stream()
+                .filter(positions -> positions.getRow() == 7)
+                .filter(positions -> board.get(positions).getPieceColor() == Piece.Color.BLACK)
+                .collect(Collectors.toSet());
+
+        possiblePromote.addAll(whites);
+        possiblePromote.addAll(blacks);
+    }
+
     public Map<PositionsPieces, Piece> getBoard() {
         return board;
     }
@@ -105,5 +131,9 @@ public class Board {
 
     public EndGame getEndGame() {
         return endGame;
+    }
+
+    public Set<PositionsPieces> getPossiblePromote() {
+        return possiblePromote;
     }
 }

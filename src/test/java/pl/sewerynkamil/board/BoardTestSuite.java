@@ -3,10 +3,17 @@ package pl.sewerynkamil.board;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import pl.sewerynkamil.moves.NormalKicks;
 import pl.sewerynkamil.moves.QueenKicks;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class BoardTestSuite {
 
@@ -283,5 +290,73 @@ public class BoardTestSuite {
         // Then
         Assert.assertEquals(11, whitesAmount);
         Assert.assertEquals(expectedKickPosition,kickPositon);
+    }
+
+    @Test
+    public void testPromoteWhite() {
+        // Given
+        PositionsPieces position = new PositionsPieces(0 ,6);
+        Piece piece = new Piece(Piece.Color.WHITE, Piece.Type.NORMAL);
+
+        // When
+        board.promoteOnBoard(position, piece);
+
+        Piece.Color expectedColor = board.getPiece(position).getPieceColor();
+        Piece.Type expectedType = board.getPiece(position).getPieceType();
+
+        // Then
+        Assert.assertEquals(Piece.Color.WHITE, expectedColor);
+        Assert.assertEquals(Piece.Type.QUEEN, expectedType);
+    }
+
+    @Test
+    public void testPromoteBlack() {
+        // Given
+        PositionsPieces position = new PositionsPieces(7 ,7);
+        Piece piece = new Piece(Piece.Color.BLACK, Piece.Type.NORMAL);
+
+        // When
+        board.promoteOnBoard(position, piece);
+
+        Piece.Color expectedColor = board.getPiece(position).getPieceColor();
+        Piece.Type expectedType = board.getPiece(position).getPieceType();
+
+        // Then
+        Assert.assertEquals(Piece.Color.BLACK, expectedColor);
+        Assert.assertEquals(Piece.Type.QUEEN, expectedType);
+    }
+
+    @Test
+    public void testCalculatePromoteWhenStart() {
+
+        // When
+        board.calculatePromote();
+        int size = board.getPossiblePromote().size();
+
+        // Then
+        Assert.assertEquals(0, size);
+    }
+
+    @Test
+    public void testCalculatePromote() {
+        // Given
+        PositionsPieces positionWhite = new PositionsPieces(3,7);
+        PositionsPieces positionBlack = new PositionsPieces(6,0);
+
+        Piece pieceWhite = board.getPiece(positionWhite);
+        Piece pieceBlack = board.getPiece(positionBlack);
+
+        board.removePieceFromBoard(positionWhite);
+        board.removePieceFromBoard(positionBlack);
+
+        board.addPieceToBoard(positionBlack, pieceWhite);
+        board.addPieceToBoard(positionWhite, pieceBlack);
+
+        // When
+        board.calculatePromote();
+        int size = board.getPossiblePromote().size();
+
+        // Then
+        Assert.assertEquals(2, size);
     }
 }
