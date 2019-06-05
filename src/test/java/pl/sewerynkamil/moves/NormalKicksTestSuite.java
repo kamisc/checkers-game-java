@@ -11,11 +11,15 @@ public class NormalKicksTestSuite {
 
     private Board board;
     private NormalKicks normalKicks;
+    private Piece pieceWhite;
+    private Piece pieceBlack;
 
     @Before
     public void setUp() {
         board = new Board();
         normalKicks = new NormalKicks(board);
+        pieceWhite = new Piece(Piece.Color.WHITE, Piece.Type.NORMAL);
+        pieceBlack = new Piece(Piece.Color.BLACK, Piece.Type.NORMAL);
     }
 
     @Test
@@ -33,10 +37,10 @@ public class NormalKicksTestSuite {
     @Test
     public void testKickPossibilityWhenCantMoveBehind() {
         // Given
-        board.addPieceToBoard(new PositionsPieces(2,4), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+        PositionsPieces blackPosition = new PositionsPieces(2,4);
 
         // When
-        normalKicks.kickMovesCalculator(new PositionsPieces(2,4));
+        normalKicks.kickMovesCalculator(blackPosition);
 
         // Then
         Assert.assertTrue(normalKicks.getPossibleKickMoves().isEmpty());
@@ -45,10 +49,13 @@ public class NormalKicksTestSuite {
 
     @Test
     public void testKickPossibilityWhenSameColor() {
+        // Given
+        PositionsPieces whitePosition = new PositionsPieces(4,6);
+        PositionsPieces blackPosition = new PositionsPieces(3,1);
 
         // When
-        normalKicks.kickMovesCalculator(new PositionsPieces(3,1));
-        normalKicks.kickMovesCalculator(new PositionsPieces(4,6));
+        normalKicks.kickMovesCalculator(whitePosition);
+        normalKicks.kickMovesCalculator(blackPosition);
 
         // Then
         Assert.assertTrue(normalKicks.getPossibleKicks().isEmpty());
@@ -58,7 +65,7 @@ public class NormalKicksTestSuite {
     @Test
     public void testKickPossibilityWhenNotValidRightPosition() {
         // Given
-        board.addPieceToBoard(new PositionsPieces(7,3), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        board.addPieceToBoard(new PositionsPieces(7,3), pieceWhite);
 
         // When
         normalKicks.kickMovesCalculator(new PositionsPieces(6,2));
@@ -71,7 +78,7 @@ public class NormalKicksTestSuite {
     @Test
     public void testKickPossibilityWhenNotValidLeftPosition() {
         // Given
-        board.addPieceToBoard(new PositionsPieces(0,4), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+        board.addPieceToBoard(new PositionsPieces(0,4), pieceBlack);
 
         // When
         normalKicks.kickMovesCalculator(new PositionsPieces(1,5));
@@ -89,10 +96,10 @@ public class NormalKicksTestSuite {
         board.removePieceFromBoard(new PositionsPieces(7,1));
         board.removePieceFromBoard(new PositionsPieces(6,2));
 
-        board.addPieceToBoard(kickerPosition, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        board.addPieceToBoard(kickerPosition, pieceWhite);
 
         // When
-        normalKicks.kickMovesCalculator(new PositionsPieces(7,1));
+        normalKicks.kickMovesCalculator(kickerPosition);
 
         // Then
         Assert.assertTrue(normalKicks.getPossibleKicks().isEmpty());
@@ -107,10 +114,10 @@ public class NormalKicksTestSuite {
         board.removePieceFromBoard(new PositionsPieces(0,6));
         board.removePieceFromBoard(new PositionsPieces(1,5));
 
-        board.addPieceToBoard(kickerPosition, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        board.addPieceToBoard(kickerPosition, pieceWhite);
 
         // When
-        normalKicks.kickMovesCalculator(new PositionsPieces(0,6));
+        normalKicks.kickMovesCalculator(kickerPosition);
 
         // Then
         Assert.assertTrue(normalKicks.getPossibleKicks().isEmpty());
@@ -121,7 +128,7 @@ public class NormalKicksTestSuite {
     public void testOneKickPossibilityForward() {
         // Given
         PositionsPieces kickerPositon = new PositionsPieces(3,5);
-        board.addPieceToBoard(new PositionsPieces(4,4), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+        board.addPieceToBoard(new PositionsPieces(4,4), pieceBlack);
 
         // When
         normalKicks.kickMovesCalculator(kickerPositon);
@@ -138,8 +145,8 @@ public class NormalKicksTestSuite {
         // Given
         PositionsPieces kickerPositon = new PositionsPieces(5,5);
 
-        board.addPieceToBoard(new PositionsPieces(4,4), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
-        board.addPieceToBoard(new PositionsPieces(6,4), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+        board.addPieceToBoard(new PositionsPieces(4,4), pieceBlack);
+        board.addPieceToBoard(new PositionsPieces(6,4), pieceBlack);
 
         // When
         normalKicks.kickMovesCalculator(kickerPositon);
@@ -157,7 +164,7 @@ public class NormalKicksTestSuite {
         PositionsPieces kickerPositon = new PositionsPieces(7,1);
 
         board.removePieceFromBoard(new PositionsPieces(7,1));
-        board.addPieceToBoard(kickerPositon, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        board.addPieceToBoard(kickerPositon, pieceWhite);
 
         // When
         normalKicks.kickMovesCalculator(kickerPositon);
@@ -176,7 +183,7 @@ public class NormalKicksTestSuite {
 
         board.removePieceFromBoard(new PositionsPieces(3,1));
 
-        board.addPieceToBoard(kickerPositon, new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        board.addPieceToBoard(kickerPositon, pieceWhite);
 
         // When
         normalKicks.kickMovesCalculator(kickerPositon);
@@ -187,8 +194,4 @@ public class NormalKicksTestSuite {
         Assert.assertEquals(2, sizeKicks);
         Assert.assertEquals(2, sizeMoves);
     }
-
-
-
-
 }

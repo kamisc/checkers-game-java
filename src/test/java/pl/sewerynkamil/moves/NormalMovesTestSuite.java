@@ -11,11 +11,15 @@ public class NormalMovesTestSuite {
 
     private Board board;
     private NormalMoves normalMoves;
+    private Piece pieceWhite;
+    private Piece pieceBlack;
 
     @Before
     public void setUp() {
         board = new Board();
         normalMoves = new NormalMoves(board);
+        pieceWhite = new Piece(Piece.Color.WHITE, Piece.Type.NORMAL);
+        pieceBlack = new Piece(Piece.Color.BLACK, Piece.Type.NORMAL);
     }
 
     @Test
@@ -38,7 +42,7 @@ public class NormalMovesTestSuite {
         board.removePieceFromBoard(new PositionsPieces(6,2));
         board.removePieceFromBoard(new PositionsPieces(0,2));
 
-        board.addPieceToBoard(new PositionsPieces(5,3),piece1);
+        board.addPieceToBoard(new PositionsPieces(5,3), piece1);
         board.addPieceToBoard(new PositionsPieces(2,4), piece2);
 
         // When
@@ -61,9 +65,9 @@ public class NormalMovesTestSuite {
     }
 
     @Test
-    public void testNormalMovesWhiteToLeft() {
-        // Givem
-        board.addPieceToBoard(new PositionsPieces(4,4), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+    public void testNormalMovesWhiteRightBlocked() {
+        // Given
+        board.addPieceToBoard(new PositionsPieces(4,4), pieceBlack);
 
         // When
         normalMoves.normalMoveCalculator(new PositionsPieces(3,5), true);
@@ -74,9 +78,9 @@ public class NormalMovesTestSuite {
     }
 
     @Test
-    public void testNormalMovesWhiteToRight() {
+    public void testNormalMovesWhiteLeftBlocked() {
         // Givem
-        board.addPieceToBoard(new PositionsPieces(4,4), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+        board.addPieceToBoard(new PositionsPieces(4,4), pieceBlack);
 
         // When
         normalMoves.normalMoveCalculator(new PositionsPieces(5,5), true);
@@ -87,7 +91,7 @@ public class NormalMovesTestSuite {
     }
 
     @Test
-    public void testNormalMovesWhiteWhenBlock() {
+    public void testNormalMovesWhiteWhenBlockedBothSide() {
 
         // When
         normalMoves.normalMoveCalculator(new PositionsPieces(4,6),true);
@@ -113,7 +117,7 @@ public class NormalMovesTestSuite {
     public void testNormalMovesWhiteWhenInTopCorner() {
         // Given
         board.removePieceFromBoard(new PositionsPieces(0,0));
-        board.addPieceToBoard(new PositionsPieces(0,0),new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        board.addPieceToBoard(new PositionsPieces(0,0), pieceWhite);
 
         // When
         normalMoves.normalMoveCalculator(new PositionsPieces(0,0),true);
@@ -158,9 +162,9 @@ public class NormalMovesTestSuite {
     }
 
     @Test
-    public void testNormalMovesBlackToLeft() {
+    public void testNormalMovesBlackRightBlocked() {
         // Givem
-        board.addPieceToBoard(new PositionsPieces(3,3), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        board.addPieceToBoard(new PositionsPieces(3,3), pieceWhite);
 
         // When
         normalMoves.normalMoveCalculator(new PositionsPieces(2,2), false);
@@ -171,9 +175,9 @@ public class NormalMovesTestSuite {
     }
 
     @Test
-    public void testNormalMovesBlackToRight() {
+    public void testNormalMovesBlackLeftBlocked() {
         // Givem
-        board.addPieceToBoard(new PositionsPieces(3,3), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+        board.addPieceToBoard(new PositionsPieces(3,3), pieceWhite);
 
         // When
         normalMoves.normalMoveCalculator(new PositionsPieces(4,2), false);
@@ -184,7 +188,7 @@ public class NormalMovesTestSuite {
     }
 
     @Test
-    public void testNormalMovesBlackWhenBlock() {
+    public void testNormalMovesBlackWhenBothSideBlocked() {
 
         // When
         normalMoves.normalMoveCalculator(new PositionsPieces(5,1),false);
@@ -210,7 +214,7 @@ public class NormalMovesTestSuite {
     public void testNormalMovesBlackWhenInBottomCorner() {
         // Given
         board.removePieceFromBoard(new PositionsPieces(7,7));
-        board.addPieceToBoard(new PositionsPieces(7,7),new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+        board.addPieceToBoard(new PositionsPieces(7,7), pieceBlack);
 
         // When
         normalMoves.normalMoveCalculator(new PositionsPieces(7,7),false);
