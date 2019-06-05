@@ -3,18 +3,10 @@ package pl.sewerynkamil.board;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import pl.sewerynkamil.moves.NormalKicks;
 import pl.sewerynkamil.moves.QueenKicks;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class BoardTestSuite {
 
