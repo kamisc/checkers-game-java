@@ -21,7 +21,6 @@ public class MouseControl {
     private QueenKicks queenKicks;
     private KickScanner kickScanner;
     private QueenKickScanner queenKickScanner;
-    private Promote promote;
     private Computer computer;
     private EndGame endGame;
 
@@ -43,7 +42,6 @@ public class MouseControl {
         this.kickScanner = new KickScanner(board);
         this.queenKickScanner = new QueenKickScanner(board);
         this.computer = new Computer();
-        this.promote = new Promote(board,graphics);
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
@@ -278,7 +276,7 @@ public class MouseControl {
     private void endTurn() {
         pickedPosition = null;
 
-        promote.promote();
+        graphics.promote();
 
         normalMoves.clear();
         normalKicks.clear();
@@ -290,7 +288,7 @@ public class MouseControl {
     private void endKick() {
         pickedPosition = null;
 
-        promote.promote();
+        graphics.promote();
 
         normalKicks.clear();
         queenKicks.clear();

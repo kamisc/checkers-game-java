@@ -113,6 +113,29 @@ public class Graphics {
         }
     }
 
+    public void promote() {
+        board.getPossiblePromote().clear();
+        board.calculatePromote(board.getBoard().keySet());
+
+        for(PositionsPieces position : board.getPossiblePromote()) {
+            Piece piece = board.getPiece(position);
+
+            if(piece.getPieceColor().isWhite() && piece.getPieceType().isNormal()) {
+                removePiece(position);
+                addPiece(position, new Piece(piece.getPieceColor(), Piece.Type.QUEEN), false);
+
+                board.promoteOnBoard(position, piece);
+            }
+
+            if(piece.getPieceColor().isBlack() && piece.getPieceType().isNormal()) {
+                removePiece(position);
+                addPiece(position, new Piece(piece.getPieceColor(), Piece.Type.QUEEN), false);
+
+                board.promoteOnBoard(position, piece);
+            }
+        }
+    }
+
     private Image generateImagePath(Piece piece, boolean light) {
         if(light) {
             return new Image(Resources.getPath(piece.getPieceColor() + "-" + piece.getPieceType() + "-light.png"));

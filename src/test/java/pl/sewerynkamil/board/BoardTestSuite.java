@@ -11,6 +11,7 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -358,15 +359,5 @@ public class BoardTestSuite {
 
         // Then
         Assert.assertEquals(2, size);
-    }
-
-    @Test
-    public void test() {
-        // Given
-        Map<PositionsPieces, Piece> testBoard = new HashMap<>();
-        testBoard.put(new PositionsPieces(3,7), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
-        testBoard.put(new PositionsPieces(6,0), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
-
-
     }
 }
