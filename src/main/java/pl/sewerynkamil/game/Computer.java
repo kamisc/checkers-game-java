@@ -5,6 +5,10 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class Computer {
 
     private Random random = new Random();

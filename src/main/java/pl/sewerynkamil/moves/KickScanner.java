@@ -8,6 +8,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class KickScanner {
 
     private Board board;

@@ -7,6 +7,10 @@ import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class NormalMovesTestSuite {
 
     private Board board;

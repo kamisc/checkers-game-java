@@ -11,6 +11,10 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class MouseControl {
 
     private Board board;

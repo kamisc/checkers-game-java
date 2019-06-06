@@ -12,6 +12,10 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class Graphics {
 
     private Board board;

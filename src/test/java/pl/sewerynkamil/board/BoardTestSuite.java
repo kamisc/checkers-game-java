@@ -8,6 +8,10 @@ import pl.sewerynkamil.moves.QueenKicks;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class BoardTestSuite {
 
     private Board board;

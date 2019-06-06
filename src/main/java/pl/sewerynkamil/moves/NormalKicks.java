@@ -6,6 +6,10 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class NormalKicks {
 
     private Board board;

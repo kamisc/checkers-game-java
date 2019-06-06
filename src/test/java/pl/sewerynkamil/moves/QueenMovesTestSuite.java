@@ -7,6 +7,10 @@ import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class QueenMovesTestSuite {
 
     private Board board;
@@ -64,7 +68,7 @@ public class QueenMovesTestSuite {
     }
 
     @Test
-    public void testNormalQueenMoveCalculatorAroundWithPiecesInCorner() {
+    public void testNormalQueenMoveCalculatorAroundWithPiecesInCorners() {
         // Given
         PositionsPieces queenPositon = new PositionsPieces(3,3);
         board.addPieceToBoard(new PositionsPieces(0,0), blackQueen);

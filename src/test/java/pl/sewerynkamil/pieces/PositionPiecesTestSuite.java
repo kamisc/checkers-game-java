@@ -3,6 +3,10 @@ package pl.sewerynkamil.pieces;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class PositionPiecesTestSuite {
 
     @Test

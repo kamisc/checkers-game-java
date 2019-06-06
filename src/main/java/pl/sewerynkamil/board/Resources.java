@@ -2,6 +2,10 @@ package pl.sewerynkamil.board;
 
 import java.net.URL;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class Resources {
 
     public static String getPath(String fileName) {

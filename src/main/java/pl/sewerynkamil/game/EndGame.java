@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class EndGame {
 
     private Board board;

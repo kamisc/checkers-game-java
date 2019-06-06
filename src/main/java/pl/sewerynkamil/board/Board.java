@@ -13,6 +13,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class Board {
 
     private NormalMoves normalMoves = new NormalMoves(this);

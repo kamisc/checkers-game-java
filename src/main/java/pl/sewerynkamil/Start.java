@@ -9,6 +9,10 @@ import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.board.Graphics;
 import pl.sewerynkamil.game.MouseControl;
 
+/**
+ * Author Kamil Seweryn
+ */
+
 public class Start extends Application {
 
     private Board board = new Board();
