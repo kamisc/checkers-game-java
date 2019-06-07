@@ -89,8 +89,7 @@ public class QueenKickScanner {
 
         if(!board.isFieldNull(checkPosition)) {
             if(board.getPiece(actualPosition).getPieceColor() != board.getPiece(checkPosition).getPieceColor()
-                    && board.isFieldNull(new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row))
-                    /*&& new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row).isValidPosition()*/) {
+                    && board.isFieldNull(new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row))) {
                 allPossibleQueenKicks.add(checkPosition);
                 allQueenPiecesWhichKick.add(actualPosition);
             }
