@@ -60,7 +60,7 @@ public class MouseControl {
 
             if(turn) {
 
-                endGame.checkEndGame(board.getBoard().keySet());
+                // endGame.checkEndGame(board.getBoard().keySet());
 
                 kickScanner.calculateAllPossibleWhiteKicks();
                 queenKickScanner.calculateAllPossibleWhiteQueenKicks();
@@ -171,7 +171,7 @@ public class MouseControl {
 
             if(!turn) {
 
-                endGame.checkEndGame(board.getBoard().keySet());
+                // endGame.checkEndGame(board.getBoard().keySet());
 
                 do {
 
@@ -281,6 +281,7 @@ public class MouseControl {
         pickedPosition = null;
 
         graphics.promote();
+        endGame.checkEndGame(board.getBoard().keySet());
 
         normalMoves.clear();
         normalKicks.clear();
@@ -293,6 +294,7 @@ public class MouseControl {
         pickedPosition = null;
 
         graphics.promote();
+        endGame.checkEndGame(board.getBoard().keySet());
 
         normalKicks.clear();
         queenKicks.clear();

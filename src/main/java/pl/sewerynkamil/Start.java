@@ -27,7 +27,7 @@ public class Start extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Scene scene = new Scene(graphics.getGrid(), 612, 612, Color.BLACK);
+        Scene scene = new Scene(graphics.getBorderPane(), 585, 612, Color.BLACK);
         scene.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseControl.getMouseClick());
 
         primaryStage.setTitle("Checkers Game - Kamil Seweryn");
