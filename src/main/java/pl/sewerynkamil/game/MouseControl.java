@@ -189,7 +189,9 @@ public class MouseControl {
 
                         if (board.getPiece(pickedPosition).getPieceType().isNormal()) {
 
-                            queenKicks.clear();
+                            computer.normalKick(pickedPosition);
+
+                            /*queenKicks.clear();
 
                             normalKicks.kickMovesCalculator(pickedPosition);
 
@@ -205,7 +207,7 @@ public class MouseControl {
 
                                     turn = true;
                                 }
-                            }
+                            }*/
 
                         } else {
 
@@ -248,9 +250,9 @@ public class MouseControl {
 
                             graphics.movePiece(computerMove, pickedPosition);*/
 
-                            turn = true;
+                            // turn = true;
 
-                            endTurn();
+                            // endTurn();
 
                         } else {
 
@@ -262,9 +264,9 @@ public class MouseControl {
 
                             graphics.movePiece(computerMove, pickedPosition);*/
 
-                            turn = true;
+                            /*turn = true;
 
-                            endTurn();
+                            endTurn();*/
                         }
                     }
 
@@ -277,7 +279,7 @@ public class MouseControl {
         return mouseClick;
     }
 
-    private void endTurn() {
+    protected void endTurn() {
         pickedPosition = null;
 
         graphics.promote();
@@ -290,7 +292,7 @@ public class MouseControl {
         queenKickScanner.clear();
     }
 
-    private void endKick() {
+    protected void endKick() {
         pickedPosition = null;
 
         graphics.promote();
@@ -300,5 +302,9 @@ public class MouseControl {
         queenKicks.clear();
         kickScanner.clear();
         queenKickScanner.clear();
+    }
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
     }
 }

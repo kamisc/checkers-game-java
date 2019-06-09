@@ -37,6 +37,10 @@ public class Computer {
         computerMove = selectPosition(board.getNormalMoves().getPossibleMoves());
 
         graphics.movePiece(computerMove, pickedPosition);
+
+        mouseControl.setTurn(true);
+
+        mouseControl.endTurn();
     }
 
     public void queenMove(PositionsPieces computerMove, PositionsPieces pickedPosition) {
@@ -45,9 +49,29 @@ public class Computer {
         computerMove = selectPosition(board.getQueenMoves().getPossibleQueenMoves());
 
         graphics.movePiece(computerMove, pickedPosition);
+
+        mouseControl.setTurn(true);
+
+        mouseControl.endTurn();
     }
 
-    public void normalKick() {
+    public void normalKick(PositionsPieces pickedPosition) {
+        board.getQueenKicks().clear();
 
+        board.getNormalKicks().kickMovesCalculator(pickedPosition);
+
+        if (!board.getNormalKicks().getPossibleKickMoves().isEmpty()) {
+
+            PositionsPieces computerKick = selectPosition(board.getNormalKicks().getPossibleKickMoves());
+
+            graphics.kickPiece(computerKick, pickedPosition);
+
+            if (board.getNormalKicks().getPossibleKickMoves().isEmpty()) {
+
+                mouseControl.endKick();
+
+                mouseControl.setTurn(true);
+            }
+        }
     }
 }
