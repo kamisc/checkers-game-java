@@ -2,15 +2,9 @@ package pl.sewerynkamil.menu;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import pl.sewerynkamil.board.Resources;
 
 import java.io.*;
-import java.lang.reflect.Array;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 /**
  * Author Kamil Seweryn
@@ -18,22 +12,20 @@ import java.util.stream.Stream;
 
 public class Ranking implements Serializable {
 
-    ArrayList<Integer> ranking = new ArrayList<>();
-    File file = new File("ranking.list");
+    private ArrayList<Integer> ranking = new ArrayList<>();
+    private ArrayList<Integer> rankingTemp = new ArrayList<>();
+    private File file = new File("ranking.list");
 
     private int whiteWins = 0;
     private int blackWins = 0;
     private int draws = 0;
 
     public Ranking() {
-
+        loadRanking();
     }
 
     public void showRanking() {
-        loadRanking();
-
         Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setHeaderText(null);
         alert.setTitle("Ranking");
         alert.setContentText("White Player Wins: " + whiteWins +
                 "\nBlack Player Wins: " + blackWins +
@@ -66,12 +58,14 @@ public class Ranking implements Serializable {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
             Object readList = ois.readObject();
             if(readList instanceof ArrayList) {
-                ranking.addAll((ArrayList) readList);
+                rankingTemp.addAll((ArrayList) readList);
             }
 
-            whiteWins = ranking.get(0);
-            blackWins = ranking.get(1);
-            draws = ranking.get(2);
+            rankingTemp = (ArrayList<Integer>) readList;
+
+            whiteWins = rankingTemp.get(0);
+            blackWins = rankingTemp.get(1);
+            draws = rankingTemp.get(2);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
