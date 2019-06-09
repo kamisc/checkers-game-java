@@ -55,4 +55,8 @@ public class EndGame {
         restOfWhites.addAll(whites);
         restOfBlacks.addAll(blacks);
     }
+
+    public Set<PositionsPieces> getRestOfBlacks() {
+        return restOfBlacks;
+    }
 }

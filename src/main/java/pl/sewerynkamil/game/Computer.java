@@ -6,6 +6,7 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Author Kamil Seweryn
@@ -74,4 +75,29 @@ public class Computer {
             }
         }
     }
+
+    public void queenKick(PositionsPieces pickedPosition) {
+        board.getNormalKicks().clear();
+
+        board.getQueenKicks().calculateAllPossibleQueenKicks(pickedPosition);
+
+        if (!board.getQueenKicks().getPossibleKickMoves().isEmpty()) {
+
+            PositionsPieces computerKick = selectPosition(board.getQueenKicks().getPossibleKickMoves());
+
+            graphics.kickPiece(computerKick, pickedPosition);
+
+            if (board.getQueenKicks().getPossibleKickMoves().isEmpty()) {
+
+                mouseControl.endKick();
+
+                mouseControl.setTurn(true);
+            }
+        }
+    }
+
+    public boolean checkBlacksEnd() {
+        return board.getEndGame().getRestOfBlacks().size() == 0;
+    }
+
 }

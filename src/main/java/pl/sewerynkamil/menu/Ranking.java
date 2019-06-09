@@ -7,6 +7,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * Author Kamil Seweryn
@@ -41,7 +42,13 @@ public class Ranking implements Serializable {
 
         alert.getButtonTypes().setAll(clear, ok);
 
-        alert.showAndWait();
+        if(alert.showAndWait().get() == clear) {
+            whiteWins = 0;
+            blackWins = 0;
+            draws = 0;
+
+            saveRanking();
+        }
     }
 
     private void saveRanking() {

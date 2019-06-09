@@ -171,6 +171,10 @@ public class MouseControl {
 
                 do {
 
+                    if(computer.checkBlacksEnd()) {
+                        break;
+                    }
+
                     kickScanner.calculateAllPossibleBlackKicks();
                     queenKickScanner.calculateAllPossibleBlackQueenKicks();
 
@@ -211,7 +215,9 @@ public class MouseControl {
 
                         } else {
 
-                            normalKicks.clear();
+                            computer.queenKick(pickedPosition);
+
+                            /*normalKicks.clear();
 
                             queenKicks.calculateAllPossibleQueenKicks(pickedPosition);
 
@@ -227,7 +233,7 @@ public class MouseControl {
 
                                     turn = true;
                                 }
-                            }
+                            }*/
                         }
 
                     } else {
