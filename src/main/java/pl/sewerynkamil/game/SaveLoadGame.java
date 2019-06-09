@@ -12,13 +12,14 @@ import java.util.HashMap;
  * Author Kamil Seweryn
  */
 
-public class SaveLoad implements Serializable {
+public class SaveLoadGame implements Serializable {
 
-    private File file = new File(Resources.getPath("board.txt"));
+    private File file = new File("board.list");
     private HashMap<PositionsPieces, Piece> saveBoard = new HashMap<>();
+    private HashMap<PositionsPieces, Piece> saveBoardTemp = new HashMap<>();
     private Board board;
 
-    public SaveLoad(Board board) {
+    public SaveLoadGame(Board board) {
         this.board = board;
     }
 
@@ -28,7 +29,7 @@ public class SaveLoad implements Serializable {
             oos.writeObject(board.getBoard());
             oos.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 

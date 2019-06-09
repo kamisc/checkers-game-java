@@ -1,6 +1,7 @@
 package pl.sewerynkamil.board;
 
 import pl.sewerynkamil.game.EndGame;
+import pl.sewerynkamil.game.SaveLoadGame;
 import pl.sewerynkamil.menu.Ranking;
 import pl.sewerynkamil.moves.*;
 import pl.sewerynkamil.pieces.BlackPieces;
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
  */
 
 public class Board {
+
+    private SaveLoadGame saveLoadGame = new SaveLoadGame(this);
 
     private NormalMoves normalMoves = new NormalMoves(this);
     private QueenMoves queenMoves = new QueenMoves(this);
@@ -145,5 +148,9 @@ public class Board {
 
     public Set<PositionsPieces> getPossiblePromote() {
         return possiblePromote;
+    }
+
+    public SaveLoadGame getSaveLoadGame() {
+        return saveLoadGame;
     }
 }

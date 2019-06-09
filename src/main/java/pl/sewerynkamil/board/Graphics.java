@@ -23,7 +23,7 @@ public class Graphics {
     private Board board;
 
     private BorderPane borderPane = new BorderPane();
-    private MenuDesign menuDesign = new MenuDesign();
+    private MenuDesign menuDesign = new MenuDesign(board);
     private GridPane grid = new GridPane();
     private Background background;
     private Image imageBoard = new Image(Resources.getPath("board.jpg"));

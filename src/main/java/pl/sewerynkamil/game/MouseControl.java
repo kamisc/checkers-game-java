@@ -195,45 +195,10 @@ public class MouseControl {
 
                             computer.normalKick(pickedPosition);
 
-                            /*queenKicks.clear();
-
-                            normalKicks.kickMovesCalculator(pickedPosition);
-
-                            if (!normalKicks.getPossibleKickMoves().isEmpty()) {
-
-                                computerKick = computer.selectPosition(normalKicks.getPossibleKickMoves());
-
-                                graphics.kickPiece(computerKick, pickedPosition);
-
-                                if (normalKicks.getPossibleKickMoves().isEmpty()) {
-
-                                    endKick();
-
-                                    turn = true;
-                                }
-                            }*/
-
                         } else {
 
                             computer.queenKick(pickedPosition);
 
-                            /*normalKicks.clear();
-
-                            queenKicks.calculateAllPossibleQueenKicks(pickedPosition);
-
-                            if (!queenKicks.getPossibleKickMoves().isEmpty()) {
-
-                                computerKick = computer.selectPosition(queenKicks.getPossibleKickMoves());
-
-                                graphics.kickPiece(computerKick, pickedPosition);
-
-                                if (queenKicks.getPossibleKickMoves().isEmpty()) {
-
-                                    endKick();
-
-                                    turn = true;
-                                }
-                            }*/
                         }
 
                     } else {
@@ -248,31 +213,10 @@ public class MouseControl {
 
                             computer.normalMove(computerMove, pickedPosition);
 
-                            /*normalMoves.clear();
-
-                            normalMoves.normalMoveCalculator(computerMove, false);
-
-                            computerMove = computer.selectPosition(normalMoves.getPossibleMoves());
-
-                            graphics.movePiece(computerMove, pickedPosition);*/
-
-                            // turn = true;
-
-                            // endTurn();
-
                         } else {
 
                             computer.queenMove(computerMove, pickedPosition);
 
-                            /*queenMoves.normalQueenMoveCalculator(computerMove);
-
-                            computerMove = computer.selectPosition(queenMoves.getPossibleQueenMoves());
-
-                            graphics.movePiece(computerMove, pickedPosition);*/
-
-                            /*turn = true;
-
-                            endTurn();*/
                         }
                     }
 

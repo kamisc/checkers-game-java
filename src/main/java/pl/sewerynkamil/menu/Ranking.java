@@ -7,7 +7,6 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Optional;
 
 /**
  * Author Kamil Seweryn
@@ -34,8 +33,8 @@ public class Ranking implements Serializable {
         alert.setTitle("Ranking");
         alert.setContentText("White Player Wins: " + whiteWins +
                 "\nBlack Player Wins: " + blackWins +
-                "\nDraws: " + draws
-                + "\n\nLast game: " + dateLastGame);
+                "\nDraws: " + draws +
+                "\n\nLast game: " + dateLastGame);
 
         ButtonType ok = new ButtonType("OK");
         ButtonType clear = new ButtonType("Clear");
