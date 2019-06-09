@@ -1,6 +1,7 @@
 package pl.sewerynkamil.board;
 
 import pl.sewerynkamil.game.EndGame;
+import pl.sewerynkamil.menu.Ranking;
 import pl.sewerynkamil.moves.*;
 import pl.sewerynkamil.pieces.BlackPieces;
 import pl.sewerynkamil.pieces.Piece;
@@ -24,6 +25,7 @@ public class Board {
     private NormalKicks normalKicks = new NormalKicks(this);
     private QueenKicks queenKicks = new QueenKicks(this);
     private EndGame endGame = new EndGame(this);
+    private Ranking ranking = new Ranking();
 
     private BlackPieces blackPieces = new BlackPieces();
     private WhitePieces whitePieces = new WhitePieces();
@@ -135,6 +137,10 @@ public class Board {
 
     public EndGame getEndGame() {
         return endGame;
+    }
+
+    public Ranking getRanking() {
+        return ranking;
     }
 
     public Set<PositionsPieces> getPossiblePromote() {

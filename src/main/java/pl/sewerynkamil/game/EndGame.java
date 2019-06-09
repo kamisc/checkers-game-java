@@ -26,14 +26,17 @@ public class EndGame {
 
         if(restOfWhites.size() == 0) {
             System.out.println("Black player win!");
+            board.getRanking().setBlackWins();
         }
 
         if(restOfBlacks.size() == 0) {
             System.out.println("White player win!");
+            board.getRanking().setWhiteWins();
         }
 
         if(restOfWhites.size() == 1 && restOfBlacks.size() == 1) {
             System.out.println("Draw!");
+            board.getRanking().setDraws();
         }
     }
 
