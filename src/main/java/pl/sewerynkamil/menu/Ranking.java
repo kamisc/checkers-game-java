@@ -48,6 +48,7 @@ public class Ranking implements Serializable {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
             oos.writeObject(ranking);
             oos.close();
+
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -57,6 +58,7 @@ public class Ranking implements Serializable {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
             Object readList = ois.readObject();
+
             if(readList instanceof ArrayList) {
                 rankingTemp.addAll((ArrayList) readList);
             }
@@ -66,6 +68,7 @@ public class Ranking implements Serializable {
             whiteWins = rankingTemp.get(0);
             blackWins = rankingTemp.get(1);
             draws = rankingTemp.get(2);
+
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

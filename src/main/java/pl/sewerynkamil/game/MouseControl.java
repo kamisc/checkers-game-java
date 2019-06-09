@@ -45,7 +45,7 @@ public class MouseControl {
 
         this.kickScanner = new KickScanner(board);
         this.queenKickScanner = new QueenKickScanner(board);
-        this.computer = new Computer(board, graphics);
+        this.computer = new Computer(board, graphics, this);
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
@@ -238,13 +238,15 @@ public class MouseControl {
 
                         if (board.getPiece(computerMove).getPieceType().isNormal()) {
 
-                            normalMoves.clear();
+                            computer.normalMove(computerMove, pickedPosition);
+
+                            /*normalMoves.clear();
 
                             normalMoves.normalMoveCalculator(computerMove, false);
 
                             computerMove = computer.selectPosition(normalMoves.getPossibleMoves());
 
-                            graphics.movePiece(computerMove, pickedPosition);
+                            graphics.movePiece(computerMove, pickedPosition);*/
 
                             turn = true;
 
@@ -252,11 +254,13 @@ public class MouseControl {
 
                         } else {
 
-                            queenMoves.normalQueenMoveCalculator(computerMove);
+                            computer.queenMove(computerMove, pickedPosition);
+
+                            /*queenMoves.normalQueenMoveCalculator(computerMove);
 
                             computerMove = computer.selectPosition(queenMoves.getPossibleQueenMoves());
 
-                            graphics.movePiece(computerMove, pickedPosition);
+                            graphics.movePiece(computerMove, pickedPosition);*/
 
                             turn = true;
 

@@ -16,10 +16,12 @@ public class Computer {
     private Random random = new Random();
     private Board board;
     private Graphics graphics;
+    private MouseControl mouseControl;
 
-    public Computer(Board board, Graphics graphics) {
+    public Computer(Board board, Graphics graphics, MouseControl mouseControl) {
         this.board = board;
         this.graphics = graphics;
+        this.mouseControl = mouseControl;
     }
 
     public PositionsPieces selectPosition(Set<PositionsPieces> positions) {
@@ -27,7 +29,25 @@ public class Computer {
         return (PositionsPieces) object[random.nextInt(object.length)];
     }
 
-    public void computerMove() {
+    public void normalMove(PositionsPieces computerMove, PositionsPieces pickedPosition) {
+        board.getNormalMoves().clear();
+
+        board.getNormalMoves().normalMoveCalculator(computerMove, false);
+
+        computerMove = selectPosition(board.getNormalMoves().getPossibleMoves());
+
+        graphics.movePiece(computerMove, pickedPosition);
+    }
+
+    public void queenMove(PositionsPieces computerMove, PositionsPieces pickedPosition) {
+        board.getQueenMoves().normalQueenMoveCalculator(computerMove);
+
+        computerMove = selectPosition(board.getQueenMoves().getPossibleQueenMoves());
+
+        graphics.movePiece(computerMove, pickedPosition);
+    }
+
+    public void normalKick() {
 
     }
 }
