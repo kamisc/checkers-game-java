@@ -39,4 +39,16 @@ public class Start extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    /*public Board getBoard() {
+        return board;
+    }
+
+    public Graphics getGraphics() {
+        return graphics;
+    }
+
+    public MouseControl getMouseControl() {
+        return mouseControl;
+    }*/
 }

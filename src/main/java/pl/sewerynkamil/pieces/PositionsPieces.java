@@ -1,6 +1,8 @@
 package pl.sewerynkamil.pieces;
 
-public class PositionsPieces {
+import java.io.Serializable;
+
+public class PositionsPieces implements Serializable {
 
     private int col;
     private int row;

@@ -4,12 +4,15 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import pl.sewerynkamil.board.Board;
+import pl.sewerynkamil.game.SaveLoadGame;
 
 /**
  * Author Kamil Seweryn
  */
 
 public class MenuDesign {
+
+    private Board board;
 
     private MenuBar menuBar = new MenuBar();
 
@@ -63,7 +66,7 @@ public class MenuDesign {
     }
 
     private void saveGameAction() {
-        saveGame.setOnAction(e -> new SaveGame(new Board()).save());
+        saveGame.setOnAction(e -> new SaveGame(board).save());
     }
 
     private void loadGameAction() {

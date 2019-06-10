@@ -30,7 +30,7 @@ public class MouseControl {
 
     private PositionsPieces pickedPosition;
 
-    private boolean turn;
+    private boolean turn = true;
     private boolean isKick = false;
 
     public MouseControl(Graphics graphics, Board board, NormalMoves normalMoves, QueenMoves queenMoves, NormalKicks normalKicks,
@@ -53,6 +53,8 @@ public class MouseControl {
         @Override
         public void handle(MouseEvent event) {
             PositionsPieces clickPosition = new PositionsPieces((int) ((event.getX() - 59) / 62), (int) ((event.getY() - 59) / 62));
+
+            System.out.println(board.getSaveLoadGame().getLoadBoard());
 
             if(!clickPosition.isValidPosition()) {
                 return;

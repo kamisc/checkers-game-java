@@ -1,6 +1,8 @@
 package pl.sewerynkamil.pieces;
 
-public class Piece {
+import java.io.Serializable;
+
+public class Piece implements Serializable {
 
     private Color pieceColor;
     private Type pieceType;

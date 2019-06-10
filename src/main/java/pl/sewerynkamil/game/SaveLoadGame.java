@@ -25,7 +25,7 @@ public class SaveLoadGame implements Serializable {
     public void saveGame() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
-            oos.writeObject(board.getBoard());
+            oos.writeObject(new Board().getBoard());
             oos.close();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -37,12 +37,16 @@ public class SaveLoadGame implements Serializable {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
             Object readBoard = ois.readObject();
             if(readBoard instanceof HashMap) {
-                loadBoard.putAll((HashMap) readBoard);
+                loadBoard = (HashMap<PositionsPieces, Piece>) readBoard;
             }
             ois.close();
             board.setBoard(loadBoard);
         } catch (Exception e) {
             e.getMessage();
         }
+    }
+
+    public Map<PositionsPieces, Piece> getLoadBoard() {
+        return loadBoard;
     }
 }

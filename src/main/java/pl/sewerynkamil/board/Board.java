@@ -42,6 +42,8 @@ public class Board {
     private Map<PositionsPieces, Piece> board = new HashMap<>();
 
     public Board() {
+        saveLoadGame.loadGame();
+
         putAllPieces();
     }
 

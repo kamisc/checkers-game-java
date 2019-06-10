@@ -6,7 +6,6 @@ import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.Random;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Author Kamil Seweryn
