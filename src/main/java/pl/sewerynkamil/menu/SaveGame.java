@@ -1,9 +1,7 @@
 package pl.sewerynkamil.menu;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import pl.sewerynkamil.board.Board;
-import pl.sewerynkamil.game.SaveLoadGame;
 
 /**
  * Author Kamil Seweryn

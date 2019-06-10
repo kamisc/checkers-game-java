@@ -1,12 +1,12 @@
 package pl.sewerynkamil.game;
 
 import pl.sewerynkamil.board.Board;
-import pl.sewerynkamil.board.Resources;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Author Kamil Seweryn
@@ -15,8 +15,7 @@ import java.util.HashMap;
 public class SaveLoadGame implements Serializable {
 
     private File file = new File("board.list");
-    private HashMap<PositionsPieces, Piece> saveBoard = new HashMap<>();
-    private HashMap<PositionsPieces, Piece> saveBoardTemp = new HashMap<>();
+    private Map<PositionsPieces, Piece> loadBoard = new HashMap<>();
     private Board board;
 
     public SaveLoadGame(Board board) {
@@ -38,11 +37,15 @@ public class SaveLoadGame implements Serializable {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
             Object readBoard = ois.readObject();
             if(readBoard instanceof HashMap) {
-                saveBoard.putAll((HashMap) readBoard);
+                loadBoard.putAll((HashMap) readBoard);
             }
             ois.close();
         } catch (Exception e) {
             e.getMessage();
         }
+    }
+
+    public Map<PositionsPieces, Piece> getLoadBoard() {
+        return loadBoard;
     }
 }

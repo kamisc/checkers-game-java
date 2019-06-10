@@ -3,7 +3,6 @@ package pl.sewerynkamil.board;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
-import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -23,7 +22,7 @@ public class Graphics {
     private Board board;
 
     private BorderPane borderPane = new BorderPane();
-    private MenuDesign menuDesign = new MenuDesign(board);
+    private MenuDesign menuDesign = new MenuDesign();
     private GridPane grid = new GridPane();
     private Background background;
     private Image imageBoard = new Image(Resources.getPath("board.jpg"));
@@ -40,6 +39,7 @@ public class Graphics {
 
         borderPane.setCenter(grid);
         borderPane.setTop(menuDesign.getMenuBar());
+
     }
 
     public Background createBoardBackground() {

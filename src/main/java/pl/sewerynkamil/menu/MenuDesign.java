@@ -3,7 +3,6 @@ package pl.sewerynkamil.menu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
 import pl.sewerynkamil.board.Board;
 
 /**
@@ -11,8 +10,6 @@ import pl.sewerynkamil.board.Board;
  */
 
 public class MenuDesign {
-
-    private Board board;
 
     private MenuBar menuBar = new MenuBar();
 
@@ -28,9 +25,15 @@ public class MenuDesign {
     private Menu author = new Menu("Author");
     private MenuItem info = new MenuItem("Author");
 
-    public MenuDesign(Board board) {
-        this.board = board;
+    public MenuDesign() {
+        createMenu();
 
+        authorAction();
+        rankingAction();
+        saveGameAction();
+    }
+
+    private void createMenu() {
         menuBar.getMenus().add(game);
         game.getItems().add(startGame);
         game.getItems().add(difficulty);
@@ -42,10 +45,18 @@ public class MenuDesign {
 
         menuBar.getMenus().add(author);
         author.getItems().add(info);
+    }
 
+    private void authorAction() {
         author.setOnAction(e -> new Author());
+    }
+
+    private void rankingAction() {
         ranking.setOnAction(e -> new Ranking().showRanking());
-        saveGame.setOnAction(e -> new SaveGame(board).save());
+    }
+
+    private void saveGameAction() {
+        saveGame.setOnAction(e -> new SaveGame(new Board()).save());
     }
 
     public MenuBar getMenuBar() {
