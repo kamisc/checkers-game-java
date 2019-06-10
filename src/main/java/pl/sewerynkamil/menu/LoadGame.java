@@ -1,8 +1,6 @@
 package pl.sewerynkamil.menu;
 
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
-import pl.sewerynkamil.Start;
 import pl.sewerynkamil.board.Board;
 
 /**

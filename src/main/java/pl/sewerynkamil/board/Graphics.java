@@ -39,6 +39,8 @@ public class Graphics {
 
         borderPane.setCenter(grid);
         borderPane.setTop(menuDesign.getMenuBar());
+
+        menuDesign.getSaveGame().setOnAction(e -> board.getSaveGame().save());
     }
 
     public void createPieces() {

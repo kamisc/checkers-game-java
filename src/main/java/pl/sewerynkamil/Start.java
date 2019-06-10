@@ -40,15 +40,4 @@ public class Start extends Application {
         launch(args);
     }
 
-    /*public Board getBoard() {
-        return board;
-    }
-
-    public Graphics getGraphics() {
-        return graphics;
-    }
-
-    public MouseControl getMouseControl() {
-        return mouseControl;
-    }*/
 }

@@ -35,7 +35,6 @@ public class MenuDesign {
 
         authorAction();
         rankingAction();
-        saveGameAction();
         loadGameAction();
     }
 
@@ -65,15 +64,15 @@ public class MenuDesign {
         ranking.setOnAction(e -> new Ranking().showRanking());
     }
 
-    private void saveGameAction() {
-        saveGame.setOnAction(e -> new SaveGame(board).save());
-    }
-
     private void loadGameAction() {
         loadGame.setOnAction(e -> new LoadGame(new Board()).load());
     }
 
     public MenuBar getMenuBar() {
         return menuBar;
+    }
+
+    public MenuItem getSaveGame() {
+        return saveGame;
     }
 }

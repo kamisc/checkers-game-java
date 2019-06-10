@@ -25,7 +25,7 @@ public class SaveLoadGame implements Serializable {
     public void saveGame() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
-            oos.writeObject(new Board().getBoard());
+            oos.writeObject(board.getBoard());
             oos.close();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

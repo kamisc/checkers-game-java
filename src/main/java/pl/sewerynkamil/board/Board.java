@@ -44,7 +44,7 @@ public class Board {
     public Board() {
         saveLoadGame.loadGame();
 
-        putAllPieces();
+        // putAllPieces();
     }
 
     public void putAllPieces() {
@@ -158,6 +158,10 @@ public class Board {
 
     public SaveLoadGame getSaveLoadGame() {
         return saveLoadGame;
+    }
+
+    public SaveGame getSaveGame() {
+        return saveGame;
     }
 
     public Map<PositionsPieces, Piece> getBoard() {
