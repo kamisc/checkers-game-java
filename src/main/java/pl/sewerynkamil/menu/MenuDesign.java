@@ -28,9 +28,12 @@ public class MenuDesign {
     public MenuDesign() {
         createMenu();
 
+        startGameAction();
+
         authorAction();
         rankingAction();
         saveGameAction();
+        loadGameAction();
     }
 
     private void createMenu() {
@@ -47,6 +50,10 @@ public class MenuDesign {
         author.getItems().add(info);
     }
 
+    private void startGameAction() {
+        startGame.setOnAction(e -> new StartGame().start());
+    }
+
     private void authorAction() {
         author.setOnAction(e -> new Author());
     }
@@ -57,6 +64,10 @@ public class MenuDesign {
 
     private void saveGameAction() {
         saveGame.setOnAction(e -> new SaveGame(new Board()).save());
+    }
+
+    private void loadGameAction() {
+        loadGame.setOnAction(e -> new LoadGame(new Board()).load());
     }
 
     public MenuBar getMenuBar() {

@@ -33,13 +33,16 @@ public class Graphics {
         createBoardBackground();
         createBoardLayout();
 
-        for(Map.Entry<PositionsPieces, Piece> pieces : board.getBoard().entrySet()){
-            addPiece(pieces.getKey(), pieces.getValue(), false);
-        }
+        createPieces();
 
         borderPane.setCenter(grid);
         borderPane.setTop(menuDesign.getMenuBar());
+    }
 
+    public void createPieces() {
+        for(Map.Entry<PositionsPieces, Piece> pieces : board.getBoard().entrySet()){
+            addPiece(pieces.getKey(), pieces.getValue(), false);
+        }
     }
 
     public Background createBoardBackground() {

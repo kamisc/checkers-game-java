@@ -40,12 +40,9 @@ public class SaveLoadGame implements Serializable {
                 loadBoard.putAll((HashMap) readBoard);
             }
             ois.close();
+            board.setBoard(loadBoard);
         } catch (Exception e) {
             e.getMessage();
         }
-    }
-
-    public Map<PositionsPieces, Piece> getLoadBoard() {
-        return loadBoard;
     }
 }

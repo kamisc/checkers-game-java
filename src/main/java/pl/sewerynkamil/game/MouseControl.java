@@ -30,7 +30,7 @@ public class MouseControl {
 
     private PositionsPieces pickedPosition;
 
-    private boolean turn = true;
+    private boolean turn;
     private boolean isKick = false;
 
     public MouseControl(Graphics graphics, Board board, NormalMoves normalMoves, QueenMoves queenMoves, NormalKicks normalKicks,

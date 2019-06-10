@@ -2,6 +2,7 @@ package pl.sewerynkamil.board;
 
 import pl.sewerynkamil.game.EndGame;
 import pl.sewerynkamil.game.SaveLoadGame;
+import pl.sewerynkamil.menu.LoadGame;
 import pl.sewerynkamil.menu.Ranking;
 import pl.sewerynkamil.menu.SaveGame;
 import pl.sewerynkamil.moves.*;
@@ -24,6 +25,7 @@ public class Board {
 
     private SaveLoadGame saveLoadGame = new SaveLoadGame(this);
     private SaveGame saveGame = new SaveGame(this);
+    private LoadGame loadGame = new LoadGame(this);
 
     private NormalMoves normalMoves = new NormalMoves(this);
     private QueenMoves queenMoves = new QueenMoves(this);
@@ -40,10 +42,10 @@ public class Board {
     private Map<PositionsPieces, Piece> board = new HashMap<>();
 
     public Board() {
-        /*saveLoadGame.loadGame();
+        putAllPieces();
+    }
 
-        board.putAll(saveLoadGame.getLoadBoard());*/
-
+    public void putAllPieces() {
         board.putAll(whitePieces.setUpPieces());
         board.putAll(blackPieces.setUpPieces());
     }
@@ -124,10 +126,6 @@ public class Board {
         possiblePromote.addAll(blacks);
     }
 
-    public Map<PositionsPieces, Piece> getBoard() {
-        return board;
-    }
-
     public NormalKicks getNormalKicks() {
         return normalKicks;
     }
@@ -158,5 +156,13 @@ public class Board {
 
     public SaveLoadGame getSaveLoadGame() {
         return saveLoadGame;
+    }
+
+    public Map<PositionsPieces, Piece> getBoard() {
+        return board;
+    }
+
+    public void setBoard(Map<PositionsPieces, Piece> board) {
+        this.board = board;
     }
 }

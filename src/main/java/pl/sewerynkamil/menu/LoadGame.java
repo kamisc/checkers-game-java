@@ -7,21 +7,21 @@ import pl.sewerynkamil.board.Board;
  * Author Kamil Seweryn
  */
 
-public class SaveGame {
+public class LoadGame {
 
     private Board board;
 
-    public SaveGame(Board board) {
+    public LoadGame(Board board) {
         this.board = board;
     }
 
-    public void save() {
+    public void load() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Save Game");
+        alert.setTitle("Load Game");
         alert.setHeaderText(null);
-        alert.setContentText("Game Saved!");
+        alert.setContentText("Game Loaded!");
 
-        board.getSaveLoadGame().saveGame();
+        board.getSaveLoadGame().loadGame();
 
         alert.showAndWait();
     }
