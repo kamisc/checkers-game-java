@@ -4,7 +4,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import pl.sewerynkamil.board.Board;
-import pl.sewerynkamil.game.SaveLoadGame;
 
 /**
  * Author Kamil Seweryn
@@ -31,7 +30,7 @@ public class MenuDesign {
     public MenuDesign() {
         createMenu();
 
-        startGameAction();
+        // startGameAction();
 
         authorAction();
         rankingAction();
@@ -52,9 +51,9 @@ public class MenuDesign {
         author.getItems().add(info);
     }
 
-    private void startGameAction() {
+    /*private void startGameAction() {
         startGame.setOnAction(e -> new StartGame().start());
-    }
+    }*/
 
     private void authorAction() {
         author.setOnAction(e -> new Author());
@@ -74,5 +73,9 @@ public class MenuDesign {
 
     public MenuItem getSaveGame() {
         return saveGame;
+    }
+
+    public MenuItem getStartGame() {
+        return startGame;
     }
 }

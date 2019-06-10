@@ -169,4 +169,8 @@ public class Graphics {
     public BorderPane getBorderPane() {
         return borderPane;
     }
+
+    public MenuDesign getMenuDesign() {
+        return menuDesign;
+    }
 }

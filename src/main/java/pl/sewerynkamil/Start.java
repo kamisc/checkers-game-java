@@ -1,6 +1,7 @@
 package pl.sewerynkamil;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -34,6 +35,17 @@ public class Start extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
+
+        graphics.getMenuDesign().getStartGame().setOnAction(e -> {
+            primaryStage.close();
+            Platform.runLater(() -> new Start().start(new Stage()));
+            board.putAllPieces();
+
+        });
+    }
+
+    public void restart() {
+
     }
 
     public static void main(String[] args) {
