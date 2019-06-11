@@ -25,7 +25,7 @@ public class Board {
 
     private SaveLoadGame saveLoadGame = new SaveLoadGame(this);
     private SaveGame saveGame = new SaveGame(this);
-    private LoadGame loadGame = new LoadGame(this);
+    private LoadGame loadGame = new LoadGame();
 
     private NormalMoves normalMoves = new NormalMoves(this);
     private QueenMoves queenMoves = new QueenMoves(this);
@@ -45,6 +45,7 @@ public class Board {
         if(saveLoadGame.isFileExist()) {
             saveLoadGame.loadGame();
             saveLoadGame.removeFile();
+            loadGame.loadInfo();
         } else {
             putAllPieces();
         }
@@ -175,7 +176,4 @@ public class Board {
         this.board = board;
     }
 
-    public LoadGame getLoadGame() {
-        return loadGame;
-    }
 }

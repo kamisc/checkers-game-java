@@ -13,18 +13,11 @@ import pl.sewerynkamil.board.Board;
 
 public class LoadGame {
 
-    private Board board;
-
-    public LoadGame(Board board) {
-        this.board = board;
-    }
-
     public void load(Stage primaryStage) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Load Game");
         alert.setHeaderText(null);
-        alert.setContentText("Are you sure you want load last saving game?" +
-                "\n\nIf you want to play new game, click New Game button in Game Menu.");
+        alert.setContentText("Are you sure you want load last saving game?");
 
         ButtonType yes = new ButtonType("Yes");
         ButtonType no = new ButtonType("No");
@@ -35,5 +28,15 @@ public class LoadGame {
             Platform.runLater(() -> new Start().start(new Stage()));
             primaryStage.close();
         }
+    }
+
+    public void loadInfo() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Load Game");
+        alert.setHeaderText(null);
+        alert.setContentText("Game Loaded! If you want to play new game, click New Game button in Game Menu." +
+                "\n\nThe last saved game has been removed.");
+
+        alert.showAndWait();
     }
 }

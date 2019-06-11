@@ -42,7 +42,7 @@ public class Start extends Application {
         });
 
         graphics.getMenuDesign().getLoadGame().setOnAction(e -> {
-            new LoadGame(board).load(primaryStage);
+            new LoadGame().load(primaryStage);
         });
     }
 
