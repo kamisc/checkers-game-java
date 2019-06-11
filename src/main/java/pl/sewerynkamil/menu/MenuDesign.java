@@ -3,7 +3,6 @@ package pl.sewerynkamil.menu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import pl.sewerynkamil.board.Board;
 
 /**
  * Author Kamil Seweryn
@@ -30,7 +29,6 @@ public class MenuDesign {
 
         authorAction();
         rankingAction();
-        loadGameAction();
     }
 
     private void createMenu() {
@@ -53,10 +51,6 @@ public class MenuDesign {
 
     private void rankingAction() {
         ranking.setOnAction(e -> new Ranking().showRanking());
-    }
-
-    private void loadGameAction() {
-        loadGame.setOnAction(e -> new LoadGame(new Board()).load());
     }
 
     public MenuBar getMenuBar() {

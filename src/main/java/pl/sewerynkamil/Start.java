@@ -1,7 +1,6 @@
 package pl.sewerynkamil;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -28,7 +27,9 @@ public class Start extends Application {
             board.getEndGame());
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(final Stage primaryStage) {
+        board = new Board();
+
         Scene scene = new Scene(graphics.getBorderPane(), 585, 612, Color.BLACK);
         scene.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseControl.getMouseClick());
 

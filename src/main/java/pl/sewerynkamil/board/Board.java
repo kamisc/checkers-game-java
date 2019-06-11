@@ -41,13 +41,12 @@ public class Board {
 
     private Map<PositionsPieces, Piece> board = new HashMap<>();
 
-    boolean restart = true;
-
     public Board() {
-        if(restart) {
-            putAllPieces();
-        } else {
+        if(saveLoadGame.isFileExist()) {
             saveLoadGame.loadGame();
+            saveLoadGame.removeFile();
+        } else {
+            putAllPieces();
         }
     }
 
@@ -174,9 +173,5 @@ public class Board {
 
     public void setBoard(Map<PositionsPieces, Piece> board) {
         this.board = board;
-    }
-
-    public void setRestart(boolean restart) {
-        this.restart = restart;
     }
 }

@@ -21,8 +21,6 @@ public class LoadGame {
         alert.setHeaderText(null);
         alert.setContentText("Game Loaded!");
 
-        board.getSaveLoadGame().loadGame();
-
         alert.showAndWait();
     }
 }
