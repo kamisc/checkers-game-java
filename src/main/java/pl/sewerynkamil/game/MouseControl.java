@@ -54,8 +54,6 @@ public class MouseControl {
         public void handle(MouseEvent event) {
             PositionsPieces clickPosition = new PositionsPieces((int) ((event.getX() - 59) / 62), (int) ((event.getY() - 59) / 62));
 
-            System.out.println(board.getSaveLoadGame().getLoadBoard());
-
             if(!clickPosition.isValidPosition()) {
                 return;
             }

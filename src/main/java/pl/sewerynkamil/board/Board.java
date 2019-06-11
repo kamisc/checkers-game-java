@@ -44,11 +44,11 @@ public class Board {
     boolean restart = true;
 
     public Board() {
-       /* if(restart) {
+        if(restart) {
             putAllPieces();
         } else {
             saveLoadGame.loadGame();
-        }*/
+        }
     }
 
     public void putAllPieces() {

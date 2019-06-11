@@ -11,12 +11,10 @@ import pl.sewerynkamil.board.Board;
 
 public class MenuDesign {
 
-    private Board board;
-
     private MenuBar menuBar = new MenuBar();
 
     private Menu game = new Menu("Game");
-    private MenuItem startGame = new MenuItem("Start game");
+    private MenuItem newGame = new MenuItem("New game");
     private MenuItem difficulty = new MenuItem("Difficulty");
 
     private Menu data = new Menu("Data");
@@ -30,8 +28,6 @@ public class MenuDesign {
     public MenuDesign() {
         createMenu();
 
-        // startGameAction();
-
         authorAction();
         rankingAction();
         loadGameAction();
@@ -39,7 +35,7 @@ public class MenuDesign {
 
     private void createMenu() {
         menuBar.getMenus().add(game);
-        game.getItems().add(startGame);
+        game.getItems().add(newGame);
         game.getItems().add(difficulty);
 
         menuBar.getMenus().add(data);
@@ -50,10 +46,6 @@ public class MenuDesign {
         menuBar.getMenus().add(author);
         author.getItems().add(info);
     }
-
-    /*private void startGameAction() {
-        startGame.setOnAction(e -> new StartGame().start());
-    }*/
 
     private void authorAction() {
         author.setOnAction(e -> new Author());
@@ -75,7 +67,7 @@ public class MenuDesign {
         return saveGame;
     }
 
-    public MenuItem getStartGame() {
-        return startGame;
+    public MenuItem getNewGame() {
+        return newGame;
     }
 }

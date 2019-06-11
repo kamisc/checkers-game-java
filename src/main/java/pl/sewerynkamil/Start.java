@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.board.Graphics;
 import pl.sewerynkamil.game.MouseControl;
+import pl.sewerynkamil.menu.StartGame;
 
 /**
  * Author Kamil Seweryn
@@ -36,16 +37,9 @@ public class Start extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
 
-        graphics.getMenuDesign().getStartGame().setOnAction(e -> {
-            primaryStage.close();
-            Platform.runLater(() -> new Start().start(new Stage()));
-            board.putAllPieces();
-
+        graphics.getMenuDesign().getNewGame().setOnAction(e -> {
+            new StartGame().start(primaryStage);
         });
-    }
-
-    public void restart() {
-
     }
 
     public static void main(String[] args) {

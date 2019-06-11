@@ -6,9 +6,7 @@ import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import pl.sewerynkamil.menu.LoadGame;
 import pl.sewerynkamil.menu.MenuDesign;
-import pl.sewerynkamil.menu.SaveGame;
 import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
