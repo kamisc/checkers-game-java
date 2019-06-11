@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.board.Graphics;
 import pl.sewerynkamil.game.MouseControl;
-import pl.sewerynkamil.menu.StartGame;
+import pl.sewerynkamil.menu.NewGame;
 
 /**
  * Author Kamil Seweryn
@@ -27,9 +27,7 @@ public class Start extends Application {
             board.getEndGame());
 
     @Override
-    public void start(final Stage primaryStage) {
-        board = new Board();
-
+    public void start(Stage primaryStage) {
         Scene scene = new Scene(graphics.getBorderPane(), 585, 612, Color.BLACK);
         scene.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseControl.getMouseClick());
 
@@ -39,7 +37,7 @@ public class Start extends Application {
         primaryStage.setResizable(false);
 
         graphics.getMenuDesign().getNewGame().setOnAction(e -> {
-            new StartGame().start(primaryStage);
+            new NewGame().start(primaryStage);
         });
     }
 

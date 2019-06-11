@@ -22,11 +22,6 @@ public class SaveLoadGame implements Serializable {
         this.board = board;
     }
 
-    public boolean isFileExist() {
-        File file = new File("board.list");
-        return file.exists();
-    }
-
     public void saveGame() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
@@ -54,6 +49,11 @@ public class SaveLoadGame implements Serializable {
     public void removeFile() {
         File file = new File("board.list");
         file.delete();
+    }
+
+    public boolean isFileExist() {
+        File file = new File("board.list");
+        return file.exists();
     }
 
     public Map<PositionsPieces, Piece> getLoadBoard() {

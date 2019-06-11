@@ -10,7 +10,7 @@ import pl.sewerynkamil.Start;
  * Author Kamil Seweryn
  */
 
-public class StartGame {
+public class NewGame {
 
     public void start(Stage primaryStage) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

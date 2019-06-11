@@ -45,6 +45,7 @@ public class Board {
         if(saveLoadGame.isFileExist()) {
             saveLoadGame.loadGame();
             saveLoadGame.removeFile();
+            loadGame.load();
         } else {
             putAllPieces();
         }
@@ -173,5 +174,9 @@ public class Board {
 
     public void setBoard(Map<PositionsPieces, Piece> board) {
         this.board = board;
+    }
+
+    public LoadGame getLoadGame() {
+        return loadGame;
     }
 }

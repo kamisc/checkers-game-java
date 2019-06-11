@@ -61,6 +61,10 @@ public class MenuDesign {
         return saveGame;
     }
 
+    public MenuItem getLoadGame() {
+        return loadGame;
+    }
+
     public MenuItem getNewGame() {
         return newGame;
     }
