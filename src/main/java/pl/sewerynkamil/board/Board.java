@@ -1,5 +1,6 @@
 package pl.sewerynkamil.board;
 
+import javafx.stage.Stage;
 import pl.sewerynkamil.game.EndGame;
 import pl.sewerynkamil.game.SaveLoadGame;
 import pl.sewerynkamil.menu.LoadGame;
