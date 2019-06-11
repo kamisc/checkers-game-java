@@ -1,7 +1,10 @@
 package pl.sewerynkamil.menu;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
+import pl.sewerynkamil.Start;
 import pl.sewerynkamil.board.Board;
 
 /**
@@ -16,22 +19,22 @@ public class LoadGame {
         this.board = board;
     }
 
-    public void load() {
+    public void load(Stage primaryStage) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Load Game");
         alert.setHeaderText(null);
         alert.setContentText("Game Loaded! If you want to play new game, click New Game button in Game Menu.");
 
-        ButtonType yes = new ButtonType("Ok");
+        ButtonType ok = new ButtonType("Ok");
         // ButtonType no = new ButtonType("No");
 
-        alert.getButtonTypes().setAll(yes);
+        alert.getButtonTypes().setAll(ok);
 
         alert.showAndWait();
 
-        /*if(alert.showAndWait().get() == yes) {
+
             Platform.runLater(() -> new Start().start(new Stage()));
             primaryStage.close();
-        }*/
+
     }
 }

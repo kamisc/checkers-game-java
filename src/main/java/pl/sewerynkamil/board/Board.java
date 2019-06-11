@@ -45,7 +45,6 @@ public class Board {
         if(saveLoadGame.isFileExist()) {
             saveLoadGame.loadGame();
             saveLoadGame.removeFile();
-            loadGame.load();
         } else {
             putAllPieces();
         }

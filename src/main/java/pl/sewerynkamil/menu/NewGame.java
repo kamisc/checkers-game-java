@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import pl.sewerynkamil.Start;
+import pl.sewerynkamil.board.Board;
 
 /**
  * Author Kamil Seweryn
@@ -12,7 +13,9 @@ import pl.sewerynkamil.Start;
 
 public class NewGame {
 
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage, Board board) {
+        board.getSaveLoadGame().removeFile();
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("New Game");
         alert.setHeaderText(null);

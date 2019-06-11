@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.board.Graphics;
 import pl.sewerynkamil.game.MouseControl;
+import pl.sewerynkamil.menu.LoadGame;
 import pl.sewerynkamil.menu.NewGame;
 
 /**
@@ -37,7 +38,11 @@ public class Start extends Application {
         primaryStage.setResizable(false);
 
         graphics.getMenuDesign().getNewGame().setOnAction(e -> {
-            new NewGame().start(primaryStage);
+            new NewGame().start(primaryStage, board);
+        });
+
+        graphics.getMenuDesign().getLoadGame().setOnAction(e -> {
+            new LoadGame(board).load(primaryStage);
         });
     }
 
