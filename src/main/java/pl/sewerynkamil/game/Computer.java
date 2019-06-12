@@ -18,6 +18,8 @@ public class Computer {
     private Graphics graphics;
     private MouseControl mouseControl;
 
+    private int difficultyLevel = 0;
+
     public Computer(Board board, Graphics graphics, MouseControl mouseControl) {
         this.board = board;
         this.graphics = graphics;
@@ -33,4 +35,7 @@ public class Computer {
         return board.getEndGame().getRestOfBlacks().size() == 0;
     }
 
+    public void setDifficultyLevel(int difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
+    }
 }
