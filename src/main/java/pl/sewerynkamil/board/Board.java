@@ -133,6 +133,10 @@ public class Board {
         possiblePromote.addAll(blacks);
     }
 
+    public void handleMove() {
+
+    }
+
     public NormalKicks getNormalKicks() {
         return normalKicks;
     }
