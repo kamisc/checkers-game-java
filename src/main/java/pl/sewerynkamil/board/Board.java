@@ -1,6 +1,5 @@
 package pl.sewerynkamil.board;
 
-import javafx.stage.Stage;
 import pl.sewerynkamil.game.EndGame;
 import pl.sewerynkamil.game.SaveLoadGame;
 import pl.sewerynkamil.menu.LoadGame;
@@ -52,7 +51,7 @@ public class Board {
         }
     }
 
-    public void putAllPieces() {
+    private void putAllPieces() {
         board.putAll(whitePieces.setUpPieces());
         board.putAll(blackPieces.setUpPieces());
     }
@@ -73,9 +72,56 @@ public class Board {
         return board.get(position) == null;
     }
 
+    public void pickPiece(PositionsPieces position, PositionsPieces oldPosition, boolean light) {
+        Piece pieceNew = getPiece(position);
+        Piece pieceOld = getPiece(oldPosition);
+
+        if(oldPosition != null) {
+            Graphics.removePiece(oldPosition);
+            Graphics.addPiece(oldPosition, pieceOld, !light);
+        }
+
+        Graphics.removePiece(position);
+        Graphics.addPiece(position, pieceNew, light);
+    }
+
+    public void movePiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
+        Piece piece = getPiece(oldPosition);
+
+        Graphics.addPiece(newPosition, piece, false);
+        Graphics.removePiece(oldPosition);
+
+        movePieceOnBoard(newPosition, oldPosition, piece);
+    }
+
     public void movePieceOnBoard(PositionsPieces newPosition, PositionsPieces oldPosition, Piece piece) {
         removePieceFromBoard(oldPosition);
         addPieceToBoard(newPosition, piece);
+    }
+
+    public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
+        Piece piece = getPiece(oldPosition);
+
+        PositionsPieces kickPosition = findOppositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
+
+        Graphics.addPiece(newPosition, piece, false);
+        Graphics.removePiece(oldPosition);
+        Graphics.removePiece(kickPosition);
+
+        kickPieceFromBoard(newPosition, oldPosition, kickPosition, piece);
+
+        normalKicks.kickMovesCalculator(newPosition);
+        queenKicks.calculateAllPossibleQueenKicks(newPosition);
+
+        if(!normalKicks.getPossibleKickMoves().isEmpty() && piece.getPieceType().isNormal()) {
+            Graphics.removePiece(oldPosition);
+            Graphics.addPiece(newPosition, piece, true);
+        }
+
+        if(!queenKicks.getPossibleKickMoves().isEmpty() && piece.getPieceType().isQueen()) {
+            Graphics.removePiece(oldPosition);
+            Graphics.addPiece(newPosition, piece, true);
+        }
     }
 
     public void kickPieceFromBoard(PositionsPieces newPosition, PositionsPieces oldPosition, PositionsPieces kickPositon, Piece piece) {
@@ -84,7 +130,7 @@ public class Board {
         removePieceFromBoard(kickPositon);
     }
 
-    public PositionsPieces findOpositePosition(PositionsPieces position, Set<PositionsPieces> normalPosition, Set<PositionsPieces> queenPosition) {
+    public PositionsPieces findOppositePosition(PositionsPieces position, Set<PositionsPieces> normalPosition, Set<PositionsPieces> queenPosition) {
         PositionsPieces upLeft = new PositionsPieces(position.getCol() - 1, position.getRow() - 1);
 
         if(normalPosition.contains(upLeft) || queenPosition.contains(upLeft)) {
@@ -112,6 +158,29 @@ public class Board {
         return null;
     }
 
+    public void promote() {
+        possiblePromote.clear();
+        calculatePromote(board.keySet());
+
+        for(PositionsPieces position : possiblePromote) {
+            Piece piece = getPiece(position);
+
+            if(piece.getPieceColor().isWhite() && piece.getPieceType().isNormal()) {
+                Graphics.removePiece(position);
+                Graphics.addPiece(position, new Piece(piece.getPieceColor(), Piece.Type.QUEEN), false);
+
+                promoteOnBoard(position, piece);
+            }
+
+            if(piece.getPieceColor().isBlack() && piece.getPieceType().isNormal()) {
+                Graphics.removePiece(position);
+                Graphics.addPiece(position, new Piece(piece.getPieceColor(), Piece.Type.QUEEN), false);
+
+                promoteOnBoard(position, piece);
+            }
+        }
+    }
+
     public void promoteOnBoard(PositionsPieces position, Piece piece) {
         removePieceFromBoard(position);
         addPieceToBoard(position, new Piece(piece.getPieceColor(), Piece.Type.QUEEN));
@@ -133,7 +202,7 @@ public class Board {
         possiblePromote.addAll(blacks);
     }
 
-    public void handleMove() {
+    public void handleMove(PositionsPieces position) {
 
     }
 

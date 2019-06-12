@@ -8,8 +8,6 @@ import javafx.stage.Stage;
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.board.Graphics;
 import pl.sewerynkamil.game.MouseControl;
-import pl.sewerynkamil.menu.LoadGame;
-import pl.sewerynkamil.menu.NewGame;
 
 /**
  * Author Kamil Seweryn
@@ -20,8 +18,7 @@ public class Checkers extends Application {
     private static Stage primaryStage = new Stage();
     private Board board = new Board();
     private Graphics graphics = new Graphics(board);
-    private MouseControl mouseControl = new MouseControl(graphics,
-            board,
+    private MouseControl mouseControl = new MouseControl(board,
             board.getNormalMoves(),
             board.getQueenMoves(),
             board.getNormalKicks(),
@@ -39,13 +36,9 @@ public class Checkers extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
 
-        graphics.getMenuDesign().getNewGame().setOnAction(e -> {
-            new NewGame().start(board);
-        });
-
-        graphics.getMenuDesign().getLoadGame().setOnAction(e -> {
-            new LoadGame().load();
-        });
+        /*graphics.getMenuDesign().getNewGame().setOnAction(e -> new NewGame().start(board));
+        graphics.getMenuDesign().getSaveGame().setOnAction(e -> board.getSaveGame().save());
+        graphics.getMenuDesign().getLoadGame().setOnAction(e -> new LoadGame().load());*/
     }
 
     public static void main(String[] args) {

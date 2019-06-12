@@ -209,7 +209,7 @@ public class BoardTestSuite {
         // When
         board.movePieceOnBoard(newPosition, oldPosition, pieceBlack);
         Piece piece = board.getPiece(newPosition);
-        Boolean isFieldNull = board.isFieldNull(oldPosition);
+        boolean isFieldNull = board.isFieldNull(oldPosition);
 
         // Then
         Assert.assertEquals(piece, pieceBlack);
@@ -217,7 +217,7 @@ public class BoardTestSuite {
     }
 
     @Test
-    public void testFindOpositePiece() {
+    public void testFindOppositePiece() {
         // Given
         PositionsPieces oldPosition = new PositionsPieces(2,2);
         PositionsPieces newPosition = new PositionsPieces(4,4);
@@ -229,7 +229,7 @@ public class BoardTestSuite {
         normalKicks.kickMovesCalculator(oldPosition);
 
         // When
-        PositionsPieces kickPosition = board.findOpositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
+        PositionsPieces kickPosition = board.findOppositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
 
         // Then
         Assert.assertEquals(expectedPosition, kickPosition);
@@ -247,19 +247,19 @@ public class BoardTestSuite {
         board.removePieceFromBoard(new PositionsPieces(6,2));
         board.addPieceToBoard(expectedKickPosition, new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
 
-        normalKicks.kickMovesCalculator(oldPosition);;
+        normalKicks.kickMovesCalculator(oldPosition);
 
-        PositionsPieces kickPositon = board.findOpositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
+        PositionsPieces kickPosition = board.findOppositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
 
         // When
-        board.kickPieceFromBoard(newPosition, oldPosition, kickPositon, piece);
+        board.kickPieceFromBoard(newPosition, oldPosition, kickPosition, piece);
         long blacksAmount = board.getBoard().keySet().stream()
                 .filter(position -> board.getPiece(position).getPieceColor().isBlack())
                 .count();
 
         // Then
         Assert.assertEquals(11, blacksAmount);
-        Assert.assertEquals(expectedKickPosition,kickPositon);
+        Assert.assertEquals(expectedKickPosition, kickPosition);
     }
 
     @Test
@@ -276,7 +276,7 @@ public class BoardTestSuite {
 
         normalKicks.kickMovesCalculator(oldPosition);
 
-        PositionsPieces kickPositon = board.findOpositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
+        PositionsPieces kickPositon = board.findOppositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
 
         // When
         board.kickPieceFromBoard(newPosition, oldPosition, kickPositon, piece);

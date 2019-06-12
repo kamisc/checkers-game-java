@@ -15,14 +15,12 @@ public class Computer {
 
     private Random random = new Random();
     private Board board;
-    private Graphics graphics;
     private MouseControl mouseControl;
 
     private int difficultyLevel = 0;
 
-    public Computer(Board board, Graphics graphics, MouseControl mouseControl) {
+    public Computer(Board board, MouseControl mouseControl) {
         this.board = board;
-        this.graphics = graphics;
         this.mouseControl = mouseControl;
     }
 

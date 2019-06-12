@@ -17,7 +17,7 @@ public class LoadGame {
         alert.setTitle("Load Game");
         alert.setHeaderText(null);
         alert.setContentText("Are you sure you want load last saving game?" +
-                "\n\nWARINING! If you haven't save the game, a new board will be loaded!");
+                "\n\nWARINING! If you haven't a saved game, a new board will be loaded!");
 
         ButtonType yes = new ButtonType("Yes");
         ButtonType no = new ButtonType("No");

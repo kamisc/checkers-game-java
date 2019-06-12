@@ -18,7 +18,6 @@ import java.util.Set;
 public class MouseControl {
 
     private Board board;
-    private Graphics graphics;
     private NormalMoves normalMoves;
     private QueenMoves queenMoves;
     private NormalKicks normalKicks;
@@ -33,9 +32,8 @@ public class MouseControl {
     private boolean turn = true;
     private boolean isKick = false;
 
-    public MouseControl(Graphics graphics, Board board, NormalMoves normalMoves, QueenMoves queenMoves, NormalKicks normalKicks,
+    public MouseControl(Board board, NormalMoves normalMoves, QueenMoves queenMoves, NormalKicks normalKicks,
                         QueenKicks queenKicks, EndGame endGame) {
-        this.graphics = graphics;
         this.board = board;
         this.normalMoves = normalMoves;
         this.queenMoves = queenMoves;
@@ -45,7 +43,7 @@ public class MouseControl {
 
         this.kickScanner = new KickScanner(board);
         this.queenKickScanner = new QueenKickScanner(board);
-        this.computer = new Computer(board, graphics, this);
+        this.computer = new Computer(board, this);
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
@@ -70,7 +68,7 @@ public class MouseControl {
                             && board.getPiece(clickPosition).getPieceColor().isWhite()
                             && !isKick) {
 
-                        graphics.pickPiece(clickPosition, pickedPosition, true);
+                        board.pickPiece(clickPosition, pickedPosition, true);
                         pickedPosition = clickPosition;
 
                         if(board.getPiece(clickPosition).getPieceType().isNormal()) {
@@ -89,7 +87,7 @@ public class MouseControl {
                         if(normalKicks.getPossibleKickMoves().contains(clickPosition)
                                 && board.getPiece(pickedPosition).getPieceType().isNormal()) {
 
-                            graphics.kickPiece(clickPosition, pickedPosition);
+                            board.kickPiece(clickPosition, pickedPosition);
                             pickedPosition = clickPosition;
 
                             if(normalKicks.getPossibleKickMoves().isEmpty()) {
@@ -109,7 +107,7 @@ public class MouseControl {
                         } else if(queenKicks.getPossibleKickMoves().contains(clickPosition)
                                 && board.getPiece(pickedPosition).getPieceType().isQueen()) {
 
-                            graphics.kickPiece(clickPosition, pickedPosition);
+                            board.kickPiece(clickPosition, pickedPosition);
                             pickedPosition = clickPosition;
 
                             if(queenKicks.getPossibleKickMoves().isEmpty()) {
@@ -133,7 +131,7 @@ public class MouseControl {
                     if(!board.isFieldNull(clickPosition)
                             && board.getPiece(clickPosition).getPieceColor() == Piece.Color.WHITE) {
 
-                        graphics.pickPiece(clickPosition, pickedPosition,true);
+                        board.pickPiece(clickPosition, pickedPosition,true);
                         pickedPosition = clickPosition;
 
                         if(board.getPiece(clickPosition).getPieceType().isNormal()) {
@@ -149,7 +147,7 @@ public class MouseControl {
                     } else if(normalMoves.getPossibleMoves().contains(clickPosition)
                             && pickedPosition != null) {
 
-                        graphics.movePiece(clickPosition, pickedPosition);
+                        board.movePiece(clickPosition, pickedPosition);
 
                         turn = false;
 
@@ -158,7 +156,7 @@ public class MouseControl {
                     } else if(queenMoves.getPossibleQueenMoves().contains(clickPosition)
                             && pickedPosition != null) {
 
-                        graphics.movePiece(clickPosition, pickedPosition);
+                        board.movePiece(clickPosition, pickedPosition);
 
                         turn = false;
 
@@ -189,7 +187,7 @@ public class MouseControl {
 
                         pickedPosition = computerKick;
 
-                        graphics.pickPiece(computerKick, pickedPosition, true);
+                        board.pickPiece(computerKick, pickedPosition, true);
 
                         if (board.getPiece(pickedPosition).getPieceType().isNormal()) {
 
@@ -201,7 +199,7 @@ public class MouseControl {
 
                                 computerKick = computer.selectPosition(board.getNormalKicks().getPossibleKickMoves());
 
-                                graphics.kickPiece(computerKick, pickedPosition);
+                                board.kickPiece(computerKick, pickedPosition);
 
                                 if (board.getNormalKicks().getPossibleKickMoves().isEmpty()) {
 
@@ -221,7 +219,7 @@ public class MouseControl {
 
                                 computerKick = computer.selectPosition(board.getQueenKicks().getPossibleKickMoves());
 
-                                graphics.kickPiece(computerKick, pickedPosition);
+                                board.kickPiece(computerKick, pickedPosition);
 
                                 if (board.getQueenKicks().getPossibleKickMoves().isEmpty()) {
 
@@ -248,7 +246,7 @@ public class MouseControl {
 
                             computerMove = computer.selectPosition(board.getNormalMoves().getPossibleMoves());
 
-                            graphics.movePiece(computerMove, pickedPosition);
+                            board.movePiece(computerMove, pickedPosition);
 
                             setTurn(true);
 
@@ -260,7 +258,7 @@ public class MouseControl {
 
                             computerMove = computer.selectPosition(board.getQueenMoves().getPossibleQueenMoves());
 
-                            graphics.movePiece(computerMove, pickedPosition);
+                            board.movePiece(computerMove, pickedPosition);
 
                             setTurn(true);
 
@@ -280,7 +278,7 @@ public class MouseControl {
     protected void endTurn() {
         pickedPosition = null;
 
-        graphics.promote();
+        board.promote();
         endGame.checkEndGame(board.getBoard().keySet());
 
         normalMoves.clear();
@@ -293,7 +291,7 @@ public class MouseControl {
     protected void endKick() {
         pickedPosition = null;
 
-        graphics.promote();
+        board.promote();
         endGame.checkEndGame(board.getBoard().keySet());
 
         normalKicks.clear();
