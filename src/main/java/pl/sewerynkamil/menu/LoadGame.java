@@ -26,7 +26,7 @@ public class LoadGame {
 
         if(alert.showAndWait().get() == yes) {
             Platform.runLater(() -> new Start().start(new Stage()));
-            primaryStage.close();
+            Start.close();
         }
     }
 

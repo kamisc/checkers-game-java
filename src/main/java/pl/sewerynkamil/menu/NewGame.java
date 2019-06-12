@@ -13,7 +13,7 @@ import pl.sewerynkamil.board.Board;
 
 public class NewGame {
 
-    public void start(Stage primaryStage, Board board) {
+    public void start(Board board) {
         board.getSaveLoadGame().removeFile();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -28,7 +28,7 @@ public class NewGame {
 
         if(alert.showAndWait().get() == yes) {
             Platform.runLater(() -> new Start().start(new Stage()));
-            primaryStage.close();
+            Start.close();
         }
     }
 }

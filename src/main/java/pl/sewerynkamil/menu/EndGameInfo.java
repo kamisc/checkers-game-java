@@ -25,6 +25,7 @@ public class EndGameInfo {
 
         if(alert.showAndWait().get() == newGame) {
             Platform.runLater(() -> new Start().start(new Stage()));
+            Start.close();
         } else {
             System.exit(0);
         }
@@ -43,6 +44,7 @@ public class EndGameInfo {
 
         if(alert.showAndWait().get() == newGame) {
             Platform.runLater(() -> new Start().start(new Stage()));
+            Start.close();
         } else {
             System.exit(0);
         }
@@ -61,6 +63,7 @@ public class EndGameInfo {
 
         if(alert.showAndWait().get() == newGame) {
             Platform.runLater(() -> new Start().start(new Stage()));
+            Start.close();
         } else {
             System.exit(0);
         }

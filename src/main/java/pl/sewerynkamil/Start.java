@@ -1,10 +1,7 @@
 package pl.sewerynkamil;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -20,6 +17,7 @@ import pl.sewerynkamil.menu.NewGame;
 
 public class Start extends Application {
 
+    private static Stage primaryStage = new Stage();
     private Board board = new Board();
     private Graphics graphics = new Graphics(board);
     private MouseControl mouseControl = new MouseControl(graphics,
@@ -32,6 +30,7 @@ public class Start extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
         Scene scene = new Scene(graphics.getBorderPane(), 585, 612, Color.BLACK);
         scene.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseControl.getMouseClick());
 
@@ -41,7 +40,7 @@ public class Start extends Application {
         primaryStage.setResizable(false);
 
         graphics.getMenuDesign().getNewGame().setOnAction(e -> {
-            new NewGame().start(primaryStage, board);
+            new NewGame().start(board);
         });
 
         graphics.getMenuDesign().getLoadGame().setOnAction(e -> {
@@ -51,5 +50,9 @@ public class Start extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static void close() {
+        primaryStage.close();
     }
 }
