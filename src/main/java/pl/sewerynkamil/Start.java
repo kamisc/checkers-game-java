@@ -1,7 +1,10 @@
 package pl.sewerynkamil;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -49,5 +52,4 @@ public class Start extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }

@@ -1,6 +1,8 @@
 package pl.sewerynkamil.game;
 
+import javafx.stage.Stage;
 import pl.sewerynkamil.board.Board;
+import pl.sewerynkamil.menu.EndGameInfo;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.HashSet;
@@ -25,18 +27,18 @@ public class EndGame {
         calculatePieces(positions);
 
         if(restOfWhites.size() == 0) {
-            System.out.println("Black player win!");
             board.getRanking().setBlackWins();
+            new EndGameInfo().blacksWin();
         }
 
         if(restOfBlacks.size() == 0) {
-            System.out.println("White player win!");
             board.getRanking().setWhiteWins();
+            new EndGameInfo().whitesWin();
         }
 
         if(restOfWhites.size() == 1 && restOfBlacks.size() == 1) {
-            System.out.println("Draw!");
             board.getRanking().setDraws();
+            new EndGameInfo().draw();
         }
     }
 

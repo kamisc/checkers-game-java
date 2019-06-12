@@ -2,6 +2,8 @@ package pl.sewerynkamil.game;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import pl.sewerynkamil.Start;
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.board.Graphics;
 import pl.sewerynkamil.moves.*;

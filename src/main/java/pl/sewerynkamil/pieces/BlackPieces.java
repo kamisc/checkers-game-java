@@ -10,6 +10,10 @@ public class BlackPieces implements PieceInterface {
     public Map<PositionsPieces, Piece> setUpPieces() {
 
         blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+        blackPiecesMap.put(new PositionsPieces(1,1), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+        blackPiecesMap.put(new PositionsPieces(3,3), new Piece(Piece.Color.WHITE, Piece.Type.NORMAL));
+
+        /*blackPiecesMap.put(new PositionsPieces(0,0), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
         blackPiecesMap.put(new PositionsPieces(2,0), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
         blackPiecesMap.put(new PositionsPieces(4,0), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
         blackPiecesMap.put(new PositionsPieces(6,0), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
@@ -22,7 +26,7 @@ public class BlackPieces implements PieceInterface {
         blackPiecesMap.put(new PositionsPieces(0,2), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
         blackPiecesMap.put(new PositionsPieces(2,2), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
         blackPiecesMap.put(new PositionsPieces(4,2), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
-        blackPiecesMap.put(new PositionsPieces(6,2), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));
+        blackPiecesMap.put(new PositionsPieces(6,2), new Piece(Piece.Color.BLACK, Piece.Type.NORMAL));*/
 
         return blackPiecesMap;
     }
