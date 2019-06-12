@@ -1,6 +1,5 @@
 package pl.sewerynkamil.game;
 
-import javafx.stage.Stage;
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.menu.EndGameInfo;
 import pl.sewerynkamil.pieces.PositionsPieces;
@@ -28,17 +27,17 @@ public class EndGame {
 
         if(restOfWhites.size() == 0) {
             board.getRanking().setBlackWins();
-            new EndGameInfo().blacksWin();
+            new EndGameInfo(board).blacksWin();
         }
 
         if(restOfBlacks.size() == 0) {
             board.getRanking().setWhiteWins();
-            new EndGameInfo().whitesWin();
+            new EndGameInfo(board).whitesWin();
         }
 
         if(restOfWhites.size() == 1 && restOfBlacks.size() == 1) {
             board.getRanking().setDraws();
-            new EndGameInfo().draw();
+            new EndGameInfo(board).draw();
         }
     }
 

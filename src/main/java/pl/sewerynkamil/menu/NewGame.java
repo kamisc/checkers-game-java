@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import pl.sewerynkamil.Start;
+import pl.sewerynkamil.Checkers;
 import pl.sewerynkamil.board.Board;
 
 /**
@@ -27,8 +27,8 @@ public class NewGame {
         alert.getButtonTypes().setAll(yes, no);
 
         if(alert.showAndWait().get() == yes) {
-            Platform.runLater(() -> new Start().start(new Stage()));
-            Start.close();
+            Platform.runLater(() -> new Checkers().start(new Stage()));
+            Checkers.close();
         }
     }
 }

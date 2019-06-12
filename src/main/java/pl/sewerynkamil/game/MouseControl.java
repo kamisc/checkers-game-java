@@ -2,8 +2,6 @@ package pl.sewerynkamil.game;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import pl.sewerynkamil.Start;
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.board.Graphics;
 import pl.sewerynkamil.moves.*;
@@ -195,12 +193,43 @@ public class MouseControl {
 
                         if (board.getPiece(pickedPosition).getPieceType().isNormal()) {
 
-                            computer.normalKick(pickedPosition);
+                            board.getQueenKicks().clear();
+
+                            board.getNormalKicks().kickMovesCalculator(pickedPosition);
+
+                            if (!board.getNormalKicks().getPossibleKickMoves().isEmpty()) {
+
+                                computerKick = computer.selectPosition(board.getNormalKicks().getPossibleKickMoves());
+
+                                graphics.kickPiece(computerKick, pickedPosition);
+
+                                if (board.getNormalKicks().getPossibleKickMoves().isEmpty()) {
+
+                                    endKick();
+
+                                    setTurn(true);
+                                }
+                            }
 
                         } else {
 
-                            computer.queenKick(pickedPosition);
+                            board.getNormalKicks().clear();
 
+                            board.getQueenKicks().calculateAllPossibleQueenKicks(pickedPosition);
+
+                            if (!board.getQueenKicks().getPossibleKickMoves().isEmpty()) {
+
+                                computerKick = computer.selectPosition(board.getQueenKicks().getPossibleKickMoves());
+
+                                graphics.kickPiece(computerKick, pickedPosition);
+
+                                if (board.getQueenKicks().getPossibleKickMoves().isEmpty()) {
+
+                                    endKick();
+
+                                    setTurn(true);
+                                }
+                            }
                         }
 
                     } else {
@@ -213,12 +242,29 @@ public class MouseControl {
 
                         if (board.getPiece(computerMove).getPieceType().isNormal()) {
 
-                            computer.normalMove(computerMove, pickedPosition);
+                            board.getNormalMoves().clear();
+
+                            board.getNormalMoves().normalMoveCalculator(computerMove, false);
+
+                            computerMove = computer.selectPosition(board.getNormalMoves().getPossibleMoves());
+
+                            graphics.movePiece(computerMove, pickedPosition);
+
+                            setTurn(true);
+
+                            endTurn();
 
                         } else {
 
-                            computer.queenMove(computerMove, pickedPosition);
+                            board.getQueenMoves().normalQueenMoveCalculator(computerMove);
 
+                            computerMove = computer.selectPosition(board.getQueenMoves().getPossibleQueenMoves());
+
+                            graphics.movePiece(computerMove, pickedPosition);
+
+                            setTurn(true);
+
+                            endTurn();
                         }
                     }
 

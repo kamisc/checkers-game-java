@@ -15,7 +15,7 @@ import pl.sewerynkamil.menu.NewGame;
  * Author Kamil Seweryn
  */
 
-public class Start extends Application {
+public class Checkers extends Application {
 
     private static Stage primaryStage = new Stage();
     private Board board = new Board();
@@ -44,7 +44,7 @@ public class Start extends Application {
         });
 
         graphics.getMenuDesign().getLoadGame().setOnAction(e -> {
-            new LoadGame().load(primaryStage);
+            new LoadGame().load();
         });
     }
 

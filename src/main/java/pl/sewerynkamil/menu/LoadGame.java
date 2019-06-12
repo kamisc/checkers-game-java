@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import pl.sewerynkamil.Start;
+import pl.sewerynkamil.Checkers;
 
 /**
  * Author Kamil Seweryn
@@ -12,7 +12,7 @@ import pl.sewerynkamil.Start;
 
 public class LoadGame {
 
-    public void load(Stage primaryStage) {
+    public void load() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Load Game");
         alert.setHeaderText(null);
@@ -25,8 +25,8 @@ public class LoadGame {
         alert.getButtonTypes().setAll(yes, no);
 
         if(alert.showAndWait().get() == yes) {
-            Platform.runLater(() -> new Start().start(new Stage()));
-            Start.close();
+            Platform.runLater(() -> new Checkers().start(new Stage()));
+            Checkers.close();
         }
     }
 
