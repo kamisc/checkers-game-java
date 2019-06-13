@@ -226,8 +226,6 @@ public class Board {
 
         if(turn) {
 
-            System.out.println(computer.getDifficultyLevel());
-
             kickScanner.calculateAllPossibleWhiteKicks();
             queenKickScanner.calculateAllPossibleWhiteQueenKicks();
 
@@ -412,8 +410,6 @@ public class Board {
                 if(computer.getDifficultyLevel() == 1) {
 
                     normalMoves.difficultyNormal();
-
-                    System.out.println(normalMoves.getAllPossibleBlack());
 
                     if(normalMoves.getAllPossibleBlack().isEmpty()) {
 
