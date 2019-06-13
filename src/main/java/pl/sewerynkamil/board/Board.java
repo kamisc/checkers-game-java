@@ -1,5 +1,6 @@
 package pl.sewerynkamil.board;
 
+import pl.sewerynkamil.game.Computer;
 import pl.sewerynkamil.game.EndGame;
 import pl.sewerynkamil.game.SaveLoadGame;
 import pl.sewerynkamil.menu.LoadGame;
@@ -22,6 +23,14 @@ import java.util.stream.Collectors;
  */
 
 public class Board {
+
+    private KickScanner kickScanner;
+    private QueenKickScanner queenKickScanner;
+    private Computer computer;
+    private boolean turn = true;
+    private boolean isKick = false;
+
+    private PositionsPieces pickedPosition;
 
     private SaveLoadGame saveLoadGame = new SaveLoadGame(this);
     private SaveGame saveGame = new SaveGame(this);
@@ -49,6 +58,10 @@ public class Board {
         } else {
             putAllPieces();
         }
+
+        this.kickScanner = new KickScanner(this);
+        this.queenKickScanner = new QueenKickScanner(this);
+        this.computer = new Computer(this);
     }
 
     private void putAllPieces() {
@@ -56,8 +69,8 @@ public class Board {
         board.putAll(blackPieces.setUpPieces());
     }
 
-    public Piece addPieceToBoard(PositionsPieces position, Piece piece) {
-        return board.put(position, piece);
+    public void addPieceToBoard(PositionsPieces position, Piece piece) {
+        board.put(position, piece);
     }
 
     public void removePieceFromBoard(PositionsPieces position) {
@@ -203,7 +216,243 @@ public class Board {
     }
 
     public void handleMove(PositionsPieces position) {
+        if(turn) {
 
+            kickScanner.calculateAllPossibleWhiteKicks();
+            queenKickScanner.calculateAllPossibleWhiteQueenKicks();
+
+            if(!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
+
+                if((kickScanner.getAllPiecesWhichKick().contains(position)
+                        || queenKickScanner.getAllQueenPiecesWhichKick().contains(position))
+                        && getPiece(position).getPieceColor().isWhite()
+                        && !isKick) {
+
+                    pickPiece(position, pickedPosition, true);
+                    pickedPosition = position;
+
+                    if(getPiece(position).getPieceType().isNormal()) {
+
+                        queenKicks.clear();
+                        normalKicks.kickMovesCalculator(position);
+
+                    } else {
+
+                        normalKicks.clear();
+                        queenKicks.calculateAllPossibleQueenKicks(position);
+                    }
+
+                } else {
+
+                    if(normalKicks.getPossibleKickMoves().contains(position)
+                            && getPiece(pickedPosition).getPieceType().isNormal()) {
+
+                        kickPiece(position, pickedPosition);
+                        pickedPosition = position;
+
+                        if(normalKicks.getPossibleKickMoves().isEmpty()) {
+
+                            turn = false;
+
+                            isKick = false;
+
+                            endKick();
+
+                        } else {
+
+                            isKick = true;
+
+                        }
+
+                    } else if(queenKicks.getPossibleKickMoves().contains(position)
+                            && getPiece(pickedPosition).getPieceType().isQueen()) {
+
+                        kickPiece(position, pickedPosition);
+                        pickedPosition = position;
+
+                        if(queenKicks.getPossibleKickMoves().isEmpty()) {
+
+                            turn = false;
+
+                            isKick = false;
+
+                            endKick();
+
+                        } else {
+
+                            isKick = true;
+
+                        }
+                    }
+                }
+
+            } else {
+
+                if(!isFieldNull(position)
+                        && getPiece(position).getPieceColor() == Piece.Color.WHITE) {
+
+                    pickPiece(position, pickedPosition,true);
+                    pickedPosition = position;
+
+                    if(getPiece(position).getPieceType().isNormal()) {
+
+                        normalMoves.normalMoveCalculator(position, true);
+
+                    } else {
+
+                        queenMoves.normalQueenMoveCalculator(position);
+
+                    }
+
+                } else if(normalMoves.getPossibleMoves().contains(position)
+                        && pickedPosition != null) {
+
+                    movePiece(position, pickedPosition);
+
+                    turn = false;
+
+                    endTurn();
+
+                } else if(queenMoves.getPossibleQueenMoves().contains(position)
+                        && pickedPosition != null) {
+
+                    movePiece(position, pickedPosition);
+
+                    turn = false;
+
+                    endTurn();
+                }
+            }
+        }
+
+        if(!turn) {
+
+            do {
+
+                if(computer.checkBlacksEnd()) {
+                    break;
+                }
+
+                kickScanner.calculateAllPossibleBlackKicks();
+                queenKickScanner.calculateAllPossibleBlackQueenKicks();
+
+                if (!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
+
+                    Set<PositionsPieces> allBlacks = new HashSet<>();
+
+                    allBlacks.addAll(kickScanner.getAllPiecesWhichKick());
+                    allBlacks.addAll(queenKickScanner.getAllQueenPiecesWhichKick());
+
+                    PositionsPieces computerKick = computer.selectPosition(allBlacks);
+
+                    pickedPosition = computerKick;
+
+                    pickPiece(computerKick, pickedPosition, true);
+
+                    if (getPiece(pickedPosition).getPieceType().isNormal()) {
+
+                        getQueenKicks().clear();
+
+                        getNormalKicks().kickMovesCalculator(pickedPosition);
+
+                        if (!getNormalKicks().getPossibleKickMoves().isEmpty()) {
+
+                            computerKick = computer.selectPosition(getNormalKicks().getPossibleKickMoves());
+
+                            kickPiece(computerKick, pickedPosition);
+
+                            if (getNormalKicks().getPossibleKickMoves().isEmpty()) {
+
+                                endKick();
+
+                                setTurn(true);
+                            }
+                        }
+
+                    } else {
+
+                        getNormalKicks().clear();
+
+                        getQueenKicks().calculateAllPossibleQueenKicks(pickedPosition);
+
+                        if (!getQueenKicks().getPossibleKickMoves().isEmpty()) {
+
+                            computerKick = computer.selectPosition(getQueenKicks().getPossibleKickMoves());
+
+                            kickPiece(computerKick, pickedPosition);
+
+                            if (getQueenKicks().getPossibleKickMoves().isEmpty()) {
+
+                                endKick();
+
+                                setTurn(true);
+                            }
+                        }
+                    }
+
+                } else {
+
+                    normalMoves.allPossibleBlackMoves();
+
+                    PositionsPieces computerMove = computer.selectPosition(normalMoves.getAllPossibleBlack());
+
+                    pickedPosition = computerMove;
+
+                    if (getPiece(computerMove).getPieceType().isNormal()) {
+
+                        getNormalMoves().clear();
+
+                        getNormalMoves().normalMoveCalculator(computerMove, false);
+
+                        computerMove = computer.selectPosition(getNormalMoves().getPossibleMoves());
+
+                        movePiece(computerMove, pickedPosition);
+
+                        setTurn(true);
+
+                        endTurn();
+
+                    } else {
+
+                        getQueenMoves().normalQueenMoveCalculator(computerMove);
+
+                        computerMove = computer.selectPosition(getQueenMoves().getPossibleQueenMoves());
+
+                        movePiece(computerMove, pickedPosition);
+
+                        setTurn(true);
+
+                        endTurn();
+                    }
+                }
+
+            } while(!turn);
+        }
+    }
+
+    protected void endTurn() {
+        pickedPosition = null;
+
+        promote();
+        endGame.checkEndGame(getBoard().keySet());
+
+        normalMoves.clear();
+        normalKicks.clear();
+        queenKicks.clear();
+        kickScanner.clear();
+        queenKickScanner.clear();
+    }
+
+    protected void endKick() {
+        pickedPosition = null;
+
+        promote();
+        endGame.checkEndGame(getBoard().keySet());
+
+        normalKicks.clear();
+        queenKicks.clear();
+        kickScanner.clear();
+        queenKickScanner.clear();
     }
 
     public NormalKicks getNormalKicks() {
@@ -250,4 +499,7 @@ public class Board {
         this.board = board;
     }
 
+    public void setTurn(boolean turn) {
+        this.turn = turn;
+    }
 }

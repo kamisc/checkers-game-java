@@ -15,13 +15,11 @@ public class Computer {
 
     private Random random = new Random();
     private Board board;
-    private MouseControl mouseControl;
 
     private int difficultyLevel = 0;
 
-    public Computer(Board board, MouseControl mouseControl) {
+    public Computer(Board board) {
         this.board = board;
-        this.mouseControl = mouseControl;
     }
 
     public PositionsPieces selectPosition(Set<PositionsPieces> positions) {

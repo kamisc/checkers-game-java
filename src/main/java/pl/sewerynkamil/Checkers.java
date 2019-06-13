@@ -35,10 +35,6 @@ public class Checkers extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-
-        /*graphics.getMenuDesign().getNewGame().setOnAction(e -> new NewGame().start(board));
-        graphics.getMenuDesign().getSaveGame().setOnAction(e -> board.getSaveGame().save());
-        graphics.getMenuDesign().getLoadGame().setOnAction(e -> new LoadGame().load());*/
     }
 
     public static void main(String[] args) {

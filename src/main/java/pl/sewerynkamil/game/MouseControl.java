@@ -43,7 +43,7 @@ public class MouseControl {
 
         this.kickScanner = new KickScanner(board);
         this.queenKickScanner = new QueenKickScanner(board);
-        this.computer = new Computer(board, this);
+        this.computer = new Computer(board);
     }
 
     private EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
@@ -56,7 +56,9 @@ public class MouseControl {
                 return;
             }
 
-            if(turn) {
+            board.handleMove(clickPosition);
+
+            /*if(turn) {
 
                 kickScanner.calculateAllPossibleWhiteKicks();
                 queenKickScanner.calculateAllPossibleWhiteQueenKicks();
@@ -267,7 +269,7 @@ public class MouseControl {
                     }
 
                 } while(!turn);
-            }
+            }*/
         }
     };
 
