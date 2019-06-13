@@ -2,8 +2,11 @@ package pl.sewerynkamil.game;
 
 import pl.sewerynkamil.board.Board;
 import pl.sewerynkamil.board.Graphics;
+import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -33,6 +36,10 @@ public class Computer {
 
     public void setDifficultyLevel(int difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
+    }
+
+    public int getDifficultyLevel() {
+        return difficultyLevel;
     }
 
 }

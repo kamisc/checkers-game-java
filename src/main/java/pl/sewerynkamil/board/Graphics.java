@@ -6,6 +6,7 @@ import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import pl.sewerynkamil.menu.Difficulty;
 import pl.sewerynkamil.menu.LoadGame;
 import pl.sewerynkamil.menu.MenuDesign;
 import pl.sewerynkamil.menu.NewGame;
@@ -43,6 +44,7 @@ public class Graphics {
         menuDesign.getNewGame().setOnAction(e -> new NewGame().start(board));
         menuDesign.getSaveGame().setOnAction(e -> board.getSaveGame().save());
         menuDesign.getLoadGame().setOnAction(e -> new LoadGame().load());
+        menuDesign.getDifficulty().setOnAction(e -> new Difficulty(board));
     }
 
     private void createPieces() {

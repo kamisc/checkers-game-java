@@ -29,7 +29,7 @@ public class MenuDesign {
 
         authorAction();
         rankingAction();
-        difficultyAction();
+        // difficultyAction();
     }
 
     private void createMenu() {
@@ -54,9 +54,9 @@ public class MenuDesign {
         ranking.setOnAction(e -> new Ranking().showRanking());
     }
 
-    private void difficultyAction() {
+    /*private void difficultyAction() {
         difficulty.setOnAction(e -> new Difficulty());
-    }
+    }*/
 
     public MenuBar getMenuBar() {
         return menuBar;
@@ -72,5 +72,9 @@ public class MenuDesign {
 
     public MenuItem getNewGame() {
         return newGame;
+    }
+
+    public MenuItem getDifficulty() {
+        return difficulty;
     }
 }

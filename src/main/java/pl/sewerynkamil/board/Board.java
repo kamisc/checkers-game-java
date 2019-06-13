@@ -218,8 +218,14 @@ public class Board {
         possiblePromote.addAll(blacks);
     }
 
+    public void setDifficultyLevel(int difficulty) {
+        computer.setDifficultyLevel(difficulty);
+    }
+
     public void handleMove(PositionsPieces position) {
         if(turn) {
+
+            System.out.println(computer.getDifficultyLevel());
 
             kickScanner.calculateAllPossibleWhiteKicks();
             queenKickScanner.calculateAllPossibleWhiteQueenKicks();

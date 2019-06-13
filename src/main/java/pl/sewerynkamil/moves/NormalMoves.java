@@ -71,6 +71,38 @@ public class NormalMoves {
         }
     }
 
+    public void difficultyNormal() {
+        allPossibleBlack.clear();
+
+        for(Map.Entry<PositionsPieces, Piece> blacks : board.getBoard().entrySet()) {
+            if(blacks.getValue().getPieceColor().isWhite()) {
+                continue;
+            }
+
+            possibleMoves.clear();
+
+            if(blacks.getValue().getPieceType().isNormal() && blacks.getKey().getRow() == 6) {
+                normalMoveCalculator(blacks.getKey(), false);
+                for(PositionsPieces position : possibleMoves){
+                    if(position != null && position.isValidPosition()) {
+                        allPossibleBlack.add(blacks.getKey());
+                    }
+                }
+            } /*else {
+                normalMoveCalculator(blacks.getKey(), true);
+                normalMoveCalculator(blacks.getKey(), false);
+                for(PositionsPieces position : possibleMoves){
+                    if(position != null && position.isValidPosition()) {
+                        allPossibleBlack.add(blacks.getKey());
+                    }
+                }
+            }*/
+        }
+    }
+
+
+
+
     public Set<PositionsPieces> getPossibleMoves() {
         return possibleMoves;
     }

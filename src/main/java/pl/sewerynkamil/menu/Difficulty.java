@@ -2,6 +2,7 @@ package pl.sewerynkamil.menu;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import pl.sewerynkamil.board.Board;
 
 import java.util.Optional;
 
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 public class Difficulty {
 
-    public Difficulty() {
+    public Difficulty(Board board) {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Difficulty");
         alert.setContentText("Select difficulty level :-)");
@@ -24,9 +25,9 @@ public class Difficulty {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == easy){
-
+            board.setDifficultyLevel(0);
         } else {
-
+            board.setDifficultyLevel(1);
         }
     }
 }
