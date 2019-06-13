@@ -81,14 +81,14 @@ public class NormalMoves {
 
             possibleMoves.clear();
 
-            if(blacks.getValue().getPieceType().isNormal() && blacks.getKey().getRow() == 6) {
+            if(blacks.getValue().getPieceType().isNormal()) {
                 normalMoveCalculator(blacks.getKey(), false);
                 for(PositionsPieces position : possibleMoves){
-                    if(position != null && position.isValidPosition()) {
+                    if(position != null && position.isValidPosition() && blacks.getKey().getRow() == 6) {
                         allPossibleBlack.add(blacks.getKey());
                     }
                 }
-            } /*else {
+            } else {
                 normalMoveCalculator(blacks.getKey(), true);
                 normalMoveCalculator(blacks.getKey(), false);
                 for(PositionsPieces position : possibleMoves){
@@ -96,12 +96,9 @@ public class NormalMoves {
                         allPossibleBlack.add(blacks.getKey());
                     }
                 }
-            }*/
+            }
         }
     }
-
-
-
 
     public Set<PositionsPieces> getPossibleMoves() {
         return possibleMoves;

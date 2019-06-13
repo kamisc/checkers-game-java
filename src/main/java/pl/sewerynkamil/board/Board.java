@@ -223,6 +223,7 @@ public class Board {
     }
 
     public void handleMove(PositionsPieces position) {
+
         if(turn) {
 
             System.out.println(computer.getDifficultyLevel());
@@ -408,7 +409,21 @@ public class Board {
 
             } else {
 
-                normalMoves.allPossibleBlackMoves();
+                if(computer.getDifficultyLevel() == 1) {
+
+                    normalMoves.difficultyNormal();
+
+                    System.out.println(normalMoves.getAllPossibleBlack());
+
+                    if(normalMoves.getAllPossibleBlack().isEmpty()) {
+
+                        normalMoves.allPossibleBlackMoves();
+                    }
+                } else {
+
+                    normalMoves.allPossibleBlackMoves();
+
+                }
 
                 PositionsPieces computerMove = computer.selectPosition(normalMoves.getAllPossibleBlack());
 
