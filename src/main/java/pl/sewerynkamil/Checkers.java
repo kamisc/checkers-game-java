@@ -16,14 +16,10 @@ import pl.sewerynkamil.game.MouseControl;
 public class Checkers extends Application {
 
     private static Stage primaryStage = new Stage();
+
     private Board board = new Board();
     private Graphics graphics = new Graphics(board);
-    private MouseControl mouseControl = new MouseControl(board,
-            board.getNormalMoves(),
-            board.getQueenMoves(),
-            board.getNormalKicks(),
-            board.getQueenKicks(),
-            board.getEndGame());
+    private MouseControl mouseControl = new MouseControl(board);
 
     @Override
     public void start(Stage primaryStage) {

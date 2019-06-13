@@ -24,31 +24,34 @@ import java.util.stream.Collectors;
 
 public class Board {
 
-    private KickScanner kickScanner;
-    private QueenKickScanner queenKickScanner;
-    private Computer computer;
-    private boolean turn = true;
-    private boolean isKick = false;
+    private Map<PositionsPieces, Piece> board = new HashMap<>();
 
-    private PositionsPieces pickedPosition;
+    private Set<PositionsPieces> possiblePromote = new HashSet<>();
 
-    private SaveLoadGame saveLoadGame = new SaveLoadGame(this);
-    private SaveGame saveGame = new SaveGame(this);
-    private LoadGame loadGame = new LoadGame();
+    private BlackPieces blackPieces = new BlackPieces();
+    private WhitePieces whitePieces = new WhitePieces();
 
     private NormalMoves normalMoves = new NormalMoves(this);
     private QueenMoves queenMoves = new QueenMoves(this);
     private NormalKicks normalKicks = new NormalKicks(this);
     private QueenKicks queenKicks = new QueenKicks(this);
+
+    private KickScanner kickScanner;
+    private QueenKickScanner queenKickScanner;
+    private Computer computer;
+
     private EndGame endGame = new EndGame(this);
+
+    private SaveLoadGame saveLoadGame = new SaveLoadGame(this);
+
+    private SaveGame saveGame = new SaveGame(this);
+    private LoadGame loadGame = new LoadGame();
     private Ranking ranking = new Ranking();
 
-    private BlackPieces blackPieces = new BlackPieces();
-    private WhitePieces whitePieces = new WhitePieces();
+    private boolean turn = true;
+    private boolean isKick = false;
 
-    private Set<PositionsPieces> possiblePromote = new HashSet<>();
-
-    private Map<PositionsPieces, Piece> board = new HashMap<>();
+    private PositionsPieces pickedPosition;
 
     public Board() {
         if(saveLoadGame.isFileExist()) {
