@@ -330,110 +330,117 @@ public class Board {
 
         if(!turn) {
 
-            do {
+            computerMove();
 
-                if(computer.checkBlacksEnd()) {
-                    break;
-                }
+        }
+    }
 
-                kickScanner.calculateAllPossibleBlackKicks();
-                queenKickScanner.calculateAllPossibleBlackQueenKicks();
+    public void computerMove() {
 
-                if (!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
+        do {
 
-                    Set<PositionsPieces> allBlacks = new HashSet<>();
+            if(computer.checkBlacksEnd()) {
+                break;
+            }
 
-                    allBlacks.addAll(kickScanner.getAllPiecesWhichKick());
-                    allBlacks.addAll(queenKickScanner.getAllQueenPiecesWhichKick());
+            kickScanner.calculateAllPossibleBlackKicks();
+            queenKickScanner.calculateAllPossibleBlackQueenKicks();
 
-                    PositionsPieces computerKick = computer.selectPosition(allBlacks);
+            if (!kickScanner.getAllPossibleKicks().isEmpty() || !queenKickScanner.getAllPossibleQueenKicks().isEmpty()) {
 
-                    pickedPosition = computerKick;
+                Set<PositionsPieces> allBlacks = new HashSet<>();
 
-                    pickPiece(computerKick, pickedPosition, true);
+                allBlacks.addAll(kickScanner.getAllPiecesWhichKick());
+                allBlacks.addAll(queenKickScanner.getAllQueenPiecesWhichKick());
 
-                    if (getPiece(pickedPosition).getPieceType().isNormal()) {
+                PositionsPieces computerKick = computer.selectPosition(allBlacks);
 
-                        getQueenKicks().clear();
+                pickedPosition = computerKick;
 
-                        getNormalKicks().kickMovesCalculator(pickedPosition);
+                pickPiece(computerKick, pickedPosition, true);
 
-                        if (!getNormalKicks().getPossibleKickMoves().isEmpty()) {
+                if (getPiece(pickedPosition).getPieceType().isNormal()) {
 
-                            computerKick = computer.selectPosition(getNormalKicks().getPossibleKickMoves());
+                    getQueenKicks().clear();
 
-                            kickPiece(computerKick, pickedPosition);
+                    getNormalKicks().kickMovesCalculator(pickedPosition);
 
-                            if (getNormalKicks().getPossibleKickMoves().isEmpty()) {
+                    if (!getNormalKicks().getPossibleKickMoves().isEmpty()) {
 
-                                endKick();
+                        computerKick = computer.selectPosition(getNormalKicks().getPossibleKickMoves());
 
-                                setTurn(true);
-                            }
-                        }
+                        kickPiece(computerKick, pickedPosition);
 
-                    } else {
+                        if (getNormalKicks().getPossibleKickMoves().isEmpty()) {
 
-                        getNormalKicks().clear();
+                            endKick();
 
-                        getQueenKicks().calculateAllPossibleQueenKicks(pickedPosition);
-
-                        if (!getQueenKicks().getPossibleKickMoves().isEmpty()) {
-
-                            computerKick = computer.selectPosition(getQueenKicks().getPossibleKickMoves());
-
-                            kickPiece(computerKick, pickedPosition);
-
-                            if (getQueenKicks().getPossibleKickMoves().isEmpty()) {
-
-                                endKick();
-
-                                setTurn(true);
-                            }
+                            setTurn(true);
                         }
                     }
 
                 } else {
 
-                    normalMoves.allPossibleBlackMoves();
+                    getNormalKicks().clear();
 
-                    PositionsPieces computerMove = computer.selectPosition(normalMoves.getAllPossibleBlack());
+                    getQueenKicks().calculateAllPossibleQueenKicks(pickedPosition);
 
-                    pickedPosition = computerMove;
+                    if (!getQueenKicks().getPossibleKickMoves().isEmpty()) {
 
-                    if (getPiece(computerMove).getPieceType().isNormal()) {
+                        computerKick = computer.selectPosition(getQueenKicks().getPossibleKickMoves());
 
-                        getNormalMoves().clear();
+                        kickPiece(computerKick, pickedPosition);
 
-                        getNormalMoves().normalMoveCalculator(computerMove, false);
+                        if (getQueenKicks().getPossibleKickMoves().isEmpty()) {
 
-                        computerMove = computer.selectPosition(getNormalMoves().getPossibleMoves());
+                            endKick();
 
-                        movePiece(computerMove, pickedPosition);
-
-                        setTurn(true);
-
-                        endTurn();
-
-                    } else {
-
-                        getQueenMoves().normalQueenMoveCalculator(computerMove);
-
-                        computerMove = computer.selectPosition(getQueenMoves().getPossibleQueenMoves());
-
-                        movePiece(computerMove, pickedPosition);
-
-                        setTurn(true);
-
-                        endTurn();
+                            setTurn(true);
+                        }
                     }
                 }
 
-            } while(!turn);
-        }
+            } else {
+
+                normalMoves.allPossibleBlackMoves();
+
+                PositionsPieces computerMove = computer.selectPosition(normalMoves.getAllPossibleBlack());
+
+                pickedPosition = computerMove;
+
+                if (getPiece(computerMove).getPieceType().isNormal()) {
+
+                    getNormalMoves().clear();
+
+                    getNormalMoves().normalMoveCalculator(computerMove, false);
+
+                    computerMove = computer.selectPosition(getNormalMoves().getPossibleMoves());
+
+                    movePiece(computerMove, pickedPosition);
+
+                    setTurn(true);
+
+                    endTurn();
+
+                } else {
+
+                    getQueenMoves().normalQueenMoveCalculator(computerMove);
+
+                    computerMove = computer.selectPosition(getQueenMoves().getPossibleQueenMoves());
+
+                    movePiece(computerMove, pickedPosition);
+
+                    setTurn(true);
+
+                    endTurn();
+                }
+            }
+
+        } while(!turn);
+
     }
 
-    protected void endTurn() {
+    private void endTurn() {
         pickedPosition = null;
 
         promote();
@@ -446,7 +453,7 @@ public class Board {
         queenKickScanner.clear();
     }
 
-    protected void endKick() {
+    private void endKick() {
         pickedPosition = null;
 
         promote();
