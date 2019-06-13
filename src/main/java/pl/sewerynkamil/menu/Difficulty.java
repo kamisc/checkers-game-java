@@ -24,7 +24,7 @@ public class Difficulty {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == easy){
+        if (result.get() == easy) {
             board.setDifficultyLevel(0);
         } else {
             board.setDifficultyLevel(1);

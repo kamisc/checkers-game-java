@@ -71,7 +71,7 @@ public class NormalMoves {
         }
     }
 
-    public void difficultyNormal() {
+    public void movesDifficultyNormal() {
         allPossibleBlack.clear();
 
         for(Map.Entry<PositionsPieces, Piece> blacks : board.getBoard().entrySet()) {

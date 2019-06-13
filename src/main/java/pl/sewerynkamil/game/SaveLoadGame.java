@@ -55,8 +55,4 @@ public class SaveLoadGame implements Serializable {
         File file = new File("board.list");
         return file.exists();
     }
-
-    public Map<PositionsPieces, Piece> getLoadBoard() {
-        return loadBoard;
-    }
 }

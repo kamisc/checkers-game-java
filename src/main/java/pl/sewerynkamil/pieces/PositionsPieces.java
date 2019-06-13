@@ -41,13 +41,5 @@ public class PositionsPieces implements Serializable {
         result = 31 * result + row;
         return result;
     }
-
-    @Override
-    public String toString() {
-        return "PositionsPieces{" +
-                "col=" + col +
-                ", row=" + row +
-                '}';
-    }
 }
 

@@ -366,17 +366,17 @@ public class Board {
 
                 if (getPiece(pickedPosition).getPieceType().isNormal()) {
 
-                    getQueenKicks().clear();
+                    queenKicks.clear();
 
-                    getNormalKicks().kickMovesCalculator(pickedPosition);
+                    normalKicks.kickMovesCalculator(pickedPosition);
 
-                    if (!getNormalKicks().getPossibleKickMoves().isEmpty()) {
+                    if (!normalKicks.getPossibleKickMoves().isEmpty()) {
 
-                        computerKick = computer.selectPosition(getNormalKicks().getPossibleKickMoves());
+                        computerKick = computer.selectPosition(normalKicks.getPossibleKickMoves());
 
                         kickPiece(computerKick, pickedPosition);
 
-                        if (getNormalKicks().getPossibleKickMoves().isEmpty()) {
+                        if (normalKicks.getPossibleKickMoves().isEmpty()) {
 
                             endKick();
 
@@ -386,17 +386,17 @@ public class Board {
 
                 } else {
 
-                    getNormalKicks().clear();
+                    normalKicks.clear();
 
-                    getQueenKicks().calculateAllPossibleQueenKicks(pickedPosition);
+                    queenKicks.calculateAllPossibleQueenKicks(pickedPosition);
 
-                    if (!getQueenKicks().getPossibleKickMoves().isEmpty()) {
+                    if (!queenKicks.getPossibleKickMoves().isEmpty()) {
 
-                        computerKick = computer.selectPosition(getQueenKicks().getPossibleKickMoves());
+                        computerKick = computer.selectPosition(queenKicks.getPossibleKickMoves());
 
                         kickPiece(computerKick, pickedPosition);
 
-                        if (getQueenKicks().getPossibleKickMoves().isEmpty()) {
+                        if (queenKicks.getPossibleKickMoves().isEmpty()) {
 
                             endKick();
 
@@ -409,12 +409,15 @@ public class Board {
 
                 if(computer.getDifficultyLevel() == 1) {
 
-                    normalMoves.difficultyNormal();
+                    normalMoves.movesDifficultyNormal();
+
+                    System.out.println(normalMoves.getAllPossibleBlack());
 
                     if(normalMoves.getAllPossibleBlack().isEmpty()) {
 
                         normalMoves.allPossibleBlackMoves();
                     }
+
                 } else {
 
                     normalMoves.allPossibleBlackMoves();
@@ -427,11 +430,11 @@ public class Board {
 
                 if (getPiece(computerMove).getPieceType().isNormal()) {
 
-                    getNormalMoves().clear();
+                    normalMoves.clear();
 
-                    getNormalMoves().normalMoveCalculator(computerMove, false);
+                    normalMoves.normalMoveCalculator(computerMove, false);
 
-                    computerMove = computer.selectPosition(getNormalMoves().getPossibleMoves());
+                    computerMove = computer.selectPosition(normalMoves.getPossibleMoves());
 
                     movePiece(computerMove, pickedPosition);
 
@@ -441,9 +444,9 @@ public class Board {
 
                 } else {
 
-                    getQueenMoves().normalQueenMoveCalculator(computerMove);
+                    queenMoves.normalQueenMoveCalculator(computerMove);
 
-                    computerMove = computer.selectPosition(getQueenMoves().getPossibleQueenMoves());
+                    computerMove = computer.selectPosition(queenMoves.getPossibleQueenMoves());
 
                     movePiece(computerMove, pickedPosition);
 
@@ -480,22 +483,6 @@ public class Board {
         queenKicks.clear();
         kickScanner.clear();
         queenKickScanner.clear();
-    }
-
-    public NormalKicks getNormalKicks() {
-        return normalKicks;
-    }
-
-    public QueenKicks getQueenKicks() {
-        return queenKicks;
-    }
-
-    public NormalMoves getNormalMoves() {
-        return normalMoves;
-    }
-
-    public QueenMoves getQueenMoves() {
-        return queenMoves;
     }
 
     public EndGame getEndGame() {

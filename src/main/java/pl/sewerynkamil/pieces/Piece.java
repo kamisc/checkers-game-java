@@ -43,12 +43,4 @@ public class Piece implements Serializable {
             return this == QUEEN;
         }
     }
-
-    @Override
-    public String toString() {
-        return "Piece{" +
-                "pieceColor=" + pieceColor +
-                ", pieceType=" + pieceType +
-                '}';
-    }
 }

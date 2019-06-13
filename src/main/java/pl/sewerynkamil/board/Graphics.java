@@ -30,7 +30,7 @@ public class Graphics {
     private Background background;
     private Image imageBoard = new Image(Resources.getPath("board.jpg"));
 
-    public Graphics(Board board){
+    public Graphics(Board board) {
         this.board = board;
 
         createBoardBackground();
