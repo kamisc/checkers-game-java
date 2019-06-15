@@ -29,6 +29,7 @@ public class Graphics {
     private static GridPane grid = new GridPane();
     private Background background;
     private Image imageBoard = new Image(Resources.getPath("board.jpg"));
+    private static Image light = new Image(Resources.getPath("light.png"));
 
     public Graphics(Board board) {
         this.board = board;
@@ -81,6 +82,10 @@ public class Graphics {
 
     public static void addPiece(PositionsPieces position, Piece piece, boolean light) {
         grid.add(new ImageView(generateImagePath(piece, light)), position.getCol(), position.getRow());
+    }
+
+    public static void addLightMove(PositionsPieces position) {
+        grid.add(new ImageView(light), position.getCol(), position.getRow());
     }
 
     public static void removePiece(PositionsPieces position) {
