@@ -80,15 +80,15 @@ public class Graphics {
         grid.setGridLinesVisible(true);
     }
 
-    public static void addPiece(PositionsPieces position, Piece piece, boolean light) {
+    protected static void addPiece(PositionsPieces position, Piece piece, boolean light) {
         grid.add(new ImageView(generateImagePath(piece, light)), position.getCol(), position.getRow());
     }
 
-    public static void addLightMove(PositionsPieces position) {
+    protected static void addLightMove(PositionsPieces position) {
         grid.add(new ImageView(light), position.getCol(), position.getRow());
     }
 
-    public static void removePiece(PositionsPieces position) {
+    protected static void removePiece(PositionsPieces position) {
         grid.getChildren().removeIf(node -> node instanceof ImageView && Objects.equals(GridPane.getColumnIndex(node), position.getCol())
                 && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
     }

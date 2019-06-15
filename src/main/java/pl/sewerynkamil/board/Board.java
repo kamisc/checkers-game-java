@@ -88,7 +88,7 @@ public class Board {
         return board.get(position) == null;
     }
 
-    public void pickPiece(PositionsPieces position, PositionsPieces oldPosition, boolean light) {
+    private void pickPiece(PositionsPieces position, PositionsPieces oldPosition, boolean light) {
         Piece pieceNew = getPiece(position);
         Piece pieceOld = getPiece(oldPosition);
 
@@ -102,15 +102,15 @@ public class Board {
         Graphics.addPiece(position, pieceNew, light);
     }
 
-    public void addLightMove(PositionsPieces position) {
+    private void addLightMove(PositionsPieces position) {
         Graphics.addLightMove(position);
     }
 
-    public void unlightMove(PositionsPieces position) {
+    private void unlightMove(PositionsPieces position) {
         Graphics.removePiece(position);
     }
 
-    public void movePiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
+    private void movePiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
         Piece piece = getPiece(oldPosition);
 
         Graphics.addPiece(newPosition, piece, false);
@@ -124,7 +124,7 @@ public class Board {
         addPieceToBoard(newPosition, piece);
     }
 
-    public void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
+    private void kickPiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
         Piece piece = getPiece(oldPosition);
 
         PositionsPieces kickPosition = findOppositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
@@ -187,7 +187,7 @@ public class Board {
         return null;
     }
 
-    public void promote() {
+    private void promote() {
         possiblePromote.clear();
         calculatePromote(board.keySet());
 
@@ -374,7 +374,7 @@ public class Board {
         }
     }
 
-    public void computerMove() {
+    private void computerMove() {
 
         do {
 
@@ -534,7 +534,7 @@ public class Board {
         return saveLoadGame;
     }
 
-    public SaveGame getSaveGame() {
+    protected SaveGame getSaveGame() {
         return saveGame;
     }
 
@@ -546,7 +546,7 @@ public class Board {
         this.board = board;
     }
 
-    public void setTurn(boolean turn) {
+    protected void setTurn(boolean turn) {
         this.turn = turn;
     }
 }
