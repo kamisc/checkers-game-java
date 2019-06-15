@@ -22,26 +22,30 @@ public class EndGame {
         this.board = board;
     }
 
-    public void checkEndGame(Set<PositionsPieces> positions) {
+    public boolean checkEndGame(Set<PositionsPieces> positions) {
         calculatePieces(positions);
 
         if(restOfWhites.size() == 0) {
             board.getRanking().setBlackWins();
             new EndGameInfo(board).blacksWin();
+            return true;
         }
 
         if(restOfBlacks.size() == 0) {
             board.getRanking().setWhiteWins();
             new EndGameInfo(board).whitesWin();
+            return true;
         }
 
         if(restOfWhites.size() == 1 && restOfBlacks.size() == 1) {
             board.getRanking().setDraws();
             new EndGameInfo(board).draw();
+            return true;
         }
+        return false;
     }
 
-    private void calculatePieces(Set<PositionsPieces> positions) {
+    public void calculatePieces(Set<PositionsPieces> positions) {
         restOfWhites.clear();
         restOfBlacks.clear();
 
@@ -59,5 +63,9 @@ public class EndGame {
 
     public Set<PositionsPieces> getRestOfBlacks() {
         return restOfBlacks;
+    }
+
+    public Set<PositionsPieces> getRestOfWhites() {
+        return restOfWhites;
     }
 }

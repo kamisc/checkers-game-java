@@ -26,7 +26,6 @@ public class ComputerTestSuite {
         computer = new Computer(board);
     }
 
-
     @Test
     public void testCheckBlacksEnd() {
 
