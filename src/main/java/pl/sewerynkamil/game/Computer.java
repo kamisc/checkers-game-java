@@ -26,8 +26,8 @@ public class Computer {
         return (PositionsPieces) object[random.nextInt(object.length)];
     }
 
-    public boolean checkBlacksEnd() {
-        return board.getEndGame().getRestOfBlacks().size() == 0;
+    public boolean checkBlacksEnd(Set<PositionsPieces> restOfBlacks) {
+        return restOfBlacks.size() == 0;
     }
 
     public void setDifficultyLevel(int difficultyLevel) {

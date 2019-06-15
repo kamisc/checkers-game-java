@@ -24,7 +24,6 @@ public class NormalMoves {
     }
 
     public void normalMoveCalculator(PositionsPieces position, boolean up) {
-        possibleMoves.clear();
         normalMove(position, possibleMoves, up);
     }
 

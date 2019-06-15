@@ -116,7 +116,7 @@ public class BoardTestSuite {
     }
 
     @Test
-    public void testGetPieceWhite() {
+    public void testGetWhitePiece() {
 
         // When
         Piece white = board.getPiece(new PositionsPieces(2, 6));
@@ -132,7 +132,7 @@ public class BoardTestSuite {
     }
 
     @Test
-    public void testGetPieceBlack() {
+    public void testGetBlackPiece() {
 
         // When
         Piece black = board.getPiece(new PositionsPieces(3, 1));
@@ -160,7 +160,7 @@ public class BoardTestSuite {
     }
 
     @Test
-    public void testGetPieceOnWrongPosition() {
+    public void testGetPieceOnIncorrectPosition() {
 
         // When
         Piece piece1 = board.getPiece(new PositionsPieces(2, 4));
@@ -183,7 +183,7 @@ public class BoardTestSuite {
     }
 
     @Test
-    public void testMovePieceOnBoardWhite() {
+    public void testMoveWhitePieceOnBoard() {
         // Given
         PositionsPieces newPosition = new PositionsPieces(4,4);
         PositionsPieces oldPosition = new PositionsPieces(3, 5);
@@ -192,7 +192,7 @@ public class BoardTestSuite {
         // When
         board.movePieceOnBoard(newPosition, oldPosition, pieceWhite);
         Piece piece = board.getPiece(newPosition);
-        Boolean isFieldNull = board.isFieldNull(oldPosition);
+        boolean isFieldNull = board.isFieldNull(oldPosition);
 
         // Then
         Assert.assertEquals(piece, pieceWhite);
@@ -200,7 +200,7 @@ public class BoardTestSuite {
     }
 
     @Test
-    public void testMovePieceOnBoardBlack() {
+    public void testMoveBlackPieceOnBoard() {
         // Given
         PositionsPieces newPosition = new PositionsPieces(3,3);
         PositionsPieces oldPosition = new PositionsPieces(2, 2);
@@ -355,5 +355,16 @@ public class BoardTestSuite {
 
         // Then
         Assert.assertEquals(2, size);
+    }
+
+    @Test
+    public void testSetDifficultyLevel() {
+
+        // When
+        board.setDifficultyLevel(1);
+        int difficultyLevel = board.getComputer().getDifficultyLevel();
+
+        // Then
+        Assert.assertEquals(1, difficultyLevel);
     }
 }

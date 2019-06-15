@@ -67,7 +67,7 @@ public class Board {
         this.computer = new Computer(this);
     }
 
-    private void putAllPieces() {
+    public void putAllPieces() {
         board.putAll(whitePieces.setUpPieces());
         board.putAll(blackPieces.setUpPieces());
     }
@@ -100,14 +100,6 @@ public class Board {
 
         Graphics.removePiece(position);
         Graphics.addPiece(position, pieceNew, light);
-    }
-
-    private void addLightMove(PositionsPieces position) {
-        Graphics.addLightMove(position);
-    }
-
-    private void unlightMove(PositionsPieces position) {
-        Graphics.removePiece(position);
     }
 
     private void movePiece(PositionsPieces newPosition, PositionsPieces oldPosition) {
@@ -157,6 +149,14 @@ public class Board {
         addPieceToBoard(newPosition, piece);
         removePieceFromBoard(oldPosition);
         removePieceFromBoard(kickPositon);
+    }
+
+    private void addLightMove(PositionsPieces position) {
+        Graphics.addLightMove(position);
+    }
+
+    private void unLightMove(PositionsPieces position) {
+        Graphics.removePiece(position);
     }
 
     public PositionsPieces findOppositePosition(PositionsPieces position, Set<PositionsPieces> normalPosition, Set<PositionsPieces> queenPosition) {
@@ -252,8 +252,8 @@ public class Board {
                     pickPiece(position, pickedPosition, true);
                     pickedPosition = position;
 
-                    normalKicks.getPossibleKickMoves().forEach(this::unlightMove);
-                    queenKicks.getPossibleKickMoves().forEach(this::unlightMove);
+                    normalKicks.getPossibleKickMoves().forEach(this::unLightMove);
+                    queenKicks.getPossibleKickMoves().forEach(this::unLightMove);
 
                     if(getPiece(position).getPieceType().isNormal()) {
 
@@ -276,7 +276,7 @@ public class Board {
                     if(normalKicks.getPossibleKickMoves().contains(position)
                             && getPiece(pickedPosition).getPieceType().isNormal()) {
 
-                        normalKicks.getPossibleKickMoves().forEach(this::unlightMove);
+                        normalKicks.getPossibleKickMoves().forEach(this::unLightMove);
 
                         kickPiece(position, pickedPosition);
                         pickedPosition = position;
@@ -298,7 +298,7 @@ public class Board {
                     } else if(queenKicks.getPossibleKickMoves().contains(position)
                             && getPiece(pickedPosition).getPieceType().isQueen()) {
 
-                        queenKicks.getPossibleKickMoves().forEach(this::unlightMove);
+                        queenKicks.getPossibleKickMoves().forEach(this::unLightMove);
 
                         kickPiece(position, pickedPosition);
                         pickedPosition = position;
@@ -327,8 +327,10 @@ public class Board {
                     pickPiece(position, pickedPosition,true);
                     pickedPosition = position;
 
-                    normalMoves.getPossibleMoves().forEach(this::unlightMove);
-                    queenMoves.getPossibleQueenMoves().forEach(this::unlightMove);
+                    normalMoves.getPossibleMoves().forEach(this::unLightMove);
+                    queenMoves.getPossibleQueenMoves().forEach(this::unLightMove);
+
+                    normalMoves.clear();
 
                     if(getPiece(position).getPieceType().isNormal()) {
 
@@ -345,7 +347,7 @@ public class Board {
                 } else if(normalMoves.getPossibleMoves().contains(position)
                         && pickedPosition != null) {
 
-                    normalMoves.getPossibleMoves().forEach(this::unlightMove);
+                    normalMoves.getPossibleMoves().forEach(this::unLightMove);
 
                     movePiece(position, pickedPosition);
 
@@ -356,7 +358,7 @@ public class Board {
                 } else if(queenMoves.getPossibleQueenMoves().contains(position)
                         && pickedPosition != null) {
 
-                    queenMoves.getPossibleQueenMoves().forEach(this::unlightMove);
+                    queenMoves.getPossibleQueenMoves().forEach(this::unLightMove);
 
                     movePiece(position, pickedPosition);
 
@@ -378,7 +380,7 @@ public class Board {
 
         do {
 
-            if(computer.checkBlacksEnd()) {
+            if(computer.checkBlacksEnd(endGame.getRestOfBlacks())) {
                 break;
             }
 
@@ -526,16 +528,20 @@ public class Board {
         return ranking;
     }
 
-    public Set<PositionsPieces> getPossiblePromote() {
-        return possiblePromote;
-    }
-
     public SaveLoadGame getSaveLoadGame() {
         return saveLoadGame;
     }
 
     protected SaveGame getSaveGame() {
         return saveGame;
+    }
+
+    public Computer getComputer() {
+        return computer;
+    }
+
+    public Set<PositionsPieces> getPossiblePromote() {
+        return possiblePromote;
     }
 
     public Map<PositionsPieces, Piece> getBoard() {
