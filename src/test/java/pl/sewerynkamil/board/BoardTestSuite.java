@@ -262,7 +262,7 @@ public class BoardTestSuite {
         Assert.assertEquals(expectedKickPosition, kickPosition);
     }
 
-    /*@Test
+    @Test
     public void testKickPieceFromBoardByBlack() {
         // Given
         PositionsPieces oldPosition = new PositionsPieces(0,2);
@@ -287,7 +287,7 @@ public class BoardTestSuite {
         // Then
         Assert.assertEquals(11, whitesAmount);
         Assert.assertEquals(expectedKickPosition, kickPosition);
-    }*/
+    }
 
     @Test
     public void testPromoteWhite() {
