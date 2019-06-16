@@ -520,10 +520,6 @@ public class Board {
         queenKickScanner.clear();
     }
 
-    public EndGame getEndGame() {
-        return endGame;
-    }
-
     public Ranking getRanking() {
         return ranking;
     }
