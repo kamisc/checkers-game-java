@@ -83,7 +83,7 @@ public class QueenKickScanner {
 
     private boolean calculatePossibleKick(PositionsPieces actualPosition, PositionsPieces checkPosition, int col, int row) {
         if(!checkPosition.isValidPosition()
-                || !new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row).isValidPosition()) {
+                && !new PositionsPieces(checkPosition.getCol() + col, checkPosition.getRow() + row).isValidPosition()) {
             return true;
         }
 
