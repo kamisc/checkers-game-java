@@ -4,8 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import pl.sewerynkamil.board.Board;
-import pl.sewerynkamil.moves.QueenKicks;
-import pl.sewerynkamil.pieces.Piece;
 import pl.sewerynkamil.pieces.PositionsPieces;
 
 import java.util.HashSet;

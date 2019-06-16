@@ -276,17 +276,17 @@ public class BoardTestSuite {
 
         normalKicks.kickMovesCalculator(oldPosition);
 
-        PositionsPieces kickPositon = board.findOppositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
+        PositionsPieces kickPosition = board.findOppositePosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
 
         // When
-        board.kickPieceFromBoard(newPosition, oldPosition, kickPositon, piece);
+        board.kickPieceFromBoard(newPosition, oldPosition, kickPosition, piece);
         long whitesAmount = board.getBoard().keySet().stream()
                 .filter(position -> board.getPiece(position).getPieceColor().isWhite())
                 .count();
 
         // Then
         Assert.assertEquals(11, whitesAmount);
-        Assert.assertEquals(expectedKickPosition,kickPositon);
+        Assert.assertEquals(expectedKickPosition, kickPosition);
     }
 
     @Test
