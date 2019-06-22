@@ -1,0 +1,7 @@
+ignore:
+  -  "src/main/java/pl/sewerynkamil/board/Graphics.java"
+  -  "src/main/java/pl/sewerynkamil/board/Resources.java"
+  -  "src/main/java/pl/sewerynkamil/game/MouseControl.java"
+  -  "src/main/java/pl/sewerynkamil/game/SaveLoadGame.java"
+  -  "src/main/java/pl/sewerynkamil/menu"
+  -  "src/main/java/pl/sewerynkamil/Checkers.java"
