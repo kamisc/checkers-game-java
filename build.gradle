@@ -23,12 +23,20 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
-                    'menu/**',
+                    '**/*Board**',
                     '**/*Graphics**',
                     '**/*Resources**',
                     '**/*MouseControl**',
                     '**/*SaveLoadGame**',
-                    '**/*Checkers**'
+                    '**/*Checkers**',
+                    '**/*Author**',
+                    '**/*Difficulty**',
+                    '**/*EndGameInfo**',
+                    '**/*LoadGame**',
+                    '**/*MenuDesign**',
+                    '**/*NewGame**',
+                    '**/*Ranking**',
+                    '**/*SaveGame**'
             ])
         })
     }
