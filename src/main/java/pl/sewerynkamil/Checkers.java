@@ -14,7 +14,6 @@ import pl.sewerynkamil.game.MouseControl;
  */
 
 public class Checkers extends Application {
-
     private static Stage primaryStage = new Stage();
 
     private Board board = new Board();
