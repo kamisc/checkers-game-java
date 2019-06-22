@@ -1,6 +1,5 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'java'
+apply plugin: 'jacoco'
 
 group 'pl.sewerynkamil'
 version '1.0-SNAPSHOT'
@@ -15,3 +14,12 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport
