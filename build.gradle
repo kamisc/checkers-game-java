@@ -23,20 +23,21 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
+                    'src/main/java/pl/sewerynkamil/menu'
                     '**/*Board**',
                     '**/*Graphics**',
                     '**/*Resources**',
                     '**/*MouseControl**',
                     '**/*SaveLoadGame**',
                     '**/*Checkers**',
-                    '**/*Author**',
-                    '**/*Difficulty**',
-                    '**/*EndGameInfo**',
-                    '**/*LoadGame**',
-                    '**/*MenuDesign**',
-                    '**/*NewGame**',
-                    '**/*Ranking**',
-                    '**/*SaveGame**'
+                   // '**/*Author**',
+                    // '**/*Difficulty**',
+                    // '**/*EndGameInfo**',
+                    // '**/*LoadGame**',
+                    // '**/*MenuDesign**',
+                    // '**/*NewGame**',
+                    // '**/*Ranking**',
+                    // '**/*SaveGame**'
             ])
         })
     }
