@@ -8,4 +8,4 @@ In the game you can also see ranking where you can find statistics like white pl
 
 **_Author: Kamil Seweryn_**
 
-[![Checkers](https://raw.githubusercontent.com/kamisc/Checkers-Game-Java/master/src/main/resources/checkers.png)]
+![Checkers](https://raw.githubusercontent.com/kamisc/Checkers-Game-Java/master/src/main/resources/checkers.png)
